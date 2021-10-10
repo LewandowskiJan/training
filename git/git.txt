@@ -1,0 +1,18 @@
+git clone link do skopiowania z gita
+cd training otwiera ktory branch chce pobrac i edytowac
+git status sprawdza czy jest zaupdatowany z gitem?
+git commit -m"xxxxxxx" dodanie komentarza
+np:
+fix: fixed word typo
+feat: added new border
+git restore --staged usuwa stage
+git reset HEAD~2 --soft - usuwa commity mozna tez uzyc hard aby usunac wszysko.
+git push origin - wypchnięcie zmian do głownego brancha online na github - będzie widoczne dla innych
+git pull - ściągniecie danych z najnowszej wersji osadzonej w internecie
+git branch - pokazuje liczbę branchy które są
+git branch <nazwa_brancha> - dodaje brancha, ale nie przenosi Cie
+git checkout -b <nazwa_brancha> przenie sie mnie na moj nowy branch i go stworzy
+git checkout <nazwa_brancha> przechodzi na branch jezeli istnieje
+git merge <nazwa_brancha>- dodaje do siebie branche
+git config --global user.name "kanademruuu@gmail.com" nadanie sobie emaila
+git config --global user.email "kanademruuu@gmail.com" nadanie sobie imienia
