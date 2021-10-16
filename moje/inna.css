@@ -1,0 +1,14 @@
+.container {
+    display: grid;
+    background-color: rgb(92, 84, 84);
+    width: 100%;
+    height: calc(100vh - 16px);
+    grid-template:
+    "1"1fr
+    "2"40px 
+    "3"50px
+    "4"30px
+    "5"40px 
+    "6"40px
+    "7"10px
+}

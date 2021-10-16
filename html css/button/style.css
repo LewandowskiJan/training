@@ -1,0 +1,46 @@
+.btn{
+    background-color:red;
+    height: 200px;
+    width: 30%;
+}
+.btn:hover{background-color: green;}
+.btn:active{background-color: blue}
+.btn:focus{background-color: yellow;}
+.btn:target{background-color: pink;}
+.btn:visited{background-color: violet;}
+
+.link:focus{color: yellow;}
+
+.margin-20{
+    margin:20px;
+}
+
+
+
+
+
+.btn:hover {
+    margin: 0 auto;
+    text-align: left;
+    background-color: red;
+    animation-name: stretch;
+    animation-duration: 1.5s; 
+    animation-timing-function; 
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-fill-mode: none;
+    animation-play-state: running;
+  }
+  
+  @keyframes stretch {
+    0% {
+      background-color: red;
+    }
+    50% {
+      background-color: rgb(226, 44, 44);
+    }
+    100% {
+      background-color: rgb(243, 92, 92);
+    }
+  }

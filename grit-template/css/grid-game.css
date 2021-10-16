@@ -4,7 +4,16 @@
     width: 100%;
     grid-template:
         "tm tm tm tm tm tm tm tm tm"50px 
-        "l a a a helmet b b b r"50px "l a a a helmet b b b r"50px "l c c c c c c c r"50px "l weapon d armor armor armor e shield r"50px "l weapon d armor armor armor e shield r"50px "l weapon d armor armor armor e shield r"50px "l f f f f f f f r "50px "l boots boots g belt j gloves gloves r "50px "l boots boots g k j gloves gloves r "50px "l h h h h h h h r "50px 
+        "l a a a helmet b b b r"50px
+        "l a a a helmet b b b r"50px
+        "l c c c c c c c r"50px
+        "l weapon d armor armor armor e shield r"50px
+        "l weapon d armor armor armor e shield r"50px
+        "l weapon d armor armor armor e shield r"50px
+        "l f f f f f f f r "50px
+        "l boots boots g belt j gloves gloves r"50px
+        "l boots boots g k j gloves gloves r "50px
+        "l h h h h h h h r "50px 
         "l inventory inventory inventory inventory inventory inventory inventory r "50px 
         "l inventory inventory inventory inventory inventory inventory inventory r "50px 
         "l inventory inventory inventory inventory inventory inventory inventory r "50px 

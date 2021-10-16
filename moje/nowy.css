@@ -1,0 +1,103 @@
+.equipment {
+    display: grid;
+    background-color: rgb(92, 84, 84);
+    width: 100%;
+    grid-template:
+    "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25"200px 
+    "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25"40px 
+    "0 1 2 hppool hppool 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 mppool mppool 23 24 25"50px
+    "0 1 2 hppool hppool 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 mppool mppool 23 24 25"30px
+    "0 1 2 hppool hppool 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 mppool mppool 23 24 25"40px 
+    "0 1 2 hppool hppool 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 mppool mppool 23 24 25"40px
+    "0 1 2 hppool hppool 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 mppool mppool 23 24 25"10px
+    "0 1 2 nic nic 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 nic nic 23 24 25"30px / 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px;
+       
+}
+
+.hppool,
+.mppool,
+.actionbar1,
+.actionbar2,
+.actionbar3,
+.actionbar4,
+.actionbar5,
+.actionbar6,
+.box,
+.potbar1,
+.potbar2,
+.potbar3,
+.potbar4,
+.staminabar {
+    border: 1px solid rgb(160, 168, 49);
+    background-color: rgb(65, 65, 65);
+}
+
+.hppool {
+    display: grid;
+    grid-area: hppool;
+}
+
+.mppool {
+    display: grid;
+    grid-area: mppool;
+}
+
+.actionbar1 {
+    display: grid;
+    grid-area: actionbar1;
+}
+
+.actionbar2 {
+    display: grid;
+    grid-area: actionbar2;
+}
+
+.actionbar3 {
+    display: grid;
+    grid-area: actionbar3;
+}
+
+.actionbar4 {
+    display: grid;
+    grid-area: actionbar4;
+}
+
+.actionbar5 {
+    display: grid;
+    grid-area: actionbar5;
+}
+
+.actionbar6 {
+    display: grid;
+    grid-area: actionbar6;
+}
+
+.box {
+    display: grid;
+    grid-area: box;
+}
+
+.potbar1 {
+    display: grid;
+    grid-area: potbar1;
+}
+
+.potbar2 {
+    display: grid;
+    grid-area: potbar2;
+}
+
+.potbar3 {
+    display: grid;
+    grid-area: potbar3;
+}
+
+.potbar4 {
+    display: grid;
+    grid-area: potbar4;
+}
+
+.staminabar {
+    display: grid;
+    grid-area: staminabar;
+}
