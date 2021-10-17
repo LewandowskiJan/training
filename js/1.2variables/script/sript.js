@@ -15,7 +15,7 @@ box.addEventListener("mouseover", psychoAnimate)
 function changeClass(){
   box.getAttribute('class').includes('newclass')
   ? box.setAttribute('class','box')
-  : box.setAttribute('class','box newclass')
+  : box.setAttribute('class','box newclass');
 // console.log(box.getAttribute('class'));
 }
 // psychoAnimate()
