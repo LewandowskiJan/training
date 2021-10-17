@@ -31,11 +31,16 @@
 
 #### examples:
 
-```
+```javascript
+const string = 'example';
+const primitiveWrapperStringObjects = new String('example');
 
- const string = "example"
- const primitiveWrapperStringObjects = new String("example");
+const searchValue = string.match(/asd/);
+searchValue; // null
 
+// create new symbol
+let symbol1 = Symbol();
+let symbol2 = Symbol('example');
 ```
 
 ### global variables
@@ -51,7 +56,7 @@
 
 ### const
 
-```
+```javascript
 
 const example = "sth"
 const example = 12
