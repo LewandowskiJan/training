@@ -56,3 +56,13 @@ console.log(moveDownRight(position), 'should be x:11, y:9');
 // 9.2) base on if else
 
 // 9.3) base on object
+
+/*  
+  10. Create 'calcDistance' function with 2 param 'firstObject' 'secondObject' (both: {x:number, y:number})
+  use Math.sqrt and Math.pow // Pythagorean theorem
+*/
+
+/* 
+  11. Create 'direction' function with 2 param 'startPosition' 'azimuth' (both: {x:number, y:number})
+      use Math.atan2()
+*/
