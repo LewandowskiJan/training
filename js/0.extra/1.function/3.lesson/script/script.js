@@ -65,3 +65,21 @@ const myArrFnWithoutReturnAndBrackets = () => 11; // one line arrow function, no
 
 // logThis4 && console.log(myRegularFnWithoutReturnAndBrackets()); // error
 logThis4 && console.log(myArrFnWithoutReturnAndBrackets()); // 11
+
+// ========================
+// TEST 12.1 > NO DIFFERENCE
+
+const a = 'test';
+
+const logThis5 = logConfiguration['logThis5'];
+
+function myRegularFnWithOutsideVariable() {
+  logThis5 && console.log(a);
+}
+
+const myArrFnWithOutsideVariable = () => {
+  logThis5 && console.log(a);
+};
+
+myRegularFnWithOutsideVariable(); // test
+myArrFnWithOutsideVariable(); // test

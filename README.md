@@ -11,7 +11,7 @@ How to add content to .MD [link](https://www.markdownguide.org/basic-syntax/)
 ## javascript
 
 - [extra](js/0.extra/)
-  - [function (regular vs arrow)](js/0.extra/1.function/)
+  - [function (regular vs arrow)](js/0.extra/1.function/arrow-vs-regular-function.md)
   - [modules](js/0.extra/2.modules/)
 - [variables](js/1.variables/)
 - [operators](js/2.operators/)
