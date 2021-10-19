@@ -45,3 +45,37 @@ setTimeout(regFn.myRegularFnMethod.bind(regFn), 1000);
 
 setTimeout(arrowFn.myArrowFnMethod, 1000);
 // after 1 second logs "test"
+
+// ========================
+// TEST 15 > NO DIFFERENCE
+
+const regFunction = () => console.log(this);
+const arrowFunction = function () {
+  console.log(this);
+};
+
+setTimeout(regFunction, 1000); // window
+// after 1 second logs "a"
+
+setTimeout(regFunction, 1000); // window
+// after 1 second logs "a"
+
+setTimeout(arrowFunction, 1000); // window
+// after 1 second logs "a"
+
+// ========================
+// TEST 16 > NO DIFFERENCE
+
+const regFunction1 = () => console.log('a');
+const arrowFunction1 = function () {
+  console.log('a');
+};
+
+setTimeout(regFunction1, 1000);
+// after 1 second logs "a"
+
+setTimeout(regFunction1, 1000);
+// after 1 second logs "a"
+
+setTimeout(arrowFunction1, 1000);
+// after 1 second logs "a"

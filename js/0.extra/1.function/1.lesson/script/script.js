@@ -16,15 +16,15 @@ const logConfiguration = {
 const logThis1 = logConfiguration['logThis1'];
 
 function regularFnLogThis() {
-  logThis1 && console.log('regularFnLogThis: ', this);
+  logThis1 && console.log('regularFnLogThis: ', this); // logs global object (window)
 }
 
 const arrFnLogThis = () => {
-  logThis1 && console.log('arrFnLogThis: ', this);
+  logThis1 && console.log('arrFnLogThis: ', this); // logs global object (window)
 };
 
-regularFnLogThis(); // logs global object (window)
-arrFnLogThis(); // logs global object (window)
+regularFnLogThis(); 
+arrFnLogThis(); 
 
 // ========================
 // TEST 2 > DIFFERENCE

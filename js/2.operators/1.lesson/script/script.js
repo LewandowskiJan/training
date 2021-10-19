@@ -20,7 +20,14 @@ use:
  * Returns void, log the string Fizz if divisible by 3 or Buzz if divisible by 5, or number
  * @param num: number
  */
-function fizzBuzzResolver(num) {}
+function fizzBuzzResolver(num) {
+  let result = '';
+
+  // write implementation below
+
+  
+  return result;
+}
 
 console.log(fizzBuzzResolver(1), ' 1');
 console.log(fizzBuzzResolver(3), ' Fizz');
@@ -42,6 +49,8 @@ Check is the object reached destination
 function isReachedDestination(currentPosition, destination) {
   let result = false;
 
+  // write implementation below
+
   return result;
 }
 
@@ -58,6 +67,8 @@ console.log(isReachedDestination({ x: 3, y: 4 }, { x: 5, y: 1 }), ' false');
  */
 function calculateHealthAfterDamage(damage, health = 100) {
   let result = 0;
+  // write implementation below
+
   return result;
 }
 
@@ -78,6 +89,8 @@ console.log(calculateHealthAfterDamage(50, 60), ' 10');
  */
 function calculateDamageAfterDefenceModifiers(damage, defenceModifiers) {
   let result = 0;
+  // write implementation below
+
   return result;
 }
 
