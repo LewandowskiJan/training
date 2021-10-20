@@ -25,7 +25,7 @@ const doWhileLoopFn = (() => {
 // for
 // execute min 0 time
 const forLoopFn = (() => {
-  for (let i = 0; i < 5; i++) {
+  for (let i = 100; i > 75; i--) {
     console.log('forLoopFn: ', i);
   }
 })();
