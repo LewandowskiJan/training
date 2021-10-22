@@ -17,7 +17,7 @@ class Warrior {
 
 // const min = 1;
 // const max = 7;
-function getRandomInt(min : 1, max : 7) {
+getRandomInt(min = 1 , max = 7 ) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 const Math.random() = random
