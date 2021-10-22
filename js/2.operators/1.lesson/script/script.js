@@ -24,8 +24,12 @@ function fizzBuzzResolver(num) {
   let result = '';
 
   // write implementation below
+  // console.log(num, num % 5, num % 5 === 0) 
 
-  
+  if (num % 5 === 0 && num % 3 === 0) { result = "FizzBuzz" }
+  else if (num % 5 === 0) { result = "Buzz" }
+  else if (num % 3 === 0) { result = "Fizz" }
+  else { result = num }
   return result;
 }
 
@@ -47,11 +51,8 @@ Check is the object reached destination
  * @param destination: { x: number, y: number}
  */
 function isReachedDestination(currentPosition, destination) {
-  let result = false;
-
   // write implementation below
-
-  return result;
+  return currentPosition.x === destination.x && currentPosition.y === destination.y;
 }
 
 console.log(isReachedDestination({ x: 1, y: 1 }, { x: 1, y: 1 }), ' true');
@@ -66,10 +67,9 @@ console.log(isReachedDestination({ x: 3, y: 4 }, { x: 5, y: 1 }), ' false');
  * @default health = 100
  */
 function calculateHealthAfterDamage(damage, health = 100) {
-  let result = 0;
   // write implementation below
 
-  return result;
+  return (health >= damage) ? health - damage : "0"
 }
 
 console.log(calculateHealthAfterDamage(100, 80), ' 0');
@@ -81,8 +81,8 @@ console.log(calculateHealthAfterDamage(50, 60), ' 10');
  * rules:
  * 1. check if Math.random() * 100 is less than ability if true, return 0
  * 2. increase 20% of damage if heightLevelDifference is -1
- *    reduce 20% of damage if heightLevelDifference is 0
- *    when 0 leave
+ *    reduce 20% of damage if heightLevelDifference is 1
+ *    when heightLevelDifference is 0 leave
  * 3. subtract armor from damage, if armor is higher than damage, return 1
  * @param damage: number
  * @param defenceModifiers:  { armor: number, ability: number, heightLevelDifference: -1 | 0 | 1 }
@@ -91,7 +91,22 @@ function calculateDamageAfterDefenceModifiers(damage, defenceModifiers) {
   let result = 0;
   // write implementation below
 
-  return result;
+  if (Math.random() * 100 < defenceModifiers.ability) {
+    return 0;
+  }
+  if (defenceModifiers.heightLevelDifference === -1) {
+    result = damage * 1.2;
+  }
+  if (defenceModifiers.heightLevelDifference === 1) {
+    result = damage * 0.8;
+  }
+  if (defenceModifiers.heightLevelDifference === 0) {
+    result = damage * 1;
+  }
+  if (defenceModifiers.armor > result) {
+    return 1
+  }
+  else { return result - defenceModifiers.armor }
 }
 
 console.log(calculateDamageAfterDefenceModifiers(100, { armor: 0, ability: 0, heightLevelDifference: -1 }), ' 120');
