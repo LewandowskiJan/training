@@ -112,7 +112,7 @@ console.log(xyz)
 
 /**
  * Function takes 2 params, and return string as result of question:
- * in what direction the `secondPosition` is in relation to the `firstPosition`
+ * in what direction the `firstPosition` is in relation to the `secondPosition`
  *
  * |-----|-----------------|-----|
  * |  1  |        2        |  3  |
@@ -137,18 +137,28 @@ console.log(xyz)
  * @param secondPosition: { x:number, y: number}
  * @returns string
  */
+ 
+function exerciseThree(firstPosition , secondPosition) {
+  if (firstPosition.x > secondPosition.x && firstPosition.y < secondPosition.y)
+  return "topLeft"
+  else if (firstPosition.x === secondPosition.x && firstPosition.y < secondPosition.y)
+  return "top"
+  else if (firstPosition.x < secondPosition.x && firstPosition.y < secondPosition.y)
+  return "topRight"
+  else if (firstPosition.x < secondPosition.x && firstPosition.y === secondPosition.y)
+  return "Right"
+  else if (firstPosition.x < secondPosition.x && firstPosition.y > secondPosition.y)
+  return "bottomRight"
+  else if (firstPosition.x === secondPosition.x && firstPosition.y > secondPosition.y)
+  return "bottom"
+  else if (firstPosition.x > secondPosition.x && firstPosition.y > secondPosition.y)
+  return "bottomLeft"
+  else if (firstPosition.x > secondPosition.x && firstPosition.y === secondPosition.y)
+  return "Left"
+  else return "samePosition"
+  }
 
-
-function exerciseThree (x , y = [1,2,3,4,5,6,7,8,9]) {
-x = firstPosition
-}
-
-
-
-
-
-
-
+  console.log(exerciseThree({x : 4 , y : 6 } , {x: 5 , y: 5 }))
 
 // ==========================================
 // ====== EXERCISES 4 ======
@@ -169,3 +179,21 @@ x = firstPosition
  * @param position: string
  * @returns number
  */
+
+
+const spriteConfiguration = new Map([
+  ['topLeft', '1'],
+  ['top', '2'],
+  ['topRight', '3'],
+  ['Right', '4'],
+  ['bottomRight', '5'],
+  ['bottom', '6'],
+  ['bottomLeft', '7'],
+  ['Left', '8'], 
+]);
+
+function setAnimation(position){
+  return spriteConfiguration.get(position) || "0"
+}
+
+console.log(setAnimation("dupa"))

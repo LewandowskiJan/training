@@ -39,11 +39,11 @@ console.log(exerciseOne());
 // 2. function with one param and log the given param,
 const paramExample = '114';
 
-const exerciseTwo = function() {
-return paramExample;
+const exerciseTwo = function(x) {
+return x
 }
 
-console.log(exerciseTwo());
+console.log(exerciseTwo(paramExample));
 
 
 // console.log(
@@ -57,10 +57,10 @@ const paramExample1 = 'abc';
 const paramExample2 = 'def';
 
 const exerciseThree = function(x , y) {
-return paramExample1 + paramExample2;
+return x + y
 }
 
-console.log(exerciseThree());
+console.log(exerciseThree(paramExample1, paramExample2));
 
 // console.log(
 // functionName(paramExample1, paramExample2), 'should log abcdef'

@@ -12,6 +12,7 @@ const myMapExample2 = new Map([
   [{ name: 'key3' }, { value: 123 }],
 ]);
 
+
 // Map fields
 
 // the equivalent of array.length in Map object is Map.size
@@ -22,7 +23,7 @@ console.log(myMapExample2.size); // 3
 // Map.set(key, value), to add new record into Map (similar to array.push())
 // set method takes two argument 'key', value
 // 'key' and value can be any type // eg. Object, Array, primitive
-myMapExample.set('key', 'value');
+myMapExample.set('key', 'value_zyx');
 myMapExample.set('anythingElse', { a: 12, b: 34, something: 'blue' });
 
 console.log(myMapExample);
@@ -91,8 +92,8 @@ myMapExampleForEach.forEach((val, k, m) => {
   k; // is current key
   m; // is whole iterating map
 
-  console.log(val); // 1st loop : any1
-  console.log(k); // 1st loop : something1
+  console.log(val); // 1st loop : something1
+  console.log(k); // 1st loop : any1
   console.log(m); // all loop:
   /*
     0: {"any1" => "something1"}, 

@@ -112,3 +112,13 @@ animals.push(animal3);
 
 // if we wrap the array using Set, Set remove duplicated object
 console.log(new Set(animals)); // size 3
+
+const text = `Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+Similique, architecto, eum officia voluptatem necessitatibus incidunt quos nobis
+voluptate veritatis modi laborum consequuntur, saepe aspernatur ullam? Optio voluptas
+itaque aspernatur minus`
+
+
+const nowySet = new Set(text.split(""));
+
+console.log(nowySet)
