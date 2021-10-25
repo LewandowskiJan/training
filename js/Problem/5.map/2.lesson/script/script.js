@@ -1,21 +1,23 @@
 class Warrior {
-  name;
-  armor;
-  hp;
-  attack;
+    name;
+    armor;
+    hp;
+    attack;
 
-  constructor(name, armor, hp, attack) {
-    this.name = name;
-    this.armor = armor;
-    this.hp = hp;
-    this.attack = attack;
-  }
+    constructor(name, armor, hp, attack) {
+        this.name = name
+        this.armor = armor
+        this.hp = hp
+        this.attack = attack
+    }
 
-  // walka o inicjatywę
 
-  // const min = 1;
-  // const max = 7;
-  getRandomInt(min = 1, max = 7) {
+// walka o inicjatywę
+
+
+// const min = 1;
+// const max = 7;
+getRandomInt(min = 1 , max = 7 ) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 

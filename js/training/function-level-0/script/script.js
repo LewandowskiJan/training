@@ -18,6 +18,14 @@ const myArray = [];
 // let something = 123;
 // let something = 'why?'; // get error
 
+var szkoda = 7
+var szkoda2 = szkoda
+szkoda2 = 9
+szkoda === 9 // true
+szkoda2 === 7 // true
+
+console.log(szkoda, szkoda2)
+
 /*
 
 all variables have its own block scope
@@ -32,6 +40,7 @@ so we have that construction a kind of `russian matryoshka` which can be:
 * loop statement
 
 
+
 block 1 start            { 
     block 2 start             {
         block 3 start             {
@@ -43,10 +52,12 @@ block 1 start            {
             block 5 end               }            
         block 3 end               }
     block 2 end               }
-block 1 end              }
+block 1 end       }
 
-all in block 1, have access to itself and its children (block 2-5)
-by analogy block 2, have access to itself and its children (block 3-5), and so on...
+
+
+all variables defined on the beginning (on top) of block 1, have access to itself and its children (block 2-5)
+by analogy block 2 (on top), have access to itself and its children (block 3-5), and so on...
 
 if the blocks are in the same level (blocks 4-5), their variables are invisible for each other
 */
@@ -76,3 +87,23 @@ if the blocks are in the same level (blocks 4-5), their variables are invisible 
 }
 /* -scope global                       11 */ variable; // 11 we have access
 /* -scope global                        x */
+
+
+
+
+/* Przykład na to gdzie nie powinno sienadawać tej samej nazwy zmiennej jak np i w kolejnych zagnieżdżeniach 
+*/
+const tablica = [[1, 2, 20], [3, 4], [5, 6, 60, 100], [11, 12, 13]]
+console.log(tablica)
+console.log(tablica[0].length)
+console.log(tablica[0][0])
+console.log(tablica.length)
+
+for (let i = 0; i < tablica.length; i++) {
+  console.log("pierwsza petla: ", i, tablica[i])
+//  for (let i = 0; i < tablica[i].length; i++) {
+// console.log(tablica[i][i])
+  for (let j = 0; j < tablica[i].length; j++) {
+    console.log(tablica[i][j])
+  }
+}

@@ -29,3 +29,68 @@ console.log('reverseAnimals: ', reverseAnimals);
 
 // array iteration method
 // map, reduce, forEach, sort, some, every, keys, values, entities
+
+const evenAnimals = []
+for (const animal of animals) {
+  const age = animal.age
+
+
+  if (age % 2 === 0) {
+    // console.log(animal)
+    evenAnimals.push(animal)
+
+  }
+
+  // console.log(animal.age)
+}
+// console.log(evenAnimals)
+
+const evenAnimals2 = animals.filter((animal) => {
+  // console.log(animal)
+  return animal.age % 2 === 0
+}
+)
+
+const evenAnimals3 = animals.filter((animal) => animal.age % 2 === 0)
+const evenAnimals4 = animals.filter((animal) => {
+  return animal.age % 2 === 0
+})
+// console.log(evenAnimals2)
+
+
+const animals2 = animals.map((animal) => {
+
+  // animal.age = animal.age * 2
+  return {
+    ...animal,
+    age: animal.age * 2
+  }
+  return animal
+});
+// console.log(animals2)
+
+const animals21 = animals.reduce((pv, cv, i) => {
+  console.log('pv: ', pv)
+  console.log('cv: ', cv)
+  console.log('i: ', i)
+  return {
+    ...pv,
+    [cv.name]: cv
+  }
+
+}, {});
+console.log(animals21)
+
+const err = [
+  { code: '0', message: ''},
+  { code: '1', message: ''}
+]
+
+const myCode = err[0]
+
+const myObj = {
+  0: { code: '0', message: ''},
+  1: { code: '1', message: ''}
+}
+
+myObj[1].message
