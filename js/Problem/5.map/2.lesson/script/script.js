@@ -1,5 +1,4 @@
 class Warrior {
-<<<<<<< HEAD
     name;
     armor;
     hp;
@@ -19,25 +18,6 @@ class Warrior {
 // const min = 1;
 // const max = 7;
 getRandomInt(min = 1 , max = 7 ) {
-=======
-  name;
-  armor;
-  hp;
-  attack;
-
-  constructor(name, armor, hp, attack) {
-    this.name = name;
-    this.armor = armor;
-    this.hp = hp;
-    this.attack = attack;
-  }
-
-  // walka o inicjatywę
-
-  // const min = 1;
-  // const max = 7;
-  getRandomInt(min = 1, max = 7) {
->>>>>>> 29d7e8ed19fcc035b306a32af4e33620ec208957
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
