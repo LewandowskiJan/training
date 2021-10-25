@@ -36,12 +36,30 @@ myFunctionDeclaration('param-1-value', 'param-2-value');
 // ==========================================
 // ====== EXERCISES 1 ======
 /**
- * Function takes 2 params and return boolean as result of question: is `num1` is higher than `num2`
+ * Function takes 2 params and return boolean as result of, question: is `num1` is higher than `num2`
  * if num1 and num2 are the same return false
  * @param num1: {number}
  * @param num2: {number}
  * @returns boolean
  */
+
+function exerciseOne(x, y) {
+  return x > y
+}
+
+console.log(exerciseOne(5, 2));
+console.log(exerciseOne(1, 2));
+console.log(exerciseOne(2, 2));
+
+
+function exerciseOneB(x, y) {
+  if (x > y) return true;
+  else return false;
+}
+console.log(exerciseOneB(5, 2));
+console.log(exerciseOneB(1, 2));
+console.log(exerciseOneB(2, 2));
+
 
 // ==========================================
 // ====== EXERCISES 2 ======
@@ -58,6 +76,35 @@ myFunctionDeclaration('param-1-value', 'param-2-value');
  * @default rule = 'horizontally'
  * @returns boolean
  */
+
+
+const firstPosition = {x : 11, y : 10}
+const secondPosition = {x : 12, y : 11}
+const z = ["horizontally", "vertically"]
+
+
+function exerciseTwo(exone, extwo, rule) {
+
+if (rule === "horizontally" && exone.x > extwo.x)
+return true
+else if (rule === "vertically" && exone.y > extwo.y)
+return true
+else return false
+}
+
+function exerciseTwoTwo(exone, extwo, rule){
+return (rule === "horizontally" && exerciseOne(exone.x, extwo.x))
+|| (rule === "vertically" && exerciseOne(exone.y, extwo.y))
+
+}
+
+console.log(exerciseTwo(firstPosition, secondPosition, z[0]))
+
+/* const xyz = exerciseTwo(1,2).map().filter()
+
+console.log(xyz)
+ */
+
 
 // ==========================================
 // ====== EXERCISES 3 ======
@@ -90,6 +137,18 @@ myFunctionDeclaration('param-1-value', 'param-2-value');
  * @param secondPosition: { x:number, y: number}
  * @returns string
  */
+
+
+function exerciseThree (x , y = [1,2,3,4,5,6,7,8,9]) {
+x = firstPosition
+}
+
+
+
+
+
+
+
 
 // ==========================================
 // ====== EXERCISES 4 ======

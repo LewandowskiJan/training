@@ -19,6 +19,17 @@ myFunction('param-1-value', 'param-2-value');
 
 // 1. log the 'abc'
 
+
+const exerciseOne = function() {
+return "abc";
+}
+
+console.log(exerciseOne());
+
+
+
+
+
 // console.log(
 // functionName(), 'should log abc'
 // )
@@ -27,6 +38,13 @@ myFunction('param-1-value', 'param-2-value');
 
 // 2. function with one param and log the given param,
 const paramExample = '114';
+
+const exerciseTwo = function() {
+return paramExample;
+}
+
+console.log(exerciseTwo());
+
 
 // console.log(
 // functionName(paramExample), 'should log 114'
@@ -37,6 +55,12 @@ const paramExample = '114';
 // 3. function with two params and log the given params as concat string (param1 + param2),
 const paramExample1 = 'abc';
 const paramExample2 = 'def';
+
+const exerciseThree = function(x , y) {
+return paramExample1 + paramExample2;
+}
+
+console.log(exerciseThree());
 
 // console.log(
 // functionName(paramExample1, paramExample2), 'should log abcdef'
