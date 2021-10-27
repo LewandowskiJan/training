@@ -97,3 +97,88 @@ class OrcExample {
  * goblin2.attack
  * goblin1.attack
  */
+
+
+
+//  1. Create class Goblin
+class Goblin { }
+
+// * 2. with fields:
+//  *  - name: string
+//  *  - hp: number
+//  *  - attack: number
+//  *  - defence: number
+//  *  - speedAttack: number
+//  *  - isDead: boolean = false
+
+class Goblin0 {
+  name;
+  hp;
+  attack;
+  defence;
+  speedAttack;
+  isDead = false
+}
+
+// 3. add constructor, with params 'name', 'hp', 'attack', 'defence', 'speedAttack'
+// *  - set (bind) the all params to class instance in constructor using 'this.'
+
+class Goblin2 {
+  name;
+  hp;
+  attack;
+  defence;
+  speedAttack;
+  isDead = false
+
+  constructor(name, hp, attack, defence, speedAttack) {
+    this.name = name
+    this.hp = hp
+    this.attack = attack
+    this.defence = defence
+    this.speedAttack = speedAttack
+  }
+}
+
+// * 4. add methods
+//  *  - getAttack
+//  *      return attack
+//  *  - getDamage
+//  *      takes one param 'dmg: number'
+//  *      set new value of 'hp' hp - (dmg - defence)
+//  *      and return the current hp
+//  *      return hp
+//  *  - getDefence
+//  *      return defence
+//  *  - getAttackSpeed
+//  *      return attackSpeed
+
+class Goblin3 {
+  name;
+  hp;
+  attack;
+  defence;
+  speedAttack;
+  isDead = false
+
+  constructor(name, hp, attack, defence, speedAttack) {
+    this.name = name
+    this.hp = hp
+    this.attack = attack
+    this.defence = defence
+    this.speedAttack = speedAttack
+  }
+  getAttack() {
+    return attack
+  }
+  getDamage(dmg) {
+    hp = hp - (dmg - defence)
+    return hp
+  }
+  getDefence() {
+    return defence
+  }
+  getSpeedAttack() {
+    return speedAttack
+  }
+}

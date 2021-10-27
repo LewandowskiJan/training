@@ -1,6 +1,6 @@
 // Class - declaration
 // remember! use upper camel case
-class MyClass {}
+class MyClass { }
 
 // To create new instance of class above use 'new' keyword
 const myClassInstance = new MyClass();
@@ -105,3 +105,23 @@ const useClass = new MyClassWithThis(10, 2);
 console.log('myCoreFunctionality: ', useClass.myCoreFunctionality(1)); // 10 * 2 * 1 = 20
 console.log('myCoreFunctionality: ', useClass.myCoreFunctionality(2)); // 10 * 2 * 2 = 40
 console.log('myCoreFunctionality: ', useClass.myCoreFunctionality(3)); // 10 * 2 * 3 = 60
+
+
+
+// ================================================================================
+class ExampleOne {
+  nameExample;
+  constructor(name) {
+    this.nameExample = name
+  }
+  checkMe() {
+    return this;
+  }
+}
+
+const ex1 = new ExampleOne("name");
+const ex2 = new ExampleOne("name2");
+const ex3 = new ExampleOne("name3");
+console.log(ex1.checkMe());
+console.log(ex2.checkMe());
+console.log(ex3.checkMe());
