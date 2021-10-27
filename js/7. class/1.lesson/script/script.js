@@ -105,3 +105,30 @@ const useClass = new MyClassWithThis(10, 2);
 console.log('myCoreFunctionality: ', useClass.myCoreFunctionality(1)); // 10 * 2 * 1 = 20
 console.log('myCoreFunctionality: ', useClass.myCoreFunctionality(2)); // 10 * 2 * 2 = 40
 console.log('myCoreFunctionality: ', useClass.myCoreFunctionality(3)); // 10 * 2 * 3 = 60
+
+/* =======================================
+ ============  Private Fields ============
+ ====================================== */
+
+// #encapsulation - cannot access to class's fields direct, only by using public methods
+// for add to class private fields
+class MyClassWithPrivateFieldAndMethod {
+  #visibleField;
+
+  constructor(a) {
+    this.#visibleField = a;
+  }
+
+  publicMethod() {
+    return this.#method();
+  }
+
+  #method() {
+    return 'abc';
+  }
+}
+
+const classInstance1 = new MyClassWithPrivateFieldAndMethod();
+
+// console.log(classInstance1.#visibleField); // error: Private field '#visibleField' must be declared in an enclosing class
+// console.log(classInstance1.#method()); // error: Private field '#method' must be declared in an enclosing class
