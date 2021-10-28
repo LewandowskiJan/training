@@ -168,17 +168,65 @@ class Goblin3 {
     this.defence = defence
     this.speedAttack = speedAttack
   }
-  getAttack() {
-    return attack
+  getAttack(x) {
+    return this.attack * x
   }
   getDamage(dmg) {
-    hp = hp - (dmg - defence)
-    return hp
+    this.hp = this.hp - (dmg - this.defence)
+    return this.hp
   }
   getDefence() {
-    return defence
+    return this.defence
   }
   getSpeedAttack() {
-    return speedAttack
+    return this.speedAttack
+  }
+}
+
+
+// * 1. create 2 instances of Goblin with different values
+//  * 2. create global variable 'timeStamp' : number
+//  * 3. create loop using 'while' working till one of the goblin died
+//  *  3. in loop
+//  *   a) use goblins instance to attack each other
+//  *   b) check if one of the goblins die, if true
+//  *      - console.log('goblin: ', goblinInstance, ' wins!') and use break;
+//  *   c) increment timeStamp by one
+//  */
+/* const myClassInstance = new MyClass(); */
+const grzesiek = new Goblin3("Grzesiek", 125, 5, 0, 2)
+const zdzisiek = new Goblin3("Zdzisiek", 100, 7, 0, 5)
+const timeStamp = 0
+const q = (grzesiek.getSpeedAttack() > zdzisiek.getSpeedAttack()) ? grzesiek.getSpeedAttack() : zdzisiek.getSpeedAttack()
+// console.log(q)
+
+while (grzesiek.hp > 0 && zdzisiek.hp > 0) {
+  // grzesiek.getDamage(zdzisiek.getAttack(0.8))
+  // zdzisiek.getDamage(grzesiek.getAttack(0.9))
+
+
+  // this.hp = this.hp - (dmg - this.defence)
+  // grzesiek.hp = grzesiek.hp - (zdzisiek.attack - grzesiek.defence) 
+  // zdzisiek.hp = zdzisiek.hp - (grzesiek.attack - zdzisiek.defence)
+  console.log(q)
+  for (let v = 0; v <= q; v++) {
+    console.log("grzesiek", Math.round(grzesiek.hp))
+    console.log("zdzisiek", Math.round(zdzisiek.hp))
+    if (grzesiek.getSpeedAttack() > zdzisiek.getSpeedAttack()) {
+      zdzisiek.getDamage(grzesiek.getAttack(0.9))
+      grzesiek.getDamage(zdzisiek.getAttack(0.8))
+    }
+    else {
+      grzesiek.getDamage(zdzisiek.getAttack(0.8))
+      zdzisiek.getDamage(grzesiek.getAttack(0.9))
+    }
+    if (zdzisiek.hp < 0) {
+      console.log('goblin: ', "Grzesiek", ' wins!');
+      break;
+    }
+    else if (grzesiek.hp < 0) {
+      console.log('goblin: ', "Zdzisiek", ' wins!');
+      break;
+    }
   }
 }
