@@ -1,0 +1,41 @@
+.chessboard{
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+    grid-template-rows: repeat(8,1fr);
+    height: 320px;
+    width: 320px;
+    justify-self: center;
+    background-color: grey;
+    border: 1px solid rgb(109, 111, 112);
+}
+
+body{
+    background-color: black;
+}
+
+.cell{
+    /* border: 1px solid rgb(109, 111, 112); */
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(109, 111, 112);
+    align-items: center;
+    display:flex;
+    justify-content: center;
+    padding: 5px;
+}
+
+.cell.odd:nth-child(odd){
+    background-color: white;
+}
+
+.cell.even:nth-child(even){
+    background-color: white;
+}
+.pionek{
+    background-color: greenyellow;
+    border: 1px solid rgb(0, 0, 0);
+    display: flex;
+    /* height: 15px;
+    width: 10px; */
+
+}
