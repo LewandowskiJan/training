@@ -1,94 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Document</title>
-  <link rel="stylesheet" href="styles/style.css" />
-</head>
+  <body>
+    <div class="chessboard" id="chessboard">
+      <div class="cell odd" id="a8">&#128136;</div>
+      <div class="cell odd" id="b8">&#127943;</div>
+      <div class="cell odd" id="c8">&#127939;</div>
+      <div class="cell odd" id="d8">&#128120;</div>
+      <div class="cell odd" id="e8">&#129332;</div>
+      <div class="cell odd" id="f8">&#127939;</div>
+      <div class="cell odd" id="g8">&#127943;</div>
+      <div class="cell odd" id="h8">&#128136;</div>
 
-<body>
-  <div class="chessboard" id="chessboard">
-    <div class="cell odd" id="a8">&#128136;</div>
-    <div class="cell odd" id="b8">&#127943;</div>
-    <div class="cell odd" id="c8">&#127939;</div>
-    <div class="cell odd" id="d8">&#128120;</div>
-    <div class="cell odd" id="e8">&#129332;</div>
-    <div class="cell odd" id="f8">&#127939;</div>
-    <div class="cell odd" id="g8">&#127943;</div>
-    <div class="cell odd" id="h8">&#128136;</div>
+      <div class="cell even" id="a7"></div>
+      <div class="cell even" id="b7"></div>
+      <div class="cell even" id="c7"></div>
+      <div class="cell even" id="d7"></div>
+      <div class="cell even" id="e7"></div>
+      <div class="cell even" id="f7"></div>
+      <div class="cell even" id="g7"></div>
+      <div class="cell even" id="h7"></div>
 
-    <div class="cell even" id="a7"></div>
-    <div class="cell even" id="b7"></div>
-    <div class="cell even" id="c7"></div>
-    <div class="cell even" id="d7"></div>
-    <div class="cell even" id="e7"></div>
-    <div class="cell even" id="f7"></div>
-    <div class="cell even" id="g7"></div>
-    <div class="cell even" id="h7"></div>
+      <div class="cell odd" id="a6"></div>
+      <div class="cell odd" id="b6"></div>
+      <div class="cell odd" id="c6"></div>
+      <div class="cell odd" id="d6"></div>
+      <div class="cell odd" id="e6"></div>
+      <div class="cell odd" id="f6"></div>
+      <div class="cell odd" id="g6"></div>
+      <div class="cell odd" id="h6"></div>
 
-    <div class="cell odd" id="a6"></div>
-    <div class="cell odd" id="b6"></div>
-    <div class="cell odd" id="c6"></div>
-    <div class="cell odd" id="d6"></div>
-    <div class="cell odd" id="e6"></div>
-    <div class="cell odd" id="f6"></div>
-    <div class="cell odd" id="g6"></div>
-    <div class="cell odd" id="h6"></div>
+      <div class="cell even" id="a5"></div>
+      <div class="cell even" id="b5"></div>
+      <div class="cell even" id="c5"></div>
+      <div class="cell even" id="d5"></div>
+      <div class="cell even" id="e5"></div>
+      <div class="cell even" id="f5"></div>
+      <div class="cell even" id="g5"></div>
+      <div class="cell even" id="h5"></div>
 
-    <div class="cell even" id="a5"></div>
-    <div class="cell even" id="b5"></div>
-    <div class="cell even" id="c5"></div>
-    <div class="cell even" id="d5"></div>
-    <div class="cell even" id="e5"></div>
-    <div class="cell even" id="f5"></div>
-    <div class="cell even" id="g5"></div>
-    <div class="cell even" id="h5"></div>
+      <div class="cell odd" id="a4"></div>
+      <div class="cell odd" id="b4"></div>
+      <div class="cell odd" id="c4"></div>
+      <div class="cell odd" id="d4"></div>
+      <div class="cell odd" id="e4"></div>
+      <div class="cell odd" id="f4"></div>
+      <div class="cell odd" id="g4"></div>
+      <div class="cell odd" id="h4"></div>
 
-    <div class="cell odd" id="a4"></div>
-    <div class="cell odd" id="b4"></div>
-    <div class="cell odd" id="c4"></div>
-    <div class="cell odd" id="d4"></div>
-    <div class="cell odd" id="e4"></div>
-    <div class="cell odd" id="f4"></div>
-    <div class="cell odd" id="g4"></div>
-    <div class="cell odd" id="h4"></div>
+      <div class="cell even" id="a3"></div>
+      <div class="cell even" id="b3"></div>
+      <div class="cell even" id="c3"></div>
+      <div class="cell even" id="d3"></div>
+      <div class="cell even" id="e3"></div>
+      <div class="cell even" id="f3"></div>
+      <div class="cell even" id="g3"></div>
+      <div class="cell even" id="h3"></div>
 
-    <div class="cell even" id="a3"></div>
-    <div class="cell even" id="b3"></div>
-    <div class="cell even" id="c3"></div>
-    <div class="cell even" id="d3"></div>
-    <div class="cell even" id="e3"></div>
-    <div class="cell even" id="f3"></div>
-    <div class="cell even" id="g3"></div>
-    <div class="cell even" id="h3"></div>
+      <div class="cell odd" id="a2"></div>
+      <div class="cell odd" id="b2"></div>
+      <div class="cell odd" id="c2"></div>
+      <div class="cell odd" id="d2"></div>
+      <div class="cell odd" id="e2"></div>
+      <div class="cell odd" id="f2"></div>
+      <div class="cell odd" id="g2"></div>
+      <div class="cell odd" id="h2"></div>
 
-    <div class="cell odd" id="a2"></div>
-    <div class="cell odd" id="b2"></div>
-    <div class="cell odd" id="c2"></div>
-    <div class="cell odd" id="d2"></div>
-    <div class="cell odd" id="e2"></div>
-    <div class="cell odd" id="f2"></div>
-    <div class="cell odd" id="g2"></div>
-    <div class="cell odd" id="h2"></div>
-
-    <div class="cell even" id="a1"></div>
-    <div class="cell even" id="b1"></div>
-    <div class="cell even" id="c1"></div>
-    <div class="cell even" id="d1"></div>
-    <div class="cell even" id="e1"></div>
-    <div class="cell even" id="f1"></div>
-    <div class="cell even" id="g1"></div>
-    <div class="cell even" id="h1"></div>
-
-
-
-
-
-  </div>
-  <script type="module" defer src="script/script.js"></script>
-</body>
-
+      <div class="cell even" id="a1"></div>
+      <div class="cell even" id="b1"></div>
+      <div class="cell even" id="c1"></div>
+      <div class="cell even" id="d1"></div>
+      <div class="cell even" id="e1"></div>
+      <div class="cell even" id="f1"></div>
+      <div class="cell even" id="g1"></div>
+      <div class="cell even" id="h1"></div>
+    </div>
+    <script type="module" defer src="script/script.js"></script>
+  </body>
 </html>
