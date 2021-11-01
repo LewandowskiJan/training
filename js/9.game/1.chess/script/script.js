@@ -81,7 +81,7 @@
  * - move()
  * - setPosition()
  * - #setupPiece()
- * - #updatePosition()
+ * - #updatePosition()56yt7u
  *
  *  * class Player has
  * * fields:
@@ -104,45 +104,78 @@ const selected = [];
 window.onload = () => {
   gameBoard = document.getElementById('chessboard');
   let counter = 0;
-  for (let i = 7; i > 1; i -= 5) {
-    console.log(i);
-    for (let k = 0; k < 8; k++) {
-      let cellColumn;
+  for (let chessRow = 8; chessRow > 0; chessRow = chessRow - 1) {
+    if (chessRow > 6 || chessRow < 3) {
+      for (let chessColumn = 0; chessColumn < 8; chessColumn++) {
+        let cellColumn;
+        let piecetype;
+        let icon;
+        let piece = { type: "", icon: "" };
 
-      switch (k) {
-        case 0:
-          cellColumn = 'a';
-          break;
-        case 1:
-          cellColumn = 'b';
-          break;
-        case 2:
-          cellColumn = 'c';
-          break;
-        case 3:
-          cellColumn = 'd';
-          break;
-        case 4:
-          cellColumn = 'e';
-          break;
-        case 5:
-          cellColumn = 'f';
-          break;
-        case 6:
-          cellColumn = 'g';
-          break;
-        case 7:
-          cellColumn = 'h';
-          break;
+        switch (chessColumn) {
+          case 0:
+            cellColumn = 'a'
+            // piecetype = (chessRow === 8 || chessRow === 1) ? "rook" : "pawn";
+            // icon = (chessRow === 8 || chessRow === 1) ? "&#128136;" : "&#128023;";
+            piece = (chessRow === 8 || chessRow === 1) ? { type: "rook", icon: "&#128136;" } : { type: "pawn", icon: "&#128023;" }
+            break;
+          case 1:
+            cellColumn = 'b';
+            piecetype = (chessRow === 8 || chessRow === 1) ? "knight" : "pawn";
+            icon = (chessRow === 8 || chessRow === 1) ? "&#127943;" : "&#128023;";
+            break;
+          case 2:
+            cellColumn = 'c';
+            piecetype = (chessRow === 8 || chessRow === 1) ? "bishop" : "pawn";
+            icon = (chessRow === 8 || chessRow === 1) ? "&#127939;" : "&#128023;";
+            break;
+          case 3:
+            cellColumn = 'd';
+            piecetype = (chessRow === 8 || chessRow === 1) ? "king" : "pawn";
+            icon = (chessRow === 8 || chessRow === 1) ? "&#128120;" : "&#128023;";
+            break;
+          case 4:
+            cellColumn = 'e';
+            piecetype = (chessRow === 8 || chessRow === 1) ? "queen" : "pawn";
+            icon = (chessRow === 8 || chessRow === 1) ? "&#129332;" : "&#128023;";
+            break;
+          case 5:
+            cellColumn = 'f';
+            piecetype = (chessRow === 8 || chessRow === 1) ? "bishop" : "pawn";
+            icon = (chessRow === 8 || chessRow === 1) ? "&#127939;" : "&#128023;";
+            break;
+          case 6:
+            cellColumn = 'g';
+            piecetype = (chessRow === 8 || chessRow === 1) ? "knight" : "pawn";
+            icon = (chessRow === 8 || chessRow === 1) ? "&#127943;" : "&#128023;";
+            break;
+          case 7:
+            cellColumn = 'h';
+            piecetype = (chessRow === 8 || chessRow === 1) ? "rook" : "pawn";
+            icon = (chessRow === 8 || chessRow === 1) ? "&#128136;" : "&#128023;";
+            break;
+        }
+        console.log(piecetype)
+
+        // console.log(chessColumn);
+        const cell = document.getElementById(cellColumn + chessRow);
+        // cell.style = "background-color:red"
+        // cell.innerHTML = `<div class="${piecetype}" id="p${counter}">&#128023;</div>`;
+        cell.innerHTML = '<div class="' + piecetype + '" id="' + 'p' + counter + '">' + icon + '</div>';
+
+        counter++;
       }
-
-      console.log(k);
-      const cell = document.getElementById(cellColumn + i);
-      // cell.style = "background-color:red"
-      cell.innerHTML = `<div class="pawn" id=p${counter}>&#128023;</div>`;
-      counter++;
     }
+    // startowa wartośąć = 7, do póki i będzie > 1, przy każdej iteracji odejmij od i 5
+    console.log(chessRow);
+
   }
+
+
+
+
+
+
   //  tu mozna wrzucić kolejny loop na figury np.
   // console.log(gameBoard.childNodes)
   const currentCell = document.getElementById('a7');
@@ -166,3 +199,4 @@ window.onload = () => {
     }
   });
 };
+

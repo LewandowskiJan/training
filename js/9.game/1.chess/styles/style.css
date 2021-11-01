@@ -36,7 +36,34 @@ body {
     background-color: greenyellow;
     border: 1px solid rgb(0, 0, 0);
     display: flex;
-    /* height: 15px;
-    width: 10px; */
+}
 
+.rook{
+    background-color: rgb(202, 47, 27);
+    border: 1px solid rgb(0, 0, 0);
+    display: flex;
+}
+
+.knight{
+    background-color: rgb(197, 216, 25);
+    border: 1px solid rgb(0, 0, 0);
+    display: flex;
+}
+
+.bishop{
+    background-color: rgb(25, 124, 216);
+    border: 1px solid rgb(0, 0, 0);
+    display: flex;
+}
+
+.queen {
+    background-color: rgb(184, 25, 216);
+    border: 1px solid rgb(0, 0, 0);
+    display: flex;
+}
+
+.king {
+    background-color: rgb(11, 7, 12);
+    border: 1px solid rgb(0, 0, 0);
+    display: flex;
 }
