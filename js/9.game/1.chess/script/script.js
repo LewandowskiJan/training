@@ -39,12 +39,12 @@
  *  - should map 7 => 'h'
  *
  * todo: create ChessPiecesConfiguration map
- * PieceType => PieceConfiguration
+ * pieceType => PieceConfiguration
  * e.g:
- *  - should map 'pawn' => { 
- *                  icon: '&#128023;', 
- *                  movementSchema: 'y+1 | y-1', 
- *                  canChangeToOtherPiece: true, 
+ *  - should map 'pawn' => {
+ *                  icon: '&#128023;',
+ *                  movementSchema: 'y+1 | y-1',
+ *                  canChangeToOtherPiece: true,
  *                  attackSchema: 'x+1-1 | y-1 y+1',
  *                  htmlSchema: <div class="pawn"></div>
  *              }
@@ -97,7 +97,6 @@
  * - restorePiece()
  */
 
-// const =
 let gameBoard;
 const selected = [];
 
@@ -108,19 +107,22 @@ window.onload = () => {
     if (chessRow > 6 || chessRow < 3) {
       for (let chessColumn = 0; chessColumn < 8; chessColumn++) {
         let cellColumn;
-        let piecetype;
+        let pieceType;
         let icon;
-        let piece = { type: "", icon: "" };
+        let piece = { type: '', icon: '', cellColumn: '' };
 
         switch (chessColumn) {
           case 0:
-            cellColumn = 'a'
-            // piecetype = (chessRow === 8 || chessRow === 1) ? "rook" : "pawn";
-            // icon = (chessRow === 8 || chessRow === 1) ? "&#128136;" : "&#128023;";
-            piece = (chessRow === 8 || chessRow === 1) ? { type: "rook", icon: "&#128136;" } : { type: "pawn", icon: "&#128023;" }
+            cellColumn = 'a';
+            pieceType = isFirstOrLastRow(chessRow) ? 'rook' : 'pawn';
+            icon = isFirstOrLastRow(chessRow) ? '&#128136;' : '&#128023;';
+            piece = isFirstOrLastRow(chessRow)
+              ? { type: 'rook', icon: '&#128136;' }
+              : { type: 'pawn', icon: '&#128023;' };
             break;
           case 1:
             cellColumn = 'b';
+<<<<<<< HEAD
             // piecetype = (chessRow === 8 || chessRow === 1) ? "knight" : "pawn";
             // icon = (chessRow === 8 || chessRow === 1) ? "&#127943;" : "&#128023;";
             piece = (chessRow === 8 || chessRow === 1) ? { type: "knight", icon: "&#127943;" } : { type: "pawn", icon: "&#128023;" }
@@ -162,50 +164,109 @@ window.onload = () => {
             piece = (chessRow === 8 || chessRow === 1) ? { type: "rook", icon: "&#128136;" } : { type: "pawn", icon: "&#128023;" }
             break;
         }
+=======
+            pieceType = isFirstOrLastRow(chessRow) ? 'knight' : 'pawn';
+            icon = isFirstOrLastRow(chessRow) ? '&#127943;' : '&#128023;';
+            break;
+          case 2:
+            cellColumn = 'c';
+            pieceType = isFirstOrLastRow(chessRow) ? 'bishop' : 'pawn';
+            icon = isFirstOrLastRow(chessRow) ? '&#127939;' : '&#128023;';
+            break;
+          case 3:
+            cellColumn = 'd';
+            pieceType = isFirstOrLastRow(chessRow) ? 'king' : 'pawn';
+            icon = isFirstOrLastRow(chessRow) ? '&#128120;' : '&#128023;';
+            break;
+          case 4:
+            cellColumn = 'e';
+            pieceType = isFirstOrLastRow(chessRow) ? 'queen' : 'pawn';
+            icon = isFirstOrLastRow(chessRow) ? '&#129332;' : '&#128023;';
+            break;
+          case 5:
+            cellColumn = 'f';
+            pieceType = isFirstOrLastRow(chessRow) ? 'bishop' : 'pawn';
+            icon = isFirstOrLastRow(chessRow) ? '&#127939;' : '&#128023;';
+            break;
+          case 6:
+            cellColumn = 'g';
+            pieceType = isFirstOrLastRow(chessRow) ? 'knight' : 'pawn';
+            icon = isFirstOrLastRow(chessRow) ? '&#127943;' : '&#128023;';
+            break;
+          case 7:
+            cellColumn = 'h';
+            pieceType = isFirstOrLastRow(chessRow) ? 'rook' : 'pawn';
+            icon = isFirstOrLastRow(chessRow) ? '&#128136;' : '&#128023;';
+            break;
+        }
+        // console.log(pieceType);
+>>>>>>> 553d15f2f164d14c2d359ffcc4623236073fb461
 
         // console.log(chessColumn);
         const cell = document.getElementById(cellColumn + chessRow);
         // cell.style = "background-color:red"
+<<<<<<< HEAD
         // cell.innerHTML = `<div class="${piecetype}" id="p${counter}">&#128023;</div>`;
         // cell.innerHTML = '<div class="' + piecetype + '" id="' + 'p' + counter + '">' + icon + '</div>';
         cell.innerHTML = '<div class="' + piece.type + '" id="' + 'p' + counter + '">' + piece.icon + '</div>';
         
 
+=======
+        // cell.innerHTML = `<div class="${pieceType}" id="p${counter}">&#128023;</div>`;
+        cell.innerHTML = '<div class="piece ' + pieceType + '" id="' + 'p' + counter + '">' + icon + '</div>';
+>>>>>>> 553d15f2f164d14c2d359ffcc4623236073fb461
 
         counter++;
       }
+      // startowa wartośąć = 7, do póki i będzie > 1, przy każdej iteracji odejmij od i 5
+      // console.log(chessRow);
     }
-    // startowa wartośąć = 7, do póki i będzie > 1, przy każdej iteracji odejmij od i 5
-    console.log(chessRow);
-
   }
 
+  gameBoard.addEventListener('click', function (e) {
+    // console.log(e);
+    // console.log(selected);
+    // console.log(isCellHasPieceInside(e.target) || isPieceSelected(e.target));
 
-
-
-
-
-  //  tu mozna wrzucić kolejny loop na figury np.
-  // console.log(gameBoard.childNodes)
-  const currentCell = document.getElementById('a7');
-  currentCell.addEventListener('click', function (e) {
-    const cella7 = document.getElementById('a7');
-    selected.splice(0, 1, cella7);
-    console.log(selected);
-  });
-
-  const currentCell2 = document.getElementById('a6');
-  currentCell2.addEventListener('click', function (e) {
-    const cella6 = document.getElementById('a6');
-    let elem;
-    if (selected.length === 0) {
-      selected.splice(0, 1, cella6);
+    if (isNonePieceSelected(selected)) {
+      const selectedPiece = selectPiece(e.target);
+      selectedPiece && selected.splice(0, 1, selectedPiece);
+      return;
     } else {
-      e.target.appendChild(selected[0].firstChild);
-      // elem = selected[0].removeChild(selected[0].firstChild)
-      // console.log(elem)
-      console.log(e);
+      if (isCellHasPieceInside(e.target) || isPieceSelected(e.target)) {
+        const selectedPiece = selectPiece(e.target);
+        selectedPiece && selected.splice(0, 1, selectedPiece);
+        return;
+      }
+      e.target.appendChild(selected[0]);
+      clearSelection(selected);
     }
   });
 };
 
+function selectPiece(target) {
+  let selectedPiece;
+  if (isCellHasPieceInside(target)) selectedPiece = document.getElementById(target.childNodes[0].id);
+  if (isPieceSelected(target)) selectedPiece = document.getElementById(target.id);
+  return selectedPiece;
+}
+
+function isCellHasPieceInside(target) {
+  return target?.childNodes[0]?.id;
+}
+
+function isPieceSelected(target) {
+  return target.className.includes('piece');
+}
+
+function isNonePieceSelected(selection) {
+  return selection.length === 0;
+}
+
+function clearSelection(selection) {
+  selection.splice(0, 1);
+}
+
+function isFirstOrLastRow(row) {
+  return row === 8 || row === 1;
+}
