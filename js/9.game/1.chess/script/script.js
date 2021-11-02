@@ -124,43 +124,64 @@ window.onload = () => {
             cellColumn = 'b';
             // piecetype = (chessRow === 8 || chessRow === 1) ? "knight" : "pawn";
             // icon = (chessRow === 8 || chessRow === 1) ? "&#127943;" : "&#128023;";
-            piece = (chessRow === 8 || chessRow === 1) ? { type: "knight", icon: "&#127943;" } : { type: "pawn", icon: "&#128023;" }
+            piece =
+              chessRow === 8 || chessRow === 1
+                ? { type: 'knight', icon: '&#127943;' }
+                : { type: 'pawn', icon: '&#128023;' };
             break;
           case 2:
             cellColumn = 'c';
             // piecetype = (chessRow === 8 || chessRow === 1) ? "bishop" : "pawn";
             // icon = (chessRow === 8 || chessRow === 1) ? "&#127939;" : "&#128023;";
-            piece = (chessRow === 8 || chessRow === 1) ? { type: "bishop", icon: "&#127939;" } : { type: "pawn", icon: "&#128023;" }
+            piece =
+              chessRow === 8 || chessRow === 1
+                ? { type: 'bishop', icon: '&#127939;' }
+                : { type: 'pawn', icon: '&#128023;' };
             break;
           case 3:
             cellColumn = 'd';
             // piecetype = (chessRow === 8 || chessRow === 1) ? "king" : "pawn";
             // icon = (chessRow === 8 || chessRow === 1) ? "&#128120;" : "&#128023;";
-            piece = (chessRow === 8 || chessRow === 1) ? { type: "king", icon: "&#129332;" } : { type: "pawn", icon: "&#128023;" }
+            piece =
+              chessRow === 8 || chessRow === 1
+                ? { type: 'king', icon: '&#129332;' }
+                : { type: 'pawn', icon: '&#128023;' };
             break;
           case 4:
             cellColumn = 'e';
             // piecetype = (chessRow === 8 || chessRow === 1) ? "queen" : "pawn";
             // icon = (chessRow === 8 || chessRow === 1) ? "&#129332;" : "&#128023;";
-            piece = (chessRow === 8 || chessRow === 1) ? { type: "queen", icon: "&#128120;" } : { type: "pawn", icon: "&#128023;" }
+            piece =
+              chessRow === 8 || chessRow === 1
+                ? { type: 'queen', icon: '&#128120;' }
+                : { type: 'pawn', icon: '&#128023;' };
             break;
           case 5:
             cellColumn = 'f';
             // piecetype = (chessRow === 8 || chessRow === 1) ? "bishop" : "pawn";
             // icon = (chessRow === 8 || chessRow === 1) ? "&#127939;" : "&#128023;";
-            piece = (chessRow === 8 || chessRow === 1) ? { type: "bishop", icon: "&#127939;" } : { type: "pawn", icon: "&#128023;" }
+            piece =
+              chessRow === 8 || chessRow === 1
+                ? { type: 'bishop', icon: '&#127939;' }
+                : { type: 'pawn', icon: '&#128023;' };
             break;
           case 6:
             cellColumn = 'g';
             // piecetype = (chessRow === 8 || chessRow === 1) ? "knight" : "pawn";
             // icon = (chessRow === 8 || chessRow === 1) ? "&#127943;" : "&#128023;";
-            piece = (chessRow === 8 || chessRow === 1) ? { type: "knight", icon: "&#127943;" } : { type: "pawn", icon: "&#128023;" }
+            piece =
+              chessRow === 8 || chessRow === 1
+                ? { type: 'knight', icon: '&#127943;' }
+                : { type: 'pawn', icon: '&#128023;' };
             break;
           case 7:
             cellColumn = 'h';
             // piecetype = (chessRow === 8 || chessRow === 1) ? "rook" : "pawn";
             // icon = (chessRow === 8 || chessRow === 1) ? "&#128136;" : "&#128023;";
-            piece = (chessRow === 8 || chessRow === 1) ? { type: "rook", icon: "&#128136;" } : { type: "pawn", icon: "&#128023;" }
+            piece =
+              chessRow === 8 || chessRow === 1
+                ? { type: 'rook', icon: '&#128136;' }
+                : { type: 'pawn', icon: '&#128023;' };
             break;
         }
 
@@ -169,9 +190,7 @@ window.onload = () => {
         // cell.style = "background-color:red"
         // cell.innerHTML = `<div class="${piecetype}" id="p${counter}">&#128023;</div>`;
         // cell.innerHTML = '<div class="' + piecetype + '" id="' + 'p' + counter + '">' + icon + '</div>';
-        cell.innerHTML = '<div class="' + piece.type + '" id="' + 'p' + counter + '">' + piece.icon + '</div>';
-        
-
+        cell.innerHTML = '<div class="piece ' + piece.type + '" id="' + 'p' + counter + '">' + piece.icon + '</div>';
 
         counter++;
       }
