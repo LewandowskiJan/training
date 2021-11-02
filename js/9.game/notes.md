@@ -1,3 +1,5 @@
+
+```javascript
 /**
  * Chess one pc, multiplayer (without server side)
  *
@@ -114,64 +116,95 @@ window.onload = () => {
         switch (chessColumn) {
           case 0:
             cellColumn = 'a';
+            pieceType = isFirstOrLastRow(chessRow) ? 'rook' : 'pawn';
+            icon = isFirstOrLastRow(chessRow) ? '&#128136;' : '&#128023;';
             piece = isFirstOrLastRow(chessRow)
               ? { type: 'rook', icon: '&#128136;' }
               : { type: 'pawn', icon: '&#128023;' };
             break;
           case 1:
             cellColumn = 'b';
-
-            piece = isFirstOrLastRow(chessRow)
+            // piecetype = (chessRow === 8 || chessRow === 1) ? "knight" : "pawn";
+            // icon = (chessRow === 8 || chessRow === 1) ? "&#127943;" : "&#128023;";
+            piece =
+              chessRow === 8 || chessRow === 1
                 ? { type: 'knight', icon: '&#127943;' }
                 : { type: 'pawn', icon: '&#128023;' };
             break;
           case 2:
             cellColumn = 'c';
-            piece = isFirstOrLastRow(chessRow)
+            // piecetype = (chessRow === 8 || chessRow === 1) ? "bishop" : "pawn";
+            // icon = (chessRow === 8 || chessRow === 1) ? "&#127939;" : "&#128023;";
+            piece =
+              chessRow === 8 || chessRow === 1
                 ? { type: 'bishop', icon: '&#127939;' }
                 : { type: 'pawn', icon: '&#128023;' };
             break;
           case 3:
             cellColumn = 'd';
-            piece = isFirstOrLastRow(chessRow)
+            // piecetype = (chessRow === 8 || chessRow === 1) ? "king" : "pawn";
+            // icon = (chessRow === 8 || chessRow === 1) ? "&#128120;" : "&#128023;";
+            piece =
+              chessRow === 8 || chessRow === 1
                 ? { type: 'king', icon: '&#129332;' }
                 : { type: 'pawn', icon: '&#128023;' };
             break;
           case 4:
             cellColumn = 'e';
-            piece = isFirstOrLastRow(chessRow)
+            // piecetype = (chessRow === 8 || chessRow === 1) ? "queen" : "pawn";
+            // icon = (chessRow === 8 || chessRow === 1) ? "&#129332;" : "&#128023;";
+            piece =
+              chessRow === 8 || chessRow === 1
                 ? { type: 'queen', icon: '&#128120;' }
                 : { type: 'pawn', icon: '&#128023;' };
             break;
           case 5:
             cellColumn = 'f';
-            piece = isFirstOrLastRow(chessRow)
+            // piecetype = (chessRow === 8 || chessRow === 1) ? "bishop" : "pawn";
+            // icon = (chessRow === 8 || chessRow === 1) ? "&#127939;" : "&#128023;";
+            piece =
+              chessRow === 8 || chessRow === 1
                 ? { type: 'bishop', icon: '&#127939;' }
                 : { type: 'pawn', icon: '&#128023;' };
             break;
           case 6:
             cellColumn = 'g';
-            piece = isFirstOrLastRow(chessRow)
+            // piecetype = (chessRow === 8 || chessRow === 1) ? "knight" : "pawn";
+            // icon = (chessRow === 8 || chessRow === 1) ? "&#127943;" : "&#128023;";
+            piece =
+              chessRow === 8 || chessRow === 1
                 ? { type: 'knight', icon: '&#127943;' }
                 : { type: 'pawn', icon: '&#128023;' };
             break;
           case 7:
             cellColumn = 'h';
-            piece = isFirstOrLastRow(chessRow)
+            // piecetype = (chessRow === 8 || chessRow === 1) ? "rook" : "pawn";
+            // icon = (chessRow === 8 || chessRow === 1) ? "&#128136;" : "&#128023;";
+            piece =
+              chessRow === 8 || chessRow === 1
                 ? { type: 'rook', icon: '&#128136;' }
                 : { type: 'pawn', icon: '&#128023;' };
             break;
         }
 
+        // console.log(chessColumn);
         const cell = document.getElementById(cellColumn + chessRow);
+        // cell.style = "background-color:red"
+        // cell.innerHTML = `<div class="${piecetype}" id="p${counter}">&#128023;</div>`;
+        // cell.innerHTML = '<div class="' + piecetype + '" id="' + 'p' + counter + '">' + icon + '</div>';
         cell.innerHTML = '<div class="piece ' + piece.type + '" id="' + 'p' + counter + '">' + piece.icon + '</div>';
 
         counter++;
       }
+      // startowa wartośąć = 7, do póki i będzie > 1, przy każdej iteracji odejmij od i 5
+      // console.log(chessRow);
     }
   }
 
   gameBoard.addEventListener('click', function (e) {
+    // console.log(e);
+    // console.log(selected);
+    // console.log(isCellHasPieceInside(e.target) || isPieceSelected(e.target));
 
     if (isNonePieceSelected(selected)) {
       const selectedPiece = selectPiece(e.target);
@@ -215,3 +248,5 @@ function clearSelection(selection) {
 function isFirstOrLastRow(row) {
   return row === 8 || row === 1;
 }
+
+```
