@@ -1,16 +1,14 @@
-class Player {
+export default class Player {
   name;
   movements;
   points;
-  onGamePieces;
-  outGamePieces;
+  color;
+  onGamePieces = [];
+  outGamePieces = [];
 
-  constructor(name, movements, points, onGamePieces, outGamePieces) {
-    this.name = name
-    this.movements = movements
-    this.points = points
-    this.onGamePieces = onGamePieces
-    this.outGamePieces = outGamePieces
+  constructor(name, color) {
+    this.name = name;
+    this.color = color;
   }
   movePiece() {
     return x
@@ -23,5 +21,9 @@ class Player {
   }
   restorePiece() {
     return x
+  }
+  pushPiece(piece) {
+    piece.setPlayerColor(this.color)
+    this.onGamePieces.push(piece)
   }
 }

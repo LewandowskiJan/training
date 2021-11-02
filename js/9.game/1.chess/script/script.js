@@ -97,80 +97,16 @@
  * - restorePiece()
  */
 
+import GameState from "./game-state.js";
+
 let gameBoard;
 const selected = [];
 
 window.onload = () => {
   gameBoard = document.getElementById('chessboard');
-  let counter = 0;
-  for (let chessRow = 8; chessRow > 0; chessRow = chessRow - 1) {
-    if (chessRow > 6 || chessRow < 3) {
-      for (let chessColumn = 0; chessColumn < 8; chessColumn++) {
-        let cellColumn;
-        let pieceType;
-        let icon;
-        let piece = { type: '', icon: '', cellColumn: '' };
-
-        switch (chessColumn) {
-          case 0:
-            cellColumn = 'a';
-            piece = isFirstOrLastRow(chessRow)
-              ? { type: 'rook', icon: '&#128136;' }
-              : { type: 'pawn', icon: '&#128023;' };
-            break;
-          case 1:
-            cellColumn = 'b';
-
-            piece = isFirstOrLastRow(chessRow)
-                ? { type: 'knight', icon: '&#127943;' }
-                : { type: 'pawn', icon: '&#128023;' };
-            break;
-          case 2:
-            cellColumn = 'c';
-            piece = isFirstOrLastRow(chessRow)
-                ? { type: 'bishop', icon: '&#127939;' }
-                : { type: 'pawn', icon: '&#128023;' };
-            break;
-          case 3:
-            cellColumn = 'd';
-            piece = isFirstOrLastRow(chessRow)
-                ? { type: 'king', icon: '&#129332;' }
-                : { type: 'pawn', icon: '&#128023;' };
-            break;
-          case 4:
-            cellColumn = 'e';
-            piece = isFirstOrLastRow(chessRow)
-                ? { type: 'queen', icon: '&#128120;' }
-                : { type: 'pawn', icon: '&#128023;' };
-            break;
-          case 5:
-            cellColumn = 'f';
-            piece = isFirstOrLastRow(chessRow)
-                ? { type: 'bishop', icon: '&#127939;' }
-                : { type: 'pawn', icon: '&#128023;' };
-            break;
-          case 6:
-            cellColumn = 'g';
-            piece = isFirstOrLastRow(chessRow)
-                ? { type: 'knight', icon: '&#127943;' }
-                : { type: 'pawn', icon: '&#128023;' };
-            break;
-          case 7:
-            cellColumn = 'h';
-            piece = isFirstOrLastRow(chessRow)
-                ? { type: 'rook', icon: '&#128136;' }
-                : { type: 'pawn', icon: '&#128023;' };
-            break;
-        }
-
-        const cell = document.getElementById(cellColumn + chessRow);
-        cell.innerHTML = '<div class="piece ' + piece.type + '" id="' + 'p' + counter + '">' + piece.icon + '</div>';
-
-        counter++;
-      }
-    }
-  }
-
+  const gamestate = new GameState(0,[],0)
+  gamestate.setupGame()
+ 
   gameBoard.addEventListener('click', function (e) {
 
     if (isNonePieceSelected(selected)) {
@@ -210,8 +146,4 @@ function isNonePieceSelected(selection) {
 
 function clearSelection(selection) {
   selection.splice(0, 1);
-}
-
-function isFirstOrLastRow(row) {
-  return row === 8 || row === 1;
 }
