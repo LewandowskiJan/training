@@ -36,34 +36,52 @@ body {
     background-color: greenyellow;
     border: 1px solid rgb(0, 0, 0);
     display: flex;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
 }
 
 .rook{
     background-color: rgb(202, 47, 27);
     border: 1px solid rgb(0, 0, 0);
     display: flex;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
 }
 
 .knight{
     background-color: rgb(197, 216, 25);
     border: 1px solid rgb(0, 0, 0);
     display: flex;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
 }
 
 .bishop{
     background-color: rgb(25, 124, 216);
     border: 1px solid rgb(0, 0, 0);
     display: flex;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
 }
 
 .queen {
     background-color: rgb(184, 25, 216);
     border: 1px solid rgb(0, 0, 0);
     display: flex;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
 }
 
 .king {
     background-color: rgb(11, 7, 12);
     border: 1px solid rgb(0, 0, 0);
     display: flex;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
 }
