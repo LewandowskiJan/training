@@ -26,4 +26,10 @@ export default class Player {
     piece.setPlayerColor(this.color)
     this.onGamePieces.push(piece)
   }
+  getPieceById(id) {
+    return this.onGamePieces.find((piece) => {
+      return piece.id === +id
+    })
+
+  }
 }

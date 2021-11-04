@@ -98,52 +98,18 @@
  */
 
 import GameState from "./game-state.js";
+import GameBoard from "./gameboard.js";
 
-let gameBoard;
+let gameBoardElement;
 const selected = [];
 
 window.onload = () => {
-  gameBoard = document.getElementById('chessboard');
-  const gamestate = new GameState(0,[],0)
+  const gamestate = new GameState(0, [], 0)
   gamestate.setupGame()
- 
-  gameBoard.addEventListener('click', function (e) {
+  gameBoardElement = document.getElementById('chessboard');
+  const gameBoard = new GameBoard(gamestate.getPlayers())
 
-    if (isNonePieceSelected(selected)) {
-      const selectedPiece = selectPiece(e.target);
-      selectedPiece && selected.splice(0, 1, selectedPiece);
-      return;
-    } else {
-      if (isCellHasPieceInside(e.target) || isPieceSelected(e.target)) {
-        const selectedPiece = selectPiece(e.target);
-        selectedPiece && selected.splice(0, 1, selectedPiece);
-        return;
-      }
-      e.target.appendChild(selected[0]);
-      clearSelection(selected);
-    }
+  gameBoardElement.addEventListener('click', function (e) {
+    gameBoard.selectAndMovePiece(e.target)
   });
 };
-
-function selectPiece(target) {
-  let selectedPiece;
-  if (isCellHasPieceInside(target)) selectedPiece = document.getElementById(target.childNodes[0].id);
-  if (isPieceSelected(target)) selectedPiece = document.getElementById(target.id);
-  return selectedPiece;
-}
-
-function isCellHasPieceInside(target) {
-  return target?.childNodes[0]?.id;
-}
-
-function isPieceSelected(target) {
-  return target.className.includes('piece');
-}
-
-function isNonePieceSelected(selection) {
-  return selection.length === 0;
-}
-
-function clearSelection(selection) {
-  selection.splice(0, 1);
-}

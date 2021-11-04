@@ -1,5 +1,6 @@
 export default class Piece {
   schema;
+  id;
   type;
   position;
   playercolor;
@@ -23,13 +24,15 @@ export default class Piece {
     this.type = view.type;
     this.icon = view.icon;
   }
-  genratePieceView(counter){
-    return '<div class="piece ' + this.type + " "+ this.playerColor + '" id="' + 'p' + counter + '">' + this.icon + '</div>'
+  genratePieceView(counter, active = "") {
+    this.id = counter
+    // return '<div class="piece ' + active + " "+ this.type +  " "+ this.playerColor + '" id="' + this.id + '">' + this.icon + '</div>'
+    return "".concat('<div class="piece ', active, " ", this.type, " ", this.playerColor, '" id="', this.id, '">', this.icon, '</div>');
   }
   updatePosition() {
     return x
   }
-  setPlayerColor(color){
-  this.playerColor = color;
+  setPlayerColor(color) {
+    this.playerColor = color;
   }
 }

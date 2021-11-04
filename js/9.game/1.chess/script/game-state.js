@@ -23,15 +23,15 @@ export default class GameState {
 
   setupGame() {
     let counter = 0;
-    this.players.push(new Player("Joe", "white"),new Player("Jane", "black"))
+    this.players.push(new Player("Joe", "white"), new Player("Jane", "black"))
     for (let chessRow = 8; chessRow > 0; chessRow = chessRow - 1) {
       if (chessRow > 6 || chessRow < 3) {
         for (let chessColumn = 0; chessColumn < 8; chessColumn++) {
           const cellColumn = chessColumnConfiguration.get(chessColumn)
           const currentPiece = new Piece({ column: cellColumn, row: chessRow })
 
-          if (chessRow < 3){this.players[0].pushPiece(currentPiece)}
-          if (chessRow > 6){this.players[1].pushPiece(currentPiece)}
+          if (chessRow < 3) { this.players[0].pushPiece(currentPiece) }
+          if (chessRow > 6) { this.players[1].pushPiece(currentPiece) }
 
           switch (chessColumn) {
             case 0:
@@ -102,5 +102,8 @@ export default class GameState {
   }
   #isFirstOrLastRow(row) {
     return row === 8 || row === 1;
+  }
+  getPlayers() {
+    return this.players
   }
 }
