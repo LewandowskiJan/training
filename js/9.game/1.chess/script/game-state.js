@@ -30,8 +30,8 @@ export default class GameState {
           const cellColumn = chessColumnConfiguration.get(chessColumn)
           const currentPiece = new Piece({ column: cellColumn, row: chessRow })
 
-          if (chessRow < 3) { this.players[0].pushPiece(currentPiece) }
-          if (chessRow > 6) { this.players[1].pushPiece(currentPiece) }
+          if (chessRow < 3) { this.players[0].pushPiece(currentPiece, "bottom") }
+          if (chessRow > 6) { this.players[1].pushPiece(currentPiece, "top") }
 
           switch (chessColumn) {
             case 0:

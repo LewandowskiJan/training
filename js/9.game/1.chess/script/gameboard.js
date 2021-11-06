@@ -8,6 +8,7 @@ export default class GameBoard {
   }
 
   selectAndMovePiece(target) {
+    this.clearAvailableMove()
     if (this.selectedPiece?.id === this.getClickedPiece(target)?.id) {
       return this.clearSelected();
     }
@@ -33,8 +34,40 @@ export default class GameBoard {
       this.selectedPiece.className = this.selectedPiece.className + " active"
       this.selectedPieceInstance = this.players[this.selectedPiece.id < 16 ? 1 : 0].getPieceById(this.selectedPiece.id)
       // console.log(this.selectedPiece)
+      this.selectedPieceInstance.setupAttackScope()
+      this.selectedPieceInstance.setupMoveScope()
+      this.showAvailableMove()
     }
   }
+
+  showAvailableMove() {
+    // console.log(this.selectedPieceInstance.getMoveScope())
+
+    this.selectedPieceInstance.getMoveScope().forEach(element => {
+      // console.log(element.column + element.row)
+      const cell = document.getElementById(element.column + element.row)
+      // console.log(cell)
+      cell.style = "background-color:brown;"
+      // cell.className = cell.className + " possibleMove"
+    });
+  }
+
+
+  clearAvailableMove() {
+    if (!this.selectedPieceInstance) return;
+    // console.log(this.selectedPieceInstance.getMoveScope())
+
+    this.selectedPieceInstance.getMoveScope().forEach(element => {
+      // console.log(element.column + element.row)
+      const cell = document.getElementById(element.column + element.row)
+      // console.log(cell)
+      cell.style = ""
+      // cell.className = cell.className.split(" ")
+      // .filter((name) => name !== "possibleMove").join(" ")  
+    });
+  }
+
+
 
   getClickedPiece(target) {
     let clickedPiece;
@@ -51,7 +84,8 @@ export default class GameBoard {
 
   clearCssClass() {
     if (this.selectedPiece) {
-      this.selectedPiece.className = this.selectedPiece.className.split(" ").filter((name) => name !== "active").join(" ")
+      this.selectedPiece.className = this.selectedPiece.className.split(" ")
+        .filter((name) => name !== "active").join(" ")
     }
   }
 
@@ -60,15 +94,15 @@ export default class GameBoard {
   }
 
   changePiecePosition(target) {
-const selectedPieceId = target.id.split("")
-console.log(selectedPieceId)
-const position = {
-  column: selectedPieceId[0],
-  row: +selectedPieceId[1],
-}; 
-console.log(position)
-this.selectedPieceInstance.setPosition(position)
-  
+    const selectedPieceId = target.id.split("")
+    // console.log(selectedPieceId)
+    const position = {
+      column: selectedPieceId[0],
+      row: +selectedPieceId[1],
+    };
+    // console.log(position)
+    this.selectedPieceInstance.setPosition(position)
+
 
     // wyciągnąć position z targetu i przypisać do klasy pionka w js
     // id rozbic na 2 elementy - kolumnę i wiersz
@@ -77,8 +111,8 @@ this.selectedPieceInstance.setPosition(position)
     // dodać implementację tej metody(set position) (czyli napisać tą metodę po prostu)
     // wskazówka: do podzielenia stringa na 2 tablice z poszczególnymi literami nalezy użyć metody .split("")
 
-    console.log(target)
-    console.log(this.selectedPieceInstance)
+    // console.log(target)
+    // console.log(this.selectedPieceInstance)
     target.appendChild(this.selectedPiece);
   }
 

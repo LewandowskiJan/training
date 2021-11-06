@@ -22,8 +22,9 @@ export default class Player {
   restorePiece() {
     return x
   }
-  pushPiece(piece) {
+  pushPiece(piece, side) {
     piece.setPlayerColor(this.color)
+    piece.setupSide(side)
     this.onGamePieces.push(piece)
   }
   getPieceById(id) {

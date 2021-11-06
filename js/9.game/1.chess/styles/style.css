@@ -65,3 +65,6 @@ body {
     box-shadow: 0px 0px 5px 2px rgb(48, 47, 47);
 
 }
+.possibleMove { 
+    background-color:unset;
+}
