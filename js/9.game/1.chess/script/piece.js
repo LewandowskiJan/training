@@ -14,11 +14,18 @@ export default class Piece {
   showAvailableMovements() {
     return x
   }
+    
   move() {
     return x
   }
-  setPosition() {
-    return x
+  setPosition(position) {
+    this.position = position;
+
+    // dodać 2 pola do tej klasy
+    // pierwsze pole: moveScope
+    // drugie pole: attackScope
+    // będziemy wyliczać za każdym setPosition()
+    // stworzyć mapę, która będzie zamieniać A->1 B->2 C->3 dla pozycji pionka (klucz litera, wartość liczba)
   }
   setupPieceView(view) {
     this.type = view.type;
@@ -35,4 +42,5 @@ export default class Piece {
   setPlayerColor(color) {
     this.playerColor = color;
   }
-}
+
+  }

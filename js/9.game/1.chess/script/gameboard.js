@@ -32,7 +32,7 @@ export default class GameBoard {
     if (this.selectedPiece) {
       this.selectedPiece.className = this.selectedPiece.className + " active"
       this.selectedPieceInstance = this.players[this.selectedPiece.id < 16 ? 1 : 0].getPieceById(this.selectedPiece.id)
-      // console.log(this.selectedPiece.className)
+      // console.log(this.selectedPiece)
     }
   }
 
@@ -60,6 +60,15 @@ export default class GameBoard {
   }
 
   changePiecePosition(target) {
+const selectedPieceId = target.id.split("")
+console.log(selectedPieceId)
+const position = {
+  column: selectedPieceId[0],
+  row: +selectedPieceId[1],
+}; 
+console.log(position)
+this.selectedPieceInstance.setPosition(position)
+  
 
     // wyciągnąć position z targetu i przypisać do klasy pionka w js
     // id rozbic na 2 elementy - kolumnę i wiersz
