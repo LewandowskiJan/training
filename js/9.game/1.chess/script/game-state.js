@@ -1,109 +1,86 @@
-import Piece from "./piece.js";
-import Player from "./player.js";
+import Piece from './piece.js';
+import Player from './player.js';
+import ChessColumnService from './chess-column.service.js';
+import { COLUMN_SIZE, ROW_SIZE } from './script.js';
 
-export const chessColumnConfiguration = new Map([
-  [0, "a"],
-  [1, "b"],
-  [2, "c"],
-  [3, "d"],
-  [4, "e"],
-  [5, "f"],
-  [6, "g"],
-  [7, "h"],
-])
 export default class GameState {
   rounds;
+  currentRound;
   players = [];
   time;
+  gameStatus = 'pre-start';
 
   constructor(rounds, time) {
-    this.rounds = rounds
-    this.time = time
+    this.rounds = rounds;
+    this.time = time;
   }
 
   setupGame() {
+    this.#setupPlayers();
+    this.#drawChessBoard();
+    this.gameStatus = 'start';
+  }
+
+  getPlayers() {
+    return this.players;
+  }
+
+  #drawChessBoard() {
     let counter = 0;
-    this.players.push(new Player("Joe", "white"), new Player("Jane", "black"))
-    for (let chessRow = 8; chessRow > 0; chessRow = chessRow - 1) {
-      if (chessRow > 6 || chessRow < 3) {
-        for (let chessColumn = 0; chessColumn < 8; chessColumn++) {
-          const cellColumn = chessColumnConfiguration.get(chessColumn)
-          const currentPiece = new Piece({ column: cellColumn, row: chessRow })
+    for (let chessRow = ROW_SIZE; chessRow > 0; chessRow--) {
+      if (this.#isInitialRowWithPieces(chessRow)) {
+        for (let chessColumn = 1; chessColumn <= COLUMN_SIZE; chessColumn++) {
+          const cellColumn = ChessColumnService.getColumnNameByColumnNumber(chessColumn);
+          const currentPiece = new Piece({ column: cellColumn, row: chessRow });
 
-          if (chessRow < 3) { this.players[0].pushPiece(currentPiece, "bottom") }
-          if (chessRow > 6) { this.players[1].pushPiece(currentPiece, "top") }
+          if (this.#isBottomRow(chessRow)) this.#addPieceToPlayer(currentPiece, 0);
+          if (this.#isTopRow(chessRow)) this.#addPieceToPlayer(currentPiece, 1);
 
-          switch (chessColumn) {
-            case 0:
-              currentPiece.setupPieceView(this.#isFirstOrLastRow(chessRow)
-                ? { type: 'rook', icon: '&#128136;' }
-                : { type: 'pawn', icon: '&#128023;' })
-              break;
-            case 1:
-
-              currentPiece.setupPieceView(this.#isFirstOrLastRow(chessRow)
-                ? { type: 'knight', icon: '&#127943;' }
-                : { type: 'pawn', icon: '&#128023;' });
-              break;
-            case 2:
-              currentPiece.setupPieceView(this.#isFirstOrLastRow(chessRow)
-                ? { type: 'bishop', icon: '&#127939;' }
-                : { type: 'pawn', icon: '&#128023;' });
-              break;
-            case 3:
-              currentPiece.setupPieceView(this.#isFirstOrLastRow(chessRow)
-                ? { type: 'king', icon: '&#129332;' }
-                : { type: 'pawn', icon: '&#128023;' });
-              break;
-            case 4:
-              currentPiece.setupPieceView(this.#isFirstOrLastRow(chessRow)
-                ? { type: 'queen', icon: '&#128120;' }
-                : { type: 'pawn', icon: '&#128023;' });
-              break;
-            case 5:
-              currentPiece.setupPieceView(this.#isFirstOrLastRow(chessRow)
-                ? { type: 'bishop', icon: '&#127939;' }
-                : { type: 'pawn', icon: '&#128023;' });
-              break;
-            case 6:
-              currentPiece.setupPieceView(this.#isFirstOrLastRow(chessRow)
-                ? { type: 'knight', icon: '&#127943;' }
-                : { type: 'pawn', icon: '&#128023;' });
-              break;
-            case 7:
-              currentPiece.setupPieceView(this.#isFirstOrLastRow(chessRow)
-                ? { type: 'rook', icon: '&#128136;' }
-                : { type: 'pawn', icon: '&#128023;' });
-              break;
-          }
-
-          const cell = document.getElementById(cellColumn + chessRow);
-          cell.innerHTML = currentPiece.genratePieceView(counter);
+          this.#setupCurrentPieceView(currentPiece, cellColumn, chessRow, counter);
 
           counter++;
         }
       }
     }
   }
+
+  #setupCurrentPieceView(currentPiece, cellColumn, chessRow, counter) {
+    currentPiece.setupPieceView(cellColumn, chessRow, counter);
+  }
+
+  #addPieceToPlayer(currentPiece, playerNumber) {
+    this.players[playerNumber].pushPiece(currentPiece, playerNumber === 0 ? 'bottom' : 'top');
+  }
+
+  #setupPlayers() {
+    this.players.push(new Player('Joe', 'white'), new Player('Jane', 'black'));
+  }
+
+  #isInitialRowWithPieces(row) {
+    return this.#isTopRow(row) || this.#isBottomRow(row);
+  }
+
+  #isTopRow(row) {
+    return row > 6;
+  }
+
+  #isBottomRow(row) {
+    return row < 3;
+  }
+
   endGame() {
-    return x
+    this.gameStatus = 'end';
   }
   nextRound() {
-    return x
+    this.currentRound++;
   }
   beatPiece() {
-    return x
+    return x;
   }
   selectPiece() {
-    return x
+    return x;
   }
   restorePiece() {
-    return x
-  }
-  #isFirstOrLastRow(row) {
-    return row === 8 || row === 1;
-  }
-  getPlayers() {
-    return this.players
+    return x;
   }
 }

@@ -1,25 +1,17 @@
-const rowNumber = new Set([ 1, 2, 3, 4, 5, 6, 7, 8]);
+import ChessColumnService from './chess-column.service.js';
+import ChessRowService from './chess-row.service.js';
+import { FIRST_ROW, LAST_ROW } from './script.js';
 
-const columnToNumber = new Map([
-  ['a', 1],
-  ['b', 2],
-  ['c', 3],
-  ['d', 4],
-  ['e', 5],
-  ['f', 6],
-  ['g', 7],
-  ['h', 8],
-]);
-
-const numberToColumn = new Map([
-  [1, 'a'],
-  [2, 'b'],
-  [3, 'c'],
-  [4, 'd'],
-  [5, 'e'],
-  [6, 'f'],
-  [7, 'g'],
-  [8, 'h'],
+export const rowChessPiecesConfiguration = new Map([
+  ['a', { type: 'rook', icon: '&#128136;' }],
+  ['b', { type: 'knight', icon: '&#127943;' }],
+  ['c', { type: 'bishop', icon: '&#127939;' }],
+  ['d', { type: 'king', icon: '&#129332;' }],
+  ['e', { type: 'queen', icon: '&#128120;' }],
+  ['f', { type: 'bishop', icon: '&#127939;' }],
+  ['g', { type: 'knight', icon: '&#127943;' }],
+  ['h', { type: 'rook', icon: '&#128136;' }],
+  ['pawn', { type: 'pawn', icon: '&#128023;' }],
 ]);
 
 export default class Piece {
@@ -35,34 +27,33 @@ export default class Piece {
   side;
 
   constructor(position) {
-    this.position = position
+    this.position = position;
   }
   showAvailableMovements() {
-    return x
+    return x;
   }
 
   move() {
-    return x
+    return x;
   }
   setPosition(position) {
     this.position = position;
-    // console.log(this.type)
-    // console.log(position)
+  }
 
-    // dodać 2 pola do tej klasy
-    // pierwsze pole: moveScope
-    // drugie pole: attackScope
-    // będziemy wyliczać za każdym setPosition()
-    // stworzyć mapę, która będzie zamieniać A->1 B->2 C->3 dla pozycji pionka (klucz litera, wartość liczba)
+  setupPieceView(cellColumn, chessRow, counter) {
+    const { type, icon } = this.#getCurrentPiceConfiguration(cellColumn, chessRow);
+    this.type = type;
+    this.icon = icon;
+    this.#drawCurrentPiece(cellColumn + chessRow, counter);
   }
-  setupPieceView(view) {
-    this.type = view.type;
-    this.icon = view.icon;
+
+  #generatePieceView(counter, active = '') {
+    this.#setupId(counter);
+    return `<div class="piece ${active} ${this.type} ${this.playerColor}" id="${this.id}">${this.icon}</div>`;
   }
-  genratePieceView(counter, active = "") {
-    this.id = counter
-    // return '<div class="piece ' + active + " "+ this.type +  " "+ this.playerColor + '" id="' + this.id + '">' + this.icon + '</div>'
-    return "".concat('<div class="piece ', active, " ", this.type, " ", this.playerColor, '" id="', this.id, '">', this.icon, '</div>');
+
+  #setupId(id) {
+    this.id = id;
   }
 
   setupAttackScope() {
@@ -70,103 +61,129 @@ export default class Piece {
     // strona (top,bottom) (dostępne w klasie piece this.side)
     // obecna pozycja (this.position z przemapowaniem liternki na numer i z powrotem)
     // będziemy ustawiać this.attackScope[]
-    this.attackScope = []
-    if (this.type === "pawn") {
-      if (this.side === "bottom") {
+    this.attackScope = [];
+    if (this.type === 'pawn') {
+      if (this.side === 'bottom') {
         const attack1 = {
-          column: numberToColumn.get(columnToNumber.get(this.position.column) - 1),
-          row: this.position.row + 1
-        }
+          column: ChessColumnService.calculateColumnName(this.position.column, -1),
+          row: this.position.row + 1,
+        };
         const attack2 = {
-          column: numberToColumn.get(columnToNumber.get(this.position.column) + 1),
-          row: this.position.row + 1
-        }
+          column: ChessColumnService.calculateColumnName(this.position.column, 1),
+          row: this.position.row + 1,
+        };
         // console.log(attack1)
-        this.attackScope.push(attack1)
-        this.attackScope.push(attack2)
+        this.attackScope.push(attack1);
+        this.attackScope.push(attack2);
       }
-      if (this.side === "top") {
+      if (this.side === 'top') {
         // zrobić to samo co powyżej tylko dla "top" inną metodą
-        this.attackScope.push()
-        this.attackScope.push()
+        this.attackScope.push();
+        this.attackScope.push();
       }
     }
     // console.log(this.attackScope)
-
   }
 
   setupMoveScope() {
-    this.moveScope = []
-    if (this.type === "pawn") {
-      if (this.side === "bottom") {
+    this.moveScope = [];
+    if (this.type === 'pawn') {
+      if (this.side === 'bottom') {
         const move = {
           column: this.position.column,
-          row: this.position.row + 1
-        }
-        console.log(move)
-        this.moveScope.push(move)
+          row: this.position.row + 1,
+        };
+        console.log(move);
+        this.moveScope.push(move);
       }
-      if (this.side === "top") {
+      if (this.side === 'top') {
         // zrobić to samo co powyżej tylko dla "top" inną metodą
-        this.moveScope.push()
-
+        this.moveScope.push();
       }
     }
-    if (this.type === "rook") {
-      let i = 1
-      let k = 1
-      let j = 1
-      let v = 1
-      let top = rowNumber.has(this.position.row + i)
-      let bottom = rowNumber.has(this.position.row - k)
-      let right = numberToColumn.has(columnToNumber.get(this.position.column) + j)
-      let left = numberToColumn.has(columnToNumber.get(this.position.column) - v)
-
-      while (top) {
-        const move = {
-          column: this.position.column,
-          row: this.position.row + i
-        }
-        // console.log(move)
-        this.moveScope.push(move)
-        i++
-        top = rowNumber.has(this.position.row + i)
-      }
-      while (bottom) {
-        const move = {
-          column: this.position.column,
-          row: this.position.row - k
-        }
-        // console.log(move)
-        this.moveScope.push(move)
-        k++
-        bottom = rowNumber.has(this.position.row - k)
-      }
-      while (right) {
-        const move = {
-          column: this.calculateColumnName(this.position.column, j),
-          row: this.position.row
-        }
-        // console.log(move)
-        this.moveScope.push(move)
-        j++
-        right = numberToColumn.has(columnToNumber.get(this.position.column) + j)
-      }
-      while (left) {
-        const move = {
-          column: this.calculateColumnName(this.position.column, -v),
-          row: this.position.row
-        }
-        // console.log(move)
-        this.moveScope.push(move)
-        v++
-        left = numberToColumn.has(columnToNumber.get(this.position.column) - v)
-      }
+    if (this.type === 'rook') {
+      this.#selectRookTopMovingCells();
+      this.#selectRookBottomMovingCells();
+      this.#selectRookRightMovingCells();
+      this.#selectRookLeftMovingCells();
     }
   }
 
-  calculateColumnName(columnName, number) {
-    return numberToColumn.get(columnToNumber.get(columnName) + number)
+  #selectRookLeftMovingCells() {
+    let leftColumnIndex = 1;
+
+    let left = ChessColumnService.hasNextColumnName(this.position.column, -leftColumnIndex);
+
+    while (left) {
+      const move = {
+        column: ChessColumnService.calculateColumnName(this.position.column, -leftColumnIndex),
+        row: this.position.row,
+      };
+
+      this.moveScope.push(move);
+      leftColumnIndex++;
+      left = ChessColumnService.hasNextColumnName(this.position.column, -leftColumnIndex);
+    }
+  }
+
+  #selectRookRightMovingCells() {
+    let rightColumnIndex = 1;
+    let right = ChessColumnService.hasNextColumnName(this.position.column, rightColumnIndex);
+    while (right) {
+      const move = {
+        column: ChessColumnService.calculateColumnName(this.position.column, rightColumnIndex),
+        row: this.position.row,
+      };
+
+      this.moveScope.push(move);
+      rightColumnIndex++;
+      right = ChessColumnService.hasNextColumnName(this.position.column, rightColumnIndex);
+    }
+  }
+
+  #selectRookTopMovingCells() {
+    let upperRowIndex = 1;
+    let top = ChessRowService.hasRowNumber(this.position.row + upperRowIndex);
+    while (top) {
+      const move = {
+        column: this.position.column,
+        row: this.position.row + upperRowIndex,
+      };
+      // console.log(move)
+      this.moveScope.push(move);
+      upperRowIndex++;
+      top = ChessRowService.hasRowNumber(this.position.row + upperRowIndex);
+    }
+  }
+
+  #selectRookBottomMovingCells() {
+    let lowerRowIndex = 1;
+    let bottom = ChessRowService.hasRowNumber(this.position.row - lowerRowIndex);
+    while (bottom) {
+      const move = {
+        column: this.position.column,
+        row: this.position.row - lowerRowIndex,
+      };
+
+      this.moveScope.push(move);
+      lowerRowIndex++;
+      bottom = ChessRowService.hasRowNumber(this.position.row - lowerRowIndex);
+    }
+  }
+
+  #drawCurrentPiece(cellId, counter) {
+    const cell = document.getElementById(cellId);
+    cell.innerHTML = this.#generatePieceView(counter);
+  }
+
+  #getCurrentPiceConfiguration(cellColumn, chessRow) {
+    return this.#isFirstOrLastRow(chessRow)
+      ? rowChessPiecesConfiguration.get(cellColumn)
+      : rowChessPiecesConfiguration.get('pawn');
+  }
+
+  #isFirstOrLastRow(row) {
+    return row === FIRST_ROW || row === LAST_ROW;
   }
 
   getMoveScope() {
@@ -184,5 +201,4 @@ export default class Piece {
   setPlayerColor(color) {
     this.playerColor = color;
   }
-
 }

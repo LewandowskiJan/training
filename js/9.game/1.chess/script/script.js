@@ -97,19 +97,25 @@
  * - restorePiece()
  */
 
-import GameState from "./game-state.js";
-import GameBoard from "./gameboard.js";
+import GameState from './game-state.js';
+import GameBoard from './gameboard.js';
+
+export const COLUMN_SIZE = 8;
+export const ROW_SIZE = 8;
+
+export const FIRST_ROW = 1;
+export const LAST_ROW = 8;
 
 let gameBoardElement;
 const selected = [];
 
 window.onload = () => {
-  const gamestate = new GameState(0, [], 0)
-  gamestate.setupGame()
+  const gamestate = new GameState(0, [], 0);
+  gamestate.setupGame();
   gameBoardElement = document.getElementById('chessboard');
-  const gameBoard = new GameBoard(gamestate.getPlayers())
+  const gameBoard = new GameBoard(gamestate.getPlayers());
 
   gameBoardElement.addEventListener('click', function (e) {
-    gameBoard.selectAndMovePiece(e.target)
+    gameBoard.selectAndMovePiece(e.target);
   });
 };
