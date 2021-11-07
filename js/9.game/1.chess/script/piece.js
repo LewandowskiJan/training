@@ -1,4 +1,4 @@
-const rowNumber = new Set([ 1, 2, 3, 4, 5, 6, 7, 8]);
+const rowNumber = new Set([1, 2, 3, 4, 5, 6, 7, 8]);
 
 const columnToNumber = new Map([
   ['a', 1],
@@ -66,10 +66,6 @@ export default class Piece {
   }
 
   setupAttackScope() {
-    // potrzebujemy: typ figury(pionek,wieza itp) (this.type)
-    // strona (top,bottom) (dostępne w klasie piece this.side)
-    // obecna pozycja (this.position z przemapowaniem liternki na numer i z powrotem)
-    // będziemy ustawiać this.attackScope[]
     this.attackScope = []
     if (this.type === "pawn") {
       if (this.side === "bottom") {
@@ -82,13 +78,23 @@ export default class Piece {
           row: this.position.row + 1
         }
         // console.log(attack1)
+        // console.log(attack2)
         this.attackScope.push(attack1)
         this.attackScope.push(attack2)
       }
       if (this.side === "top") {
-        // zrobić to samo co powyżej tylko dla "top" inną metodą
-        this.attackScope.push()
-        this.attackScope.push()
+        const attack3 = {
+          column: numberToColumn.get(columnToNumber.get(this.position.column) + 1),
+          row: this.position.row - 1
+        }
+        const attack4 = {
+          column: numberToColumn.get(columnToNumber.get(this.position.column) - 1),
+          row: this.position.row - 1
+        }
+        // console.log(attack3)
+        // console.log(attack4)
+        this.attackScope.push(attack3)
+        this.attackScope.push(attack4)
       }
     }
     // console.log(this.attackScope)
@@ -107,9 +113,12 @@ export default class Piece {
         this.moveScope.push(move)
       }
       if (this.side === "top") {
-        // zrobić to samo co powyżej tylko dla "top" inną metodą
-        this.moveScope.push()
-
+        const move1 = {
+          column: this.position.column,
+          row: this.position.row - 1
+        }
+        console.log(move1)
+        this.moveScope.push(move1)
       }
     }
     if (this.type === "rook") {
@@ -163,7 +172,86 @@ export default class Piece {
         left = numberToColumn.has(columnToNumber.get(this.position.column) - v)
       }
     }
+    if (this.type === "bishop") {
+      let q = 1
+      let w = 1
+      let e = 1
+      let r = 1
+      let top = rowNumber.has(this.position.row + q)
+      // let bottom = rowNumber.has(this.position.row - w)
+      let right = numberToColumn.has(columnToNumber.get(this.position.column) + q)
+      // let left = numberToColumn.has(columnToNumber.get(this.position.column) - w)
+      let topRight = rowNumber.has(this.position.row + q) && numberToColumn.has(columnToNumber.get(this.position.column) + q)
+      let topLeft = rowNumber.has(this.position.row + w) && numberToColumn.has(columnToNumber.get(this.position.column) - w)
+      let bottomLeft = rowNumber.has(this.position.row - e) && numberToColumn.has(columnToNumber.get(this.position.column) - e)
+      let bottomRight = rowNumber.has(this.position.row - r) && numberToColumn.has(columnToNumber.get(this.position.column) + r)
+
+      while (topRight) {
+        const move = {
+          column: this.calculateColumnName(this.position.column, q),
+          row: this.position.row + q
+        }
+        this.moveScope.push(move)
+        q++
+        topRight = rowNumber.has(this.position.row + q) && numberToColumn.has(columnToNumber.get(this.position.column) + q)
+      }
+      while (topLeft) {
+        const move = {
+          column: this.calculateColumnName(this.position.column, - w),
+          row: this.position.row + w
+        }
+        console.log(move)
+        this.moveScope.push(move)
+        w++
+        topLeft = rowNumber.has(this.position.row + w) && numberToColumn.has(columnToNumber.get(this.position.column) - w)
+      }
+      while (bottomLeft) {
+        const move = {
+          column: this.calculateColumnName(this.position.column, - e),
+          row: this.position.row - e
+        }
+        console.log(move)
+        this.moveScope.push(move)
+        e++
+        bottomLeft = rowNumber.has(this.position.row - e) && numberToColumn.has(columnToNumber.get(this.position.column) - e)
+      }
+      while (bottomRight) {
+        const move = {
+          column: this.calculateColumnName(this.position.column, + r),
+          row: this.position.row - r
+        }
+        console.log(move)
+        this.moveScope.push(move)
+        r++
+        bottomRight = rowNumber.has(this.position.row - r) && numberToColumn.has(columnToNumber.get(this.position.column) + r)
+      }
+    }
+    if (this.type === "queen") {
+      ("bishop".moveScope.push(move)) && "rook".moveScope.push(move)}
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   calculateColumnName(columnName, number) {
     return numberToColumn.get(columnToNumber.get(columnName) + number)
