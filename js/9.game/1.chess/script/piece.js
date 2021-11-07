@@ -122,109 +122,102 @@ export default class Piece {
       }
     }
     if (this.type === "rook" || this.type === "queen") {
-      let i = 1
-      let k = 1
-      let j = 1
-      let v = 1
-      let top = rowNumber.has(this.position.row + i)
-      let bottom = rowNumber.has(this.position.row - k)
-      let right = numberToColumn.has(columnToNumber.get(this.position.column) + j)
-      let left = numberToColumn.has(columnToNumber.get(this.position.column) - v)
+      let i = 1;
+      let k = 1;
+      let j = 1;
+      let v = 1;
+      let top = rowNumber.has(this.position.row + i);
+      let bottom = rowNumber.has(this.position.row - k);
+      let right = numberToColumn.has(columnToNumber.get(this.position.column) + j);
+      let left = numberToColumn.has(columnToNumber.get(this.position.column) - v);
 
       while (top) {
         const move = {
           column: this.position.column,
           row: this.position.row + i
-        }
+        };
         // console.log(move)
-        this.moveScope.push(move)
+        this.moveScope.push(move);
         i++
         top = rowNumber.has(this.position.row + i)
-      }
+      };
       while (bottom) {
         const move = {
           column: this.position.column,
           row: this.position.row - k
-        }
+        };
         // console.log(move)
-        this.moveScope.push(move)
+        this.moveScope.push(move);
         k++
-        bottom = rowNumber.has(this.position.row - k)
-      }
+        bottom = rowNumber.has(this.position.row - k);
+      };
       while (right) {
         const move = {
           column: this.calculateColumnName(this.position.column, j),
           row: this.position.row
-        }
+        };
         // console.log(move)
-        this.moveScope.push(move)
+        this.moveScope.push(move);
         j++
-        right = numberToColumn.has(columnToNumber.get(this.position.column) + j)
-      }
+        right = numberToColumn.has(columnToNumber.get(this.position.column) + j);
+      };
       while (left) {
         const move = {
           column: this.calculateColumnName(this.position.column, -v),
           row: this.position.row
-        }
+        };
         // console.log(move)
-        this.moveScope.push(move)
+        this.moveScope.push(move);
         v++
-        left = numberToColumn.has(columnToNumber.get(this.position.column) - v)
-      }
+        left = numberToColumn.has(columnToNumber.get(this.position.column) - v);
+      };
     }
     if (this.type === "bishop" || this.type === "queen") {
-      let q = 1
-      let w = 1
-      let e = 1
-      let r = 1
-      let top = rowNumber.has(this.position.row + q)
-      // let bottom = rowNumber.has(this.position.row - w)
-      let right = numberToColumn.has(columnToNumber.get(this.position.column) + q)
-      // let left = numberToColumn.has(columnToNumber.get(this.position.column) - w)
-      let topRight = rowNumber.has(this.position.row + q) && numberToColumn.has(columnToNumber.get(this.position.column) + q)
-      let topLeft = rowNumber.has(this.position.row + w) && numberToColumn.has(columnToNumber.get(this.position.column) - w)
-      let bottomLeft = rowNumber.has(this.position.row - e) && numberToColumn.has(columnToNumber.get(this.position.column) - e)
-      let bottomRight = rowNumber.has(this.position.row - r) && numberToColumn.has(columnToNumber.get(this.position.column) + r)
+      let q = 1;
+      let w = 1;
+      let e = 1;
+      let r = 1;
+      let topRight = rowNumber.has(this.position.row + q) && numberToColumn.has(columnToNumber.get(this.position.column) + q);
+      let topLeft = rowNumber.has(this.position.row + w) && numberToColumn.has(columnToNumber.get(this.position.column) - w);
+      let bottomLeft = rowNumber.has(this.position.row - e) && numberToColumn.has(columnToNumber.get(this.position.column) - e);
+      let bottomRight = rowNumber.has(this.position.row - r) && numberToColumn.has(columnToNumber.get(this.position.column) + r);
 
       while (topRight) {
         const move = {
           column: this.calculateColumnName(this.position.column, q),
           row: this.position.row + q
-        }
-        this.moveScope.push(move)
+        };
+        this.moveScope.push(move);
         q++
-        topRight = rowNumber.has(this.position.row + q) && numberToColumn.has(columnToNumber.get(this.position.column) + q)
-      }
+        topRight = rowNumber.has(this.position.row + q) && numberToColumn.has(columnToNumber.get(this.position.column) + q);
+      };
       while (topLeft) {
         const move = {
           column: this.calculateColumnName(this.position.column, - w),
           row: this.position.row + w
-        }
-        console.log(move)
-        this.moveScope.push(move)
+        };
+        this.moveScope.push(move);
         w++
-        topLeft = rowNumber.has(this.position.row + w) && numberToColumn.has(columnToNumber.get(this.position.column) - w)
+        topLeft = rowNumber.has(this.position.row + w) && numberToColumn.has(columnToNumber.get(this.position.column) - w);
       }
       while (bottomLeft) {
         const move = {
           column: this.calculateColumnName(this.position.column, - e),
           row: this.position.row - e
-        }
-        console.log(move)
-        this.moveScope.push(move)
+        };
+        this.moveScope.push(move);
         e++
-        bottomLeft = rowNumber.has(this.position.row - e) && numberToColumn.has(columnToNumber.get(this.position.column) - e)
-      }
+        bottomLeft = rowNumber.has(this.position.row - e) && numberToColumn.has(columnToNumber.get(this.position.column) - e);
+      };
       while (bottomRight) {
         const move = {
           column: this.calculateColumnName(this.position.column, + r),
           row: this.position.row - r
-        }
-        console.log(move)
-        this.moveScope.push(move)
+        };
+        this.moveScope.push(move);
         r++
-        bottomRight = rowNumber.has(this.position.row - r) && numberToColumn.has(columnToNumber.get(this.position.column) + r)
-      }
+        bottomRight = rowNumber.has(this.position.row - r) && numberToColumn.has(columnToNumber.get(this.position.column) + r);
+      };
      }
   }
 
