@@ -49,7 +49,7 @@ export default class GameBoard {
   showAvailableMove() {
     this.selectedPieceInstance.getMoveScope().forEach((element) => {
       const cell = document.getElementById(element.column + element.row);
-      cell.style = 'background-color:brown;';
+      cell.style = 'background-color: rgba(160, 250, 160, .5);';
     });
   }
 
