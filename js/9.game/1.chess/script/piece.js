@@ -121,7 +121,7 @@ export default class Piece {
         this.moveScope.push(move1)
       }
     }
-    if (this.type === "rook") {
+    if (this.type === "rook" || this.type === "queen") {
       let i = 1
       let k = 1
       let j = 1
@@ -172,7 +172,7 @@ export default class Piece {
         left = numberToColumn.has(columnToNumber.get(this.position.column) - v)
       }
     }
-    if (this.type === "bishop") {
+    if (this.type === "bishop" || this.type === "queen") {
       let q = 1
       let w = 1
       let e = 1
@@ -225,10 +225,9 @@ export default class Piece {
         r++
         bottomRight = rowNumber.has(this.position.row - r) && numberToColumn.has(columnToNumber.get(this.position.column) + r)
       }
-    }
-    if (this.type === "queen") {
-      ("bishop".moveScope.push(move)) && "rook".moveScope.push(move)}
+     }
   }
+
 
 
 
