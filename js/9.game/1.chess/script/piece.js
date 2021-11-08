@@ -101,21 +101,21 @@ export default class Piece {
       }
     }
     if (this.type === 'rook' || this.type === 'queen') {
-      this.#selectRookTopMovingCells();
-      this.#selectRookBottomMovingCells();
-      this.#selectRookRightMovingCells();
-      this.#selectRookLeftMovingCells();
+      this.#selectRookQueenTopMovingCells();
+      this.#selectRookQueenBottomMovingCells();
+      this.#selectRookQueenRightMovingCells();
+      this.#selectRookQueenLeftMovingCells();
     }
 
     if (this.type === 'bishop' || this.type === 'queen') {
-      this.#selectBishopTopRightMovingCells();
-      this.#selectBishopTopLeftMovingCells();
-      this.#selectBishopBottomRightMovingCells();
-      this.#selectBishopBottomLefMovingCells();
+      this.#selectBishopQueenTopRightMovingCells();
+      this.#selectBishopQueenTopLeftMovingCells();
+      this.#selectBishopQueenBottomRightMovingCells();
+      this.#selectBishopQueenBottomLefMovingCells();
     }
   }
 
-  #selectRookLeftMovingCells() {
+  #selectRookQueenLeftMovingCells() {
     let leftColumnIndex = 1;
 
     let left = ChessColumnService.hasNextColumnName(this.position.column, -leftColumnIndex);
@@ -140,7 +140,7 @@ export default class Piece {
     }
   }
 
-  #selectRookRightMovingCells() {
+  #selectRookQueenRightMovingCells() {
     let rightColumnIndex = 1;
     let right = ChessColumnService.hasNextColumnName(this.position.column, rightColumnIndex);
     while (right) {
@@ -155,7 +155,7 @@ export default class Piece {
     }
   }
 
-  #selectRookTopMovingCells() {
+  #selectRookQueenTopMovingCells() {
     let upperRowIndex = 1;
     let top = ChessRowService.hasRowNumber(this.position.row + upperRowIndex);
     while (top) {
@@ -170,7 +170,7 @@ export default class Piece {
     }
   }
 
-  #selectRookBottomMovingCells() {
+  #selectRookQueenBottomMovingCells() {
     let lowerRowIndex = 1;
     let bottom = ChessRowService.hasRowNumber(this.position.row - lowerRowIndex);
     while (bottom) {
@@ -185,7 +185,7 @@ export default class Piece {
     }
   }
 
-  #selectBishopTopRightMovingCells() {
+  #selectBishopQueenTopRightMovingCells() {
     let q = 1;
     let topRight =
       ChessRowService.hasRowNumber(this.position.row + q) && ChessColumnService.hasColumnName(this.position.column, q);
@@ -202,7 +202,7 @@ export default class Piece {
     }
   }
 
-  #selectBishopTopLeftMovingCells() {
+  #selectBishopQueenTopLeftMovingCells() {
     let w = 1;
     let topLeft =
       ChessRowService.hasRowNumber(this.position.row + w) && ChessColumnService.hasColumnName(this.position.column, -w);
@@ -219,7 +219,7 @@ export default class Piece {
     }
   }
 
-  #selectBishopBottomRightMovingCells() {
+  #selectBishopQueenBottomRightMovingCells() {
     let r = 1;
 
     let bottomRight =
@@ -238,7 +238,7 @@ export default class Piece {
     }
   }
 
-  #selectBishopBottomLefMovingCells() {
+  #selectBishopQueenBottomLefMovingCells() {
     let e = 1;
     let bottomLeft =
       ChessRowService.hasRowNumber(this.position.row - e) && ChessColumnService.hasColumnName(this.position.column, -e);
