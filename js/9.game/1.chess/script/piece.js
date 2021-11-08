@@ -96,8 +96,11 @@ export default class Piece {
         this.moveScope.push(move);
       }
       if (this.side === 'top') {
-        // zrobić to samo co powyżej tylko dla "top" inną metodą
-        this.moveScope.push();
+        const move = {
+          column: this.position.column,
+          row: this.position.row - 1,
+        };
+        this.moveScope.push(move);
       }
     }
     if (this.type === 'rook' || this.type === 'queen') {
@@ -113,6 +116,78 @@ export default class Piece {
       this.#selectBishopQueenBottomRightMovingCells();
       this.#selectBishopQueenBottomLefMovingCells();
     }
+    if(this.type === "knight") {
+      const move = {
+        column: ChessColumnService.calculateColumnName(this.position.column, 1),
+        row: this.position.row + 2
+      }
+          const move1 = {
+        column: ChessColumnService.calculateColumnName(this.position.column, -1),
+        row: this.position.row + 2
+      }
+          const move2 = {
+            column: ChessColumnService.calculateColumnName(this.position.column, -1),
+        row: this.position.row - 2
+      }
+          const move3 = {
+        column: ChessColumnService.calculateColumnName(this.position.column, +1),
+        row: this.position.row - 2
+      }
+          const move4 = {
+        column: ChessColumnService.calculateColumnName(this.position.column, -2),
+        row: this.position.row + 1
+      }
+          const move5 = {
+        column: ChessColumnService.calculateColumnName(this.position.column, -2),
+        row: this.position.row - 1
+      }
+          const move6 = {
+        column: ChessColumnService.calculateColumnName(this.position.column, +2),
+        row: this.position.row + 1
+      }
+          const move7 = {
+        column: ChessColumnService.calculateColumnName(this.position.column, +2),
+        row: this.position.row - 1
+      }
+          console.log(move, move1, move2, move3, move4, move5, move6, move7)
+          this.moveScope.push(move, move1, move2, move3, move4, move5, move6, move7)
+        }
+        if(this.type === "king") {
+          const move = {
+            column: ChessColumnService.calculateColumnName(this.position.column, 1),
+            row: this.position.row + 1
+          }
+              const move1 = {
+            column: ChessColumnService.calculateColumnName(this.position.column, 1),
+            row: this.position.row
+          }
+              const move2 = {
+                column: ChessColumnService.calculateColumnName(this.position.column, 1),
+            row: this.position.row - 1
+          }
+              const move3 = {
+            column: ChessColumnService.calculateColumnName(this.position.column, 0),
+            row: this.position.row -1
+          }
+              const move4 = {
+            column: ChessColumnService.calculateColumnName(this.position.column, -1),
+            row: this.position.row + 1
+          }
+              const move5 = {
+            column: ChessColumnService.calculateColumnName(this.position.column, -1),
+            row: this.position.row -1
+          }
+              const move6 = {
+            column: ChessColumnService.calculateColumnName(this.position.column, -1),
+            row: this.position.row
+          }
+              const move7 = {
+            column: ChessColumnService.calculateColumnName(this.position.column, +0),
+            row: this.position.row + 1
+          }
+              console.log(move, move1, move2, move3, move4, move5, move6, move7)
+              this.moveScope.push(move, move1, move2, move3, move4, move5, move6, move7)
+            }
   }
 
   #selectRookQueenLeftMovingCells() {
