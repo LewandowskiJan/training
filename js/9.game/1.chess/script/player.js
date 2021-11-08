@@ -11,26 +11,25 @@ export default class Player {
     this.color = color;
   }
   movePiece() {
-    return x
+    return x;
   }
   giveUp() {
-    return x
+    return x;
   }
   removePiece() {
-    return x
+    return x;
   }
   restorePiece() {
-    return x
+    return x;
   }
   pushPiece(piece, side) {
-    piece.setPlayerColor(this.color)
-    piece.setupSide(side)
-    this.onGamePieces.push(piece)
+    piece.setPlayerColor(this.color);
+    piece.setupSide(side);
+    this.onGamePieces.push(piece);
   }
   getPieceById(id) {
     return this.onGamePieces.find((piece) => {
-      return piece.id === +id
-    })
-
+      return piece.id === +id;
+    });
   }
 }

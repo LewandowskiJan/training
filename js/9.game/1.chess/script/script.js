@@ -107,7 +107,6 @@ export const FIRST_ROW = 1;
 export const LAST_ROW = 8;
 
 let gameBoardElement;
-const selected = [];
 
 window.onload = () => {
   const gamestate = new GameState(0, [], 0);
