@@ -99,6 +99,8 @@
 
 import GameState from './game-state.js';
 import GameBoard from './gameboard.js';
+import Rook from './pice/pice-type/rook.js';
+import PieceAbstract from './pice/pice.abstract.js';
 
 export const COLUMN_SIZE = 8;
 export const ROW_SIZE = 8;

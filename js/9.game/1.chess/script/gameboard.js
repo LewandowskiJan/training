@@ -24,15 +24,14 @@ export default class GameBoard {
   }
 
   movePiece(target) {
-    if (this.#isOutOfTheMoveScope(target)) return;
     target.appendChild(this.selectedPiece);
   }
 
   #isOutOfTheMoveScope(target) {
-    // dodac implementacje, sprawdzic, czy zaznaczona figura moze sie ruszyc w dane miejsce
-    // informacja powinna być w this.selectedPieceInstance.getMoveScope()
-
-    return false;
+    return !this.selectedPieceInstance.getMoveScope().some((element) => {
+      console.log(element);
+      return target.id === element.column + element.row;
+    });
   }
 
   selectPiece(target) {
@@ -88,6 +87,7 @@ export default class GameBoard {
   }
 
   changePiecePosition(target) {
+    if (this.#isOutOfTheMoveScope(target)) return;
     // wyciągnąć position z targetu i przypisać do klasy pionka w js
     // id rozbic na 2 elementy - kolumnę i wiersz
     // przypisać to do obiektu {column, row} (przy zachowaniu string i number)
