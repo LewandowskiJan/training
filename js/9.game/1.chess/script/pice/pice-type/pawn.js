@@ -33,12 +33,23 @@ export default class Pawn extends PieceAbstract {
 
   setupMoveScope() {
     this.moveScope = [];
-    if (this.type === 'pawn') {
+     let lastLoop = false;
+    if (this.type === 'pawn' && lastLoop) {
+      console.log(move)
+      console.log(lastLoop)
+      console.log(moveScope)
       if (this.side === 'bottom') {
         const move = {
-          column: this.position.column,
+          column: ChessColumnService.calculateColumnName(this.position.column),
           row: this.position.row + 1,
         };
+        const lm = document.getElementById(move.column + move.row);
+        if (this.isAllyPiece(lm)) {
+          return;
+        }
+        if (this.isEnemyPiece(lm)) {
+          lastLoop = true;
+        }
         console.log(move);
         this.moveScope.push(move);
       }
@@ -47,6 +58,12 @@ export default class Pawn extends PieceAbstract {
           column: this.position.column,
           row: this.position.row - 1,
         };
+        if (this.isAllyPiece(lm)) {
+          return;
+        }
+        if (this.isEnemyPiece(lm)) {
+          lastLoop = true;
+        }
         this.moveScope.push(move);
       }
     }}}
