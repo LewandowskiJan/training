@@ -42,8 +42,54 @@ export default class Knight extends PieceAbstract {
         column: ChessColumnService.calculateColumnName(this.position.column, +2),
         row: this.position.row - 1,
       };
-      // console.log(move, move1, move2, move3, move4, move5, move6, move7);
-      this.moveScope.push(move, move1, move2, move3, move4, move5, move6, move7);
+      const lm = document.getElementById(move.column + move.row);
+      const lm1 = document.getElementById(move1.column + move1.row);
+      const lm2 = document.getElementById(move2.column + move2.row);
+      const lm3 = document.getElementById(move3.column + move3.row);
+      const lm4 = document.getElementById(move4.column + move4.row);
+      const lm5 = document.getElementById(move5.column + move5.row);
+      const lm6 = document.getElementById(move6.column + move6.row);
+      const lm7 = document.getElementById(move7.column + move7.row);
+      if (this.isAllyPiece(lm)) {
+        return;
+      };
+
+      if (this.isAllyPiece(lm1)) {
+        return;
+      };
+
+      if (this.isAllyPiece(lm2)) {
+        return;
+      };
+
+      if (this.isAllyPiece(lm3)) {
+        return;
+      };
+
+      if (this.isAllyPiece(lm4)) {
+        return;
+      };
+
+      if (this.isAllyPiece(lm5)) {
+        return;
+      };
+
+      if (this.isAllyPiece(lm6)) {
+        return;
+      };
+
+      if (this.isAllyPiece(lm7)) {
+        return;
+      };
+      
+      this.moveScope.push(move),
+      this.moveScope.push(move1),
+      this.moveScope.push(move2),
+      this.moveScope.push(move3),
+      this.moveScope.push(move4),
+      this.moveScope.push(move5),
+      this.moveScope.push(move6),
+      this.moveScope.push(move7)
     }
   }
 }

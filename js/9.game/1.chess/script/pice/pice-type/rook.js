@@ -25,7 +25,6 @@ export default class Rook extends PieceAbstract {
         row: this.position.row,
       };
       const lm = document.getElementById(move.column + move.row);
-
       if (this.isAllyPiece(lm)) {
         return;
       }

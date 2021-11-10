@@ -9,6 +9,7 @@ export default class Pawn extends PieceAbstract {
     // obecna pozycja (this.position z przemapowaniem liternki na numer i z powrotem)
     // będziemy ustawiać this.attackScope[]
     this.attackScope = [];
+    
     if (this.type === 'pawn') {
       if (this.side === 'bottom') {
         const attack1 = {
@@ -33,23 +34,16 @@ export default class Pawn extends PieceAbstract {
 
   setupMoveScope() {
     this.moveScope = [];
-     let lastLoop = false;
-    if (this.type === 'pawn' && lastLoop) {
-      console.log(move)
-      console.log(lastLoop)
-      console.log(moveScope)
-      if (this.side === 'bottom') {
+    if (this.type === 'pawn') {
+      if (this.side === 'bottom' ) {
         const move = {
-          column: ChessColumnService.calculateColumnName(this.position.column),
+          column: this.position.column,
           row: this.position.row + 1,
         };
         const lm = document.getElementById(move.column + move.row);
         if (this.isAllyPiece(lm)) {
           return;
-        }
-        if (this.isEnemyPiece(lm)) {
-          lastLoop = true;
-        }
+        };
         console.log(move);
         this.moveScope.push(move);
       }
@@ -58,12 +52,11 @@ export default class Pawn extends PieceAbstract {
           column: this.position.column,
           row: this.position.row - 1,
         };
+        const lm = document.getElementById(move.column + move.row);
         if (this.isAllyPiece(lm)) {
           return;
-        }
-        if (this.isEnemyPiece(lm)) {
-          lastLoop = true;
-        }
+        };
+        console.log(move);
         this.moveScope.push(move);
       }
     }}}
