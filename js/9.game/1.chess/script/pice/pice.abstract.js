@@ -77,6 +77,16 @@ export default class PieceAbstract {
     return row === FIRST_ROW || row === LAST_ROW;
   }
 
+  deletePieceInstance() {
+   this.moveScope = []
+   this.attackScope = []
+   this.position = {
+     column: "z",
+     row: 99
+   }
+   
+  }
+
   getMoveScope() {
     return this.moveScope;
   }

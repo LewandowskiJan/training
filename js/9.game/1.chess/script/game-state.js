@@ -1,4 +1,3 @@
-import Piece from './piece.js';
 import Player from './player.js';
 import ChessColumnService from './chess-column.service.js';
 import { COLUMN_SIZE, ROW_SIZE } from './script.js';

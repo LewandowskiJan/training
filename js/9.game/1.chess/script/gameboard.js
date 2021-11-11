@@ -10,15 +10,18 @@ export default class GameBoard {
   selectAndMovePiece(target) {
     this.clearAvailableMove();
     if (this.selectedPiece?.id === this.getClickedPiece(target)?.id) {
+      console.log(2)
       return this.clearSelected();
     }
-    if (!this.isPieceSelected() || this.isCellWithPieceOrPieceClicked(target)) {
+    if (!this.isPieceSelected() && this.isCellWithPieceOrPieceClicked(target)) {
       this.clearSelected();
+      console.log(3)
       return this.selectPiece(target);
     }
-    if (this.isPieceSelected() || !this.isCellWithPieceOrPieceClicked(target)) {
+    if (this.isPieceSelected() || !this.isCellWithPieceOrPieceClicked(target) || !this.#isOutOfTheMoveScope(target)) {
       this.changePiecePosition(target);
       this.clearSelected();
+      console.log(4)
       return;
     }
   }
@@ -27,10 +30,15 @@ export default class GameBoard {
     target.appendChild(this.selectedPiece);
   }
 
+  deletePiece(target) {
+    this.players[this.selectedPiece.id < 16 ? 0 : 1].removePieceById(target.childNodes[0].id)
+    target.removeChild(target.childNodes[0]);
+    console.log(this.players)
+  }
+
   #isOutOfTheMoveScope(target) {
-    return !this.selectedPieceInstance.getMoveScope().some((element) => {
-      console.log(element);
-      return target.id === element.column + element.row;
+    return !this.selectedPieceInstance.getMoveScope().some(({ column, row }) => {
+      return target.id === column + row || target.parentNode.id === column + row
     });
   }
 
@@ -40,7 +48,6 @@ export default class GameBoard {
       this.selectedPiece.className = this.selectedPiece.className + ' active';
       this.selectedPieceInstance = this.players[this.selectedPiece.id < 16 ? 1 : 0].getPieceById(this.selectedPiece.id);
       this.selectedPieceInstance.setupAttackScope();
-      this.selectedPieceInstance.setupMoveScope();
       this.showAvailableMove();
     }
   }
@@ -83,24 +90,29 @@ export default class GameBoard {
   }
 
   isPieceSelected() {
-    return !!this.selectedPiece;
+    return !!this.selectedPiece && !!this.selectedPieceInstance;
   }
 
   changePiecePosition(target) {
     if (this.#isOutOfTheMoveScope(target)) return;
-    // wyciągnąć position z targetu i przypisać do klasy pionka w js
-    // id rozbic na 2 elementy - kolumnę i wiersz
-    // przypisać to do obiektu {column, row} (przy zachowaniu string i number)
-    // wyciągnięte position przypisać do position w thisSelectedPieceInstance przy uzyciu metody setPosition()
-    // dodać implementację tej metody(set position) (czyli napisać tą metodę po prostu)
-    // wskazówka: do podzielenia stringa na 2 tablice z poszczególnymi literami nalezy użyć metody .split("")
-    const selectedPieceId = target.id.split('');
+    let selectedPieceId
+    if (this.#isPieceClicked(target)) {
+      selectedPieceId = target.parentNode.id.split('');
+      console.log(selectedPieceId)
+      this.movePiece(target.parentNode);
+      this.deletePiece(target.parentNode);
+    } else {
+      selectedPieceId = target.id.split('');
+      this.movePiece(target);
+    }
+
+    console.log(selectedPieceId)
     const position = {
       column: selectedPieceId[0],
       row: +selectedPieceId[1],
     };
     this.selectedPieceInstance.setPosition(position);
-    this.movePiece(target);
+
   }
 
   isCellWithPieceOrPieceClicked(target) {
