@@ -1,5 +1,4 @@
 import ChessColumnService from '../../chess-column.service.js';
-import ChessRowService from '../../chess-row.service.js';
 import PieceAbstract from '../pice.abstract.js';
 
 export default class King extends PieceAbstract {

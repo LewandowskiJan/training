@@ -1,5 +1,3 @@
-import ChessColumnService from './../chess-column.service.js';
-import ChessRowService from './../chess-row.service.js';
 import { FIRST_ROW, LAST_ROW } from '../script.js';
 
 export const rowChessPiecesConfiguration = new Map([
