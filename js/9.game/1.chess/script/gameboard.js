@@ -10,18 +10,18 @@ export default class GameBoard {
   selectAndMovePiece(target) {
     this.clearAvailableMove();
     if (this.selectedPiece?.id === this.getClickedPiece(target)?.id) {
-      console.log(2)
+      console.log(2);
       return this.clearSelected();
     }
     if (!this.isPieceSelected() && this.isCellWithPieceOrPieceClicked(target)) {
       this.clearSelected();
-      console.log(3)
+      console.log(3);
       return this.selectPiece(target);
     }
     if (this.isPieceSelected() || !this.isCellWithPieceOrPieceClicked(target) || !this.#isOutOfTheMoveScope(target)) {
       this.changePiecePosition(target);
       this.clearSelected();
-      console.log(4)
+      console.log(4);
       return;
     }
   }
@@ -31,14 +31,14 @@ export default class GameBoard {
   }
 
   deletePiece(target) {
-    this.players[this.selectedPiece.id < 16 ? 0 : 1].removePieceById(target.childNodes[0].id)
+    this.players[this.selectedPiece.id < 16 ? 0 : 1].removePieceById(target.childNodes[0].id);
     target.removeChild(target.childNodes[0]);
-    console.log(this.players)
+    console.log(this.players);
   }
 
   #isOutOfTheMoveScope(target) {
     return !this.selectedPieceInstance.getMoveScope().some(({ column, row }) => {
-      return target.id === column + row || target.parentNode.id === column + row
+      return target.id === column + row || target.parentNode.id === column + row;
     });
   }
 
@@ -95,24 +95,28 @@ export default class GameBoard {
 
   changePiecePosition(target) {
     if (this.#isOutOfTheMoveScope(target)) return;
-    let selectedPieceId
+    let selectedPieceId;
     if (this.#isPieceClicked(target)) {
       selectedPieceId = target.parentNode.id.split('');
-      console.log(selectedPieceId)
+      console.log(selectedPieceId);
       this.movePiece(target.parentNode);
       this.deletePiece(target.parentNode);
+    } else if (this.#isCellWithPieceClicked(target)) {
+      selectedPieceId = target.id.split('');
+      console.log(selectedPieceId);
+      this.movePiece(target);
+      this.deletePiece(target);
     } else {
       selectedPieceId = target.id.split('');
       this.movePiece(target);
     }
 
-    console.log(selectedPieceId)
+    console.log(selectedPieceId);
     const position = {
       column: selectedPieceId[0],
       row: +selectedPieceId[1],
     };
     this.selectedPieceInstance.setPosition(position);
-
   }
 
   isCellWithPieceOrPieceClicked(target) {
