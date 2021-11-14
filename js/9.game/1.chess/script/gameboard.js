@@ -7,19 +7,19 @@ export default class GameBoard {
     this.players = players;
   }
 
-  selectAndMovePiece(target) {
+  selectAndMovePiece(clickOnBoardService) {
     this.clearAvailableMove();
-    if (this.selectedPiece?.id === this.getClickedPiece(target)?.id) {
+    if (this.selectedPiece?.id === this.getClickedPiece(clickOnBoardService.target)?.id) {
       console.log(2);
       return this.clearSelected();
     }
-    if (!this.isPieceSelected() && this.isCellWithPieceOrPieceClicked(target)) {
+    if (!this.isPieceSelected() && this.isCellWithPieceOrPieceClicked(clickOnBoardService.target)) {
       this.clearSelected();
       console.log(3);
-      return this.selectPiece(target);
+      return this.selectPiece(clickOnBoardService.target);
     }
-    if (this.isPieceSelected() || !this.isCellWithPieceOrPieceClicked(target) || !this.#isOutOfTheMoveScope(target)) {
-      this.changePiecePosition(target);
+    if (this.isPieceSelected() || !this.isCellWithPieceOrPieceClicked(clickOnBoardService.target) || !this.#isOutOfTheMoveScope(clickOnBoardService.target)) {
+      this.changePiecePosition(clickOnBoardService.target);
       this.clearSelected();
       console.log(4);
       return;

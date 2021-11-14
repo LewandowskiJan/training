@@ -37,4 +37,5 @@ export default class Player {
       return piece.id === +id;
     });
   }
+  
 }

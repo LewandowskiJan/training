@@ -97,10 +97,9 @@
  * - restorePiece()
  */
 
+import ClickOnBoardService from './click-on-board.service.js';
 import GameState from './game-state.js';
 import GameBoard from './gameboard.js';
-import Rook from './pice/pice-type/rook.js';
-import PieceAbstract from './pice/pice.abstract.js';
 
 export const COLUMN_SIZE = 8;
 export const ROW_SIZE = 8;
@@ -115,8 +114,9 @@ window.onload = () => {
   gamestate.setupGame();
   gameBoardElement = document.getElementById('chessboard');
   const gameBoard = new GameBoard(gamestate.getPlayers());
-
+  const clickOnBoardService = new ClickOnBoardService()
   gameBoardElement.addEventListener('click', function (e) {
-    gameBoard.selectAndMovePiece(e.target);
+    clickOnBoardService.setupClick(e.target)
+    gameBoard.selectAndMovePiece(clickOnBoardService);
   });
 };
