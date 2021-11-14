@@ -113,7 +113,7 @@ window.onload = () => {
   const gamestate = new GameState(0, [], 0);
   gamestate.setupGame();
   gameBoardElement = document.getElementById('chessboard');
-  const gameBoard = new GameBoard(gamestate.getPlayers());
+  const gameBoard = new GameBoard(gamestate.getPlayers(), gamestate);
   gameBoardElement.addEventListener('click', function (e) {
     gameBoard.selectAndMovePiece(new ClickOnBoardService(e.target));
   });

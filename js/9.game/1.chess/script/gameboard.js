@@ -2,9 +2,11 @@ export default class GameBoard {
   selectedPiece;
   selectedPieceInstance;
   players;
+  gameState
 
-  constructor(players) {
+  constructor(players, gameState) {
     this.players = players;
+    this.gameState = gameState
   }
 
   selectAndMovePiece(clickOnBoardService) {
@@ -22,7 +24,7 @@ export default class GameBoard {
       return this.selectPiece(clickOnBoardService);
     }
     if (this.isPieceSelected() || !clickOnBoardService.isCellWithPieceOrPieceClicked()
-    || !this.#isOutOfTheMoveScope(clickOnBoardService.getCellId())) {
+      || !this.#isOutOfTheMoveScope(clickOnBoardService.getCellId())) {
       console.log(4);
       this.changePiecePosition(clickOnBoardService);
       this.clearSelected();
@@ -72,8 +74,13 @@ export default class GameBoard {
   }
 
   getClickedPiece(target) {
-    // console.log(target.getPieceId())
-    return document.getElementById(target.getPieceId()); 
+    // return document.getElementById(target.getPieceId());
+    if (this.gameState.isPlayerOneRound() && target.getPieceId() > 15) {
+      return document.getElementById(target.getPieceId());
+    }
+    if (!this.gameState.isPlayerOneRound() && target.getPieceId() < 16) {
+      return document.getElementById(target.getPieceId());
+    }
   }
 
   clearSelected() {
@@ -110,6 +117,8 @@ export default class GameBoard {
 
     console.log(piecePosition);
     this.selectedPieceInstance.setPosition(piecePosition);
+    this.gameState.nextRound()
+    console.log(this.gameState.currentRound)
   }
 
   isCellWithPieceOrPieceClicked(target) {

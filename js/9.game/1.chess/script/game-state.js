@@ -5,7 +5,7 @@ import PieceFactory from './pice/pice.factory.js';
 
 export default class GameState {
   rounds;
-  currentRound;
+  currentRound = 1;
   players = [];
   time;
   gameStatus = 'pre-start';
@@ -76,6 +76,10 @@ export default class GameState {
   }
   nextRound() {
     this.currentRound++;
+  }
+
+  isPlayerOneRound() {
+    return this.currentRound % 2 !== 0
   }
   beatPiece() {
     return x;
