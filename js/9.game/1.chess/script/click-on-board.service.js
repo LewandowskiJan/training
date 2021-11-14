@@ -7,9 +7,12 @@ export default class ClickOnBoardService {
   cellId;
   cellPosition;
 
+  constructor(target) {
+    this.setupClick(target)
+  }
   setupClick(target) {
     this.target = target
-    if (this.#isPieceClicked(target)) {
+    if (this.isPieceClicked(target)) {
       this.pieceTarget = target
       this.hasPiece = true
       this.cellTarget = target.parentNode
@@ -18,7 +21,7 @@ export default class ClickOnBoardService {
       this.cellPosition = this.getCellPosition()
     }
     else {
-      if (this.#isCellWithPieceClicked(target)) {
+      if (this.isCellWithPieceClicked()) {
         this.pieceTarget = target.childNodes[0]
         this.hasPiece = true
         this.cellTarget = target
@@ -60,16 +63,18 @@ export default class ClickOnBoardService {
     };
   }
 
-  isCellWithPieceOrPieceClicked(target) {
-    return this.#isCellWithPieceClicked(target) || this.#isPieceClicked(target);
+  isCellWithPieceOrPieceClicked() {
+    return this.isCellWithPieceClicked() || this.isPieceClicked();
   }
 
-  #isCellWithPieceClicked(target) {
-    return target?.childNodes[0]?.id;
+  isCellWithPieceClicked() {
+    console.log(this.target.childNodes)
+    return this.target?.childNodes[0]?.id;
   }
 
-  #isPieceClicked(target) {
-    return target.className.includes('piece');
+  isPieceClicked() {
+    console.log(this.target.className.includes('piece'))
+    return this.target.className.includes('piece');
   }
 
 

@@ -9,19 +9,23 @@ export default class GameBoard {
 
   selectAndMovePiece(clickOnBoardService) {
     this.clearAvailableMove();
-    if (this.selectedPiece?.id === this.getClickedPiece(clickOnBoardService.target)?.id) {
+    console.log(clickOnBoardService.getPieceId())
+    console.log(clickOnBoardService.isCellWithPieceClicked())
+
+    if (this.selectedPiece?.id === clickOnBoardService.getPieceId()) {
       console.log(2);
       return this.clearSelected();
     }
-    if (!this.isPieceSelected() && this.isCellWithPieceOrPieceClicked(clickOnBoardService.target)) {
-      this.clearSelected();
+    if (!this.isPieceSelected() && clickOnBoardService.isCellWithPieceOrPieceClicked()) {
       console.log(3);
-      return this.selectPiece(clickOnBoardService.target);
-    }
-    if (this.isPieceSelected() || !this.isCellWithPieceOrPieceClicked(clickOnBoardService.target) || !this.#isOutOfTheMoveScope(clickOnBoardService.target)) {
-      this.changePiecePosition(clickOnBoardService.target);
       this.clearSelected();
+      return this.selectPiece(clickOnBoardService);
+    }
+    if (this.isPieceSelected() || !clickOnBoardService.isCellWithPieceOrPieceClicked()
+    || !this.#isOutOfTheMoveScope(clickOnBoardService.getCellId())) {
       console.log(4);
+      this.changePiecePosition(clickOnBoardService);
+      this.clearSelected();
       return;
     }
   }
@@ -36,9 +40,9 @@ export default class GameBoard {
     console.log(this.players);
   }
 
-  #isOutOfTheMoveScope(target) {
-    return !this.selectedPieceInstance.getMoveScope().some(({ column, row }) => {
-      return target.id === column + row || target.parentNode.id === column + row;
+  #isOutOfTheMoveScope(cellId) {
+    return !this.selectedPieceInstance?.getMoveScope().some(({ column, row }) => {
+      return cellId === column + row;
     });
   }
 
@@ -68,10 +72,8 @@ export default class GameBoard {
   }
 
   getClickedPiece(target) {
-    let clickedPiece;
-    if (this.#isCellWithPieceClicked(target)) clickedPiece = document.getElementById(target.childNodes[0].id);
-    if (this.#isPieceClicked(target)) clickedPiece = document.getElementById(target.id);
-    return clickedPiece;
+    // console.log(target.getPieceId())
+    return document.getElementById(target.getPieceId()); 
   }
 
   clearSelected() {
@@ -93,30 +95,21 @@ export default class GameBoard {
     return !!this.selectedPiece && !!this.selectedPieceInstance;
   }
 
-  changePiecePosition(target) {
-    if (this.#isOutOfTheMoveScope(target)) return;
-    let selectedPieceId;
-    if (this.#isPieceClicked(target)) {
-      selectedPieceId = target.parentNode.id.split('');
-      console.log(selectedPieceId);
-      this.movePiece(target.parentNode);
-      this.deletePiece(target.parentNode);
-    } else if (this.#isCellWithPieceClicked(target)) {
-      selectedPieceId = target.id.split('');
-      console.log(selectedPieceId);
-      this.movePiece(target);
-      this.deletePiece(target);
-    } else {
-      selectedPieceId = target.id.split('');
-      this.movePiece(target);
+  changePiecePosition(clickOnBoardService) {
+    if (this.#isOutOfTheMoveScope(clickOnBoardService.getCellId())) return;
+
+    const piecePosition = clickOnBoardService.getCellPosition();
+    if (clickOnBoardService.isCellWithPieceOrPieceClicked()) {
+      console.log(123)
+      this.movePiece(clickOnBoardService.getCellTarget());
+      this.deletePiece(clickOnBoardService.getCellTarget());
+    }
+    else {
+      this.movePiece(clickOnBoardService.target);
     }
 
-    console.log(selectedPieceId);
-    const position = {
-      column: selectedPieceId[0],
-      row: +selectedPieceId[1],
-    };
-    this.selectedPieceInstance.setPosition(position);
+    console.log(piecePosition);
+    this.selectedPieceInstance.setPosition(piecePosition);
   }
 
   isCellWithPieceOrPieceClicked(target) {

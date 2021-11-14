@@ -114,9 +114,7 @@ window.onload = () => {
   gamestate.setupGame();
   gameBoardElement = document.getElementById('chessboard');
   const gameBoard = new GameBoard(gamestate.getPlayers());
-  const clickOnBoardService = new ClickOnBoardService()
   gameBoardElement.addEventListener('click', function (e) {
-    clickOnBoardService.setupClick(e.target)
-    gameBoard.selectAndMovePiece(clickOnBoardService);
+    gameBoard.selectAndMovePiece(new ClickOnBoardService(e.target));
   });
 };
