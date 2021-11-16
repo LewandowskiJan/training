@@ -32,7 +32,7 @@ export default class GameState {
         for (let chessColumn = 1; chessColumn <= COLUMN_SIZE; chessColumn++) {
           const cellColumn = ChessColumnService.getColumnNameByColumnNumber(chessColumn);
           // const currentPiece = new Piece({ column: cellColumn, row: chessRow });
-          const factory = new PieceFactory()
+          const factory = new PieceFactory();
 
           const currentPiece = factory.generatePiece({ column: cellColumn, row: chessRow });
 
@@ -79,7 +79,7 @@ export default class GameState {
   }
 
   isPlayerOneRound() {
-    return this.currentRound % 2 !== 0
+    return this.currentRound % 2 !== 0;
   }
   beatPiece() {
     return x;

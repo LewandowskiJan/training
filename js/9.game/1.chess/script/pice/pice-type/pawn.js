@@ -8,7 +8,7 @@ export default class Pawn extends PieceAbstract {
     // obecna pozycja (this.position z przemapowaniem liternki na numer i z powrotem)
     // będziemy ustawiać this.attackScope[]
     this.attackScope = [];
-    const attackStep = this.side === "bottom" ? 1 : -1;
+    const attackStep = this.side === 'bottom' ? 1 : -1;
 
     const attack1 = {
       column: ChessColumnService.calculateColumnName(this.position.column, -1),
@@ -20,13 +20,13 @@ export default class Pawn extends PieceAbstract {
     };
     this.attackScope.push(attack1);
     this.attackScope.push(attack2);
-    this.setupMoveScope()
+    this.setupMoveScope();
   }
 
   // isEnemyPiece(target)
   setupMoveScope() {
     this.moveScope = [];
-    const moveStep = this.side === "bottom" ? 1 : -1;
+    const moveStep = this.side === 'bottom' ? 1 : -1;
     const move = {
       column: this.position.column,
       row: this.position.row + moveStep,
@@ -35,16 +35,16 @@ export default class Pawn extends PieceAbstract {
     const en1 = document.getElementById(this.attackScope[0].column + this.attackScope[0].row);
     const en2 = document.getElementById(this.attackScope[1].column + this.attackScope[1].row);
     if (this.isEnemyPiece(en1)) {
-      this.moveScope.push(this.attackScope[0])
-    };
+      this.moveScope.push(this.attackScope[0]);
+    }
     if (this.isEnemyPiece(en2)) {
-      this.moveScope.push(this.attackScope[1])
-    };
+      this.moveScope.push(this.attackScope[1]);
+    }
     if (this.isAllyPiece(lm) || this.isEnemyPiece(lm)) {
       return;
-    };
-    if ((this.side === "bottom" && this.position.row === 2) || (this.side === "top" && this.position.row === 7)) {
-      const firstMove = this.side === "bottom" ? 2 : -2;
+    }
+    if ((this.side === 'bottom' && this.position.row === 2) || (this.side === 'top' && this.position.row === 7)) {
+      const firstMove = this.side === 'bottom' ? 2 : -2;
       const move2 = {
         column: this.position.column,
         row: this.position.row + firstMove,
@@ -55,7 +55,5 @@ export default class Pawn extends PieceAbstract {
       }
     }
     this.moveScope.push(move);
-  
-
   }
 }

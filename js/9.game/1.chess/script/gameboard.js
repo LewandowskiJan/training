@@ -1,30 +1,30 @@
+import { ROUND_MODE_DISABLE } from './script.js';
+
 export default class GameBoard {
   selectedPiece;
   selectedPieceInstance;
   players;
-  gameState
+  gameState;
 
   constructor(players, gameState) {
     this.players = players;
-    this.gameState = gameState
+    this.gameState = gameState;
   }
 
   selectAndMovePiece(clickOnBoardService) {
     this.clearAvailableMove();
-    console.log(clickOnBoardService.getPieceId())
-    console.log(clickOnBoardService.isCellWithPieceClicked())
 
     if (this.selectedPiece?.id === clickOnBoardService.getPieceId()) {
       console.log(2);
       return this.clearSelected();
     }
-    if (!this.isPieceSelected() && clickOnBoardService.isCellWithPieceOrPieceClicked()) {
-      console.log(3);
+
+    if (this.#canSelectPiece(clickOnBoardService) || this.#canChangeSelection(clickOnBoardService)) {
       this.clearSelected();
       return this.selectPiece(clickOnBoardService);
     }
-    if (this.isPieceSelected() || !clickOnBoardService.isCellWithPieceOrPieceClicked()
-      || !this.#isOutOfTheMoveScope(clickOnBoardService.getCellId())) {
+
+    if (this.#canSelectedPieceChangePosition(clickOnBoardService)) {
       console.log(4);
       this.changePiecePosition(clickOnBoardService);
       this.clearSelected();
@@ -39,13 +39,7 @@ export default class GameBoard {
   deletePiece(target) {
     this.players[this.selectedPiece.id < 16 ? 0 : 1].removePieceById(target.childNodes[0].id);
     target.removeChild(target.childNodes[0]);
-    console.log(this.players);
-  }
-
-  #isOutOfTheMoveScope(cellId) {
-    return !this.selectedPieceInstance?.getMoveScope().some(({ column, row }) => {
-      return cellId === column + row;
-    });
+    // console.log(this.players);
   }
 
   selectPiece(target) {
@@ -74,7 +68,7 @@ export default class GameBoard {
   }
 
   getClickedPiece(target) {
-    // return document.getElementById(target.getPieceId());
+    if (ROUND_MODE_DISABLE) return document.getElementById(target.getPieceId());
     if (this.gameState.isPlayerOneRound() && target.getPieceId() > 15) {
       return document.getElementById(target.getPieceId());
     }
@@ -103,22 +97,20 @@ export default class GameBoard {
   }
 
   changePiecePosition(clickOnBoardService) {
-    if (this.#isOutOfTheMoveScope(clickOnBoardService.getCellId())) return;
+    if (this.#isOutOfMoveScope(clickOnBoardService.getCellId())) return;
 
     const piecePosition = clickOnBoardService.getCellPosition();
     if (clickOnBoardService.isCellWithPieceOrPieceClicked()) {
-      console.log(123)
       this.movePiece(clickOnBoardService.getCellTarget());
       this.deletePiece(clickOnBoardService.getCellTarget());
-    }
-    else {
+    } else {
       this.movePiece(clickOnBoardService.target);
     }
 
-    console.log(piecePosition);
+    // console.log(piecePosition);
     this.selectedPieceInstance.setPosition(piecePosition);
-    this.gameState.nextRound()
-    console.log(this.gameState.currentRound)
+    this.gameState.nextRound();
+    // console.log(this.gameState.currentRound);
   }
 
   isCellWithPieceOrPieceClicked(target) {
@@ -131,5 +123,36 @@ export default class GameBoard {
 
   #isPieceClicked(target) {
     return target.className.includes('piece');
+  }
+
+  #canChangeSelection(clickOnBoardService) {
+    return (
+      this.isPieceSelected() &&
+      clickOnBoardService.isCellWithPieceOrPieceClicked() &&
+      this.#isOutOfMoveScope(clickOnBoardService.getCellId())
+    );
+  }
+
+  #canSelectPiece(clickOnBoardService) {
+    console.log(this.isPieceSelected());
+    return !this.isPieceSelected() && clickOnBoardService.isCellWithPieceOrPieceClicked();
+  }
+
+  #canSelectedPieceChangePosition(clickOnBoardService) {
+    return (
+      this.isPieceSelected() ||
+      !clickOnBoardService.isCellWithPieceOrPieceClicked() ||
+      this.#isInMoveScope(clickOnBoardService.getCellId())
+    );
+  }
+
+  #isOutOfMoveScope(cellId) {
+    return !this.selectedPieceInstance?.getMoveScope().some(({ column, row }) => {
+      return cellId === column + row;
+    });
+  }
+
+  #isInMoveScope(cellId) {
+    return !this.#isOutOfMoveScope(cellId);
   }
 }

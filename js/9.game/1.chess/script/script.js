@@ -107,13 +107,15 @@ export const ROW_SIZE = 8;
 export const FIRST_ROW = 1;
 export const LAST_ROW = 8;
 
+export const ROUND_MODE_DISABLE = true;
+
 let gameBoardElement;
 
 window.onload = () => {
-  const gamestate = new GameState(0, [], 0);
-  gamestate.setupGame();
+  const gameState = new GameState(0, [], 0);
+  gameState.setupGame();
   gameBoardElement = document.getElementById('chessboard');
-  const gameBoard = new GameBoard(gamestate.getPlayers(), gamestate);
+  const gameBoard = new GameBoard(gameState.getPlayers(), gameState);
   gameBoardElement.addEventListener('click', function (e) {
     gameBoard.selectAndMovePiece(new ClickOnBoardService(e.target));
   });

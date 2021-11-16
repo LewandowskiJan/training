@@ -8,10 +8,10 @@ export default class Rook extends PieceAbstract {
   }
   setupMoveScope() {
     this.moveScope = [];
-      this.#selectRookQueenTopMovingCells();
-      this.#selectRookQueenBottomMovingCells();
-      this.#selectRookQueenRightMovingCells();
-      this.#selectRookQueenLeftMovingCells();
+    this.#selectRookQueenTopMovingCells();
+    this.#selectRookQueenBottomMovingCells();
+    this.#selectRookQueenRightMovingCells();
+    this.#selectRookQueenLeftMovingCells();
   }
 
   #selectRookQueenLeftMovingCells() {

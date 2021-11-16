@@ -8,52 +8,48 @@ export default class ClickOnBoardService {
   cellPosition;
 
   constructor(target) {
-    this.setupClick(target)
+    this.setupClick(target);
   }
   setupClick(target) {
-    this.target = target
+    this.target = target;
     if (this.isPieceClicked(target)) {
-      this.pieceTarget = target
-      this.hasPiece = true
-      this.cellTarget = target.parentNode
-      this.pieceId = target.id
-      this.cellId = target.parentNode.id
-      this.cellPosition = this.getCellPosition()
-    }
-    else {
+      this.pieceTarget = target;
+      this.hasPiece = true;
+      this.cellTarget = target.parentNode;
+      this.pieceId = target.id;
+      this.cellId = target.parentNode.id;
+      this.cellPosition = this.getCellPosition();
+    } else {
+      this.cellTarget = target;
+      this.cellId = target.id;
+      this.cellPosition = this.getCellPosition();
+
       if (this.isCellWithPieceClicked()) {
-        this.pieceTarget = target.childNodes[0]
-        this.hasPiece = true
-        this.cellTarget = target
-        this.pieceId = target.childNodes[0].id
-        this.cellId = target.id
-        this.cellPosition = this.getCellPosition()
-      }
-      else {
-        this.pieceTarget = null
-        this.hasPiece = false
-        this.cellTarget = target
-        this.pieceId = null
-        this.cellId = target.id
-        this.cellPosition = this.getCellPosition()
+        this.pieceTarget = target.childNodes[0];
+        this.hasPiece = true;
+        this.pieceId = target.childNodes[0].id;
+      } else {
+        this.pieceTarget = null;
+        this.hasPiece = false;
+        this.pieceId = null;
       }
     }
   }
 
   getPieceId() {
-    return this.pieceId
+    return this.pieceId;
   }
   getCellId() {
-    return this.cellId
+    return this.cellId;
   }
   getCellIdAsPosition() {
-    return this.cellPosition
+    return this.cellPosition;
   }
   getCellTarget() {
-    return this.cellTarget
+    return this.cellTarget;
   }
   getPieceTarget() {
-    return this.pieceTarget
+    return this.pieceTarget;
   }
   getCellPosition() {
     const selectedPieceId = this.cellId.split('');
@@ -68,18 +64,12 @@ export default class ClickOnBoardService {
   }
 
   isCellWithPieceClicked() {
-    console.log(this.target.childNodes)
+    // console.log(this.target.childNodes);
     return this.target?.childNodes[0]?.id;
   }
 
   isPieceClicked() {
-    console.log(this.target.className.includes('piece'))
+    // console.log(this.target.className.includes('piece'));
     return this.target.className.includes('piece');
   }
-
-
-
-
 }
-
-

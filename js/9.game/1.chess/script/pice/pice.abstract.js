@@ -76,13 +76,12 @@ export default class PieceAbstract {
   }
 
   deletePieceInstance() {
-   this.moveScope = []
-   this.attackScope = []
-   this.position = {
-     column: "z",
-     row: 99
-   }
-   
+    this.moveScope = [];
+    this.attackScope = [];
+    this.position = {
+      column: 'z',
+      row: 99,
+    };
   }
 
   getMoveScope() {

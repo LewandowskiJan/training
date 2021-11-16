@@ -17,9 +17,9 @@ export default class Knight extends PieceAbstract {
       [2, -1],
       [-2, 1],
       [-2, -1],
-    ]
+    ];
     possibleMove.forEach(([column, row]) => {
-      console.log(column, row)
+      // console.log(column, row)
       const move = {
         column: ChessColumnService.calculateColumnName(this.position.column, column),
         row: this.position.row + row,
@@ -27,8 +27,7 @@ export default class Knight extends PieceAbstract {
       const lm = document.getElementById(move.column + move.row);
       if (!this.isAllyPiece(lm)) {
         this.moveScope.push(move);
-      };
-    })
+      }
+    });
   }
 }
-

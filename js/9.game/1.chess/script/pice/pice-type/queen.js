@@ -17,8 +17,7 @@ export default class Queen extends PieceAbstract {
     this.#selectRookQueenBottomMovingCells();
     this.#selectRookQueenRightMovingCells();
     this.#selectRookQueenLeftMovingCells();
-    }
-  
+  }
 
   #selectRookQueenLeftMovingCells() {
     let leftColumnIndex = 1;
