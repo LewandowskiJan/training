@@ -4,6 +4,7 @@ import PieceAbstract from '../pice.abstract.js';
 
 export default class Queen extends PieceAbstract {
   setupAttackScope() {
+    this.attackScope = [];
     this.setupMoveScope();
     this.attackScope.push(...this.moveScope);
   }
