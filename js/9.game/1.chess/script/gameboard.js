@@ -42,16 +42,40 @@ export default class GameBoard {
     // console.log(this.players);
   }
 
-  selectPiece(target) {
-    this.selectedPiece = this.getClickedPiece(target);
+  selectPiece(clickOnBoardService) {
+    this.selectedPiece = this.getClickedPiece(clickOnBoardService);
     if (this.selectedPiece) {
       this.selectedPiece.className = this.selectedPiece.className + ' active';
       this.selectedPieceInstance = this.players[this.selectedPiece.id < 16 ? 1 : 0].getPieceById(this.selectedPiece.id);
+      const arr = this.calculateKingMoveLmitedMoveScope()
+      // console.log(arr)
       this.selectedPieceInstance.setupAttackScope();
       this.showAvailableMove();
     }
   }
 
+calculateKingMoveLmitedMoveScope(){
+  let allPiecesAttackScope = []
+  let allPieces = this.players[0].onGamePieces
+  for (let i = 0; i < allPieces.length; i++ ){ 
+//  allPiecesAttackScope = allPieces.push(...[allPieces[i].attackScope])
+ allPiecesAttackScope.push(...(allPieces[i].attackScope))
+ console.log(allPiecesAttackScope)
+ }
+// for (let i = 0; i <= allPiecesAttackScope.length; i++){
+//   return allPiecesAttackScope[i].column
+// }
+ 
+
+// console.log(this.players[0].onGamePieces[25].attackScope)
+console.log(this.players[0].onGamePieces[15].attackScope)
+console.log(this.players[0].onGamePieces)
+console.log([...[1,2,3],...[4,5,6]])
+console.log([[1,2,3],[4,5,6]])
+console.log(allPiecesAttackScope)
+return allPiecesAttackScope
+
+}
   showAvailableMove() {
     this.selectedPieceInstance.getMoveScope().forEach((element) => {
       const cell = document.getElementById(element.column + element.row);
@@ -67,13 +91,13 @@ export default class GameBoard {
     });
   }
 
-  getClickedPiece(target) {
-    if (ROUND_MODE_DISABLE) return document.getElementById(target.getPieceId());
-    if (this.gameState.isPlayerOneRound() && target.getPieceId() > 15) {
-      return document.getElementById(target.getPieceId());
+  getClickedPiece(clickOnBoardService) {
+    if (ROUND_MODE_DISABLE) return document.getElementById(clickOnBoardService.getPieceId());
+    if (this.gameState.isPlayerOneRound() && clickOnBoardService.getPieceId() > 15) {
+      return document.getElementById(clickOnBoardService.getPieceId());
     }
-    if (!this.gameState.isPlayerOneRound() && target.getPieceId() < 16) {
-      return document.getElementById(target.getPieceId());
+    if (!this.gameState.isPlayerOneRound() && clickOnBoardService.getPieceId() < 16) {
+      return document.getElementById(clickOnBoardService.getPieceId());
     }
   }
 
@@ -98,43 +122,27 @@ export default class GameBoard {
 
   changePiecePosition(clickOnBoardService) {
     if (this.#isOutOfMoveScope(clickOnBoardService.getCellId())) return;
-
     const piecePosition = clickOnBoardService.getCellPosition();
     if (clickOnBoardService.isCellWithPieceOrPieceClicked()) {
-      this.movePiece(clickOnBoardService.getCellTarget());
       this.deletePiece(clickOnBoardService.getCellTarget());
-    } else {
-      this.movePiece(clickOnBoardService.target);
     }
-
+    this.movePiece(clickOnBoardService.getCellTarget());
     // console.log(piecePosition);
     this.selectedPieceInstance.setPosition(piecePosition);
     this.gameState.nextRound();
     // console.log(this.gameState.currentRound);
   }
 
-  isCellWithPieceOrPieceClicked(target) {
-    return this.#isCellWithPieceClicked(target) || this.#isPieceClicked(target);
-  }
-
-  #isCellWithPieceClicked(target) {
-    return target?.childNodes[0]?.id;
-  }
-
-  #isPieceClicked(target) {
-    return target.className.includes('piece');
-  }
-
   #canChangeSelection(clickOnBoardService) {
     return (
-      this.isPieceSelected() &&
-      clickOnBoardService.isCellWithPieceOrPieceClicked() &&
+      // this.isPieceSelected() &&
+      // clickOnBoardService.isCellWithPieceOrPieceClicked() &&
       this.#isOutOfMoveScope(clickOnBoardService.getCellId())
     );
   }
 
   #canSelectPiece(clickOnBoardService) {
-    console.log(this.isPieceSelected());
+    // console.log(this.isPieceSelected());
     return !this.isPieceSelected() && clickOnBoardService.isCellWithPieceOrPieceClicked();
   }
 
