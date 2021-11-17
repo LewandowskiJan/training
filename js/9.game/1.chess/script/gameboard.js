@@ -47,35 +47,36 @@ export default class GameBoard {
     if (this.selectedPiece) {
       this.selectedPiece.className = this.selectedPiece.className + ' active';
       this.selectedPieceInstance = this.players[this.selectedPiece.id < 16 ? 1 : 0].getPieceById(this.selectedPiece.id);
-      const arr = this.calculateKingMoveLmitedMoveScope()
+      const arr = this.calculateKingMoveLmitedMoveScope();
       // console.log(arr)
       this.selectedPieceInstance.setupAttackScope();
       this.showAvailableMove();
     }
   }
 
-calculateKingMoveLmitedMoveScope(){
-  let allPiecesAttackScope = []
-  let allPieces = this.players[0].onGamePieces
-  for (let i = 0; i < allPieces.length; i++ ){ 
-//  allPiecesAttackScope = allPieces.push(...[allPieces[i].attackScope])
- allPiecesAttackScope.push(...(allPieces[i].attackScope))
- console.log(allPiecesAttackScope)
- }
-// for (let i = 0; i <= allPiecesAttackScope.length; i++){
-//   return allPiecesAttackScope[i].column
-// }
- 
+  calculateKingMoveLmitedMoveScope() {
+    let allPiecesAttackScope = [];
+    let allPieces = this.players[0].onGamePieces;
+    for (let i = 0; i < allPieces.length; i++) {
+      //  allPiecesAttackScope = allPieces.push(...[allPieces[i].attackScope])
+      allPiecesAttackScope.push(...allPieces[i].attackScope);
+      console.log(allPiecesAttackScope);
+    }
+    // for (let i = 0; i <= allPiecesAttackScope.length; i++){
+    //   return allPiecesAttackScope[i].column
+    // }
 
-// console.log(this.players[0].onGamePieces[25].attackScope)
-console.log(this.players[0].onGamePieces[15].attackScope)
-console.log(this.players[0].onGamePieces)
-console.log([...[1,2,3],...[4,5,6]])
-console.log([[1,2,3],[4,5,6]])
-console.log(allPiecesAttackScope)
-return allPiecesAttackScope
-
-}
+    // console.log(this.players[0].onGamePieces[25].attackScope)
+    console.log(this.players[0].onGamePieces[15].attackScope);
+    console.log(this.players[0].onGamePieces);
+    console.log([...[1, 2, 3], ...[4, 5, 6]]);
+    console.log([
+      [1, 2, 3],
+      [4, 5, 6],
+    ]);
+    console.log(allPiecesAttackScope);
+    return allPiecesAttackScope;
+  }
   showAvailableMove() {
     this.selectedPieceInstance.getMoveScope().forEach((element) => {
       const cell = document.getElementById(element.column + element.row);

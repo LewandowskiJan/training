@@ -29,6 +29,7 @@ export default class PieceAbstract {
     this.type = type;
     this.icon = icon;
   }
+
   showAvailableMovements() {
     return x;
   }
@@ -36,6 +37,7 @@ export default class PieceAbstract {
   move() {
     return x;
   }
+
   setPosition(position) {
     this.position = position;
   }

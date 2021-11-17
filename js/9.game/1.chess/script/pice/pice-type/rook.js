@@ -5,6 +5,7 @@ import PieceAbstract from '../pice.abstract.js';
 export default class Rook extends PieceAbstract {
   setupAttackScope() {
     this.setupMoveScope();
+    this.attackScope.push(...this.moveScope);
   }
   setupMoveScope() {
     this.moveScope = [];
