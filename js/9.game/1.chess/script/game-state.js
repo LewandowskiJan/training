@@ -35,7 +35,6 @@ export default class GameState {
           const factory = new PieceFactory();
 
           const currentPiece = factory.generatePiece({ column: cellColumn, row: chessRow });
-          currentPiece.setupAttackScope();
           if (this.#isBottomRow(chessRow)) this.#addPieceToPlayer(currentPiece, 0);
           if (this.#isTopRow(chessRow)) this.#addPieceToPlayer(currentPiece, 1);
 
