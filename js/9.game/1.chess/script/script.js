@@ -100,22 +100,23 @@
 import ClickOnBoardService from './click-on-board.service.js';
 import GameState from './game-state.js';
 import GameBoard from './gameboard.js';
+import RoundService from './round.service.js';
 
 export const COLUMN_SIZE = 8;
 export const ROW_SIZE = 8;
 
 export const FIRST_ROW = 1;
 export const LAST_ROW = 8;
-
-export const ROUND_MODE_DISABLE = true;
+export const ROUND_MODE_DISABLE = false;
 
 let gameBoardElement;
 
 window.onload = () => {
+  const roundService = new RoundService();
   const gameState = new GameState(0, [], 0);
   gameState.setupGame();
   gameBoardElement = document.getElementById('chessboard');
-  const gameBoard = new GameBoard(gameState.getPlayers(), gameState);
+  const gameBoard = new GameBoard(gameState.getPlayers(), gameState, roundService);
   gameBoardElement.addEventListener('click', function (e) {
     gameBoard.selectAndMovePiece(new ClickOnBoardService(e.target));
   });

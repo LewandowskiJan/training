@@ -73,13 +73,7 @@ export default class GameState {
   endGame() {
     this.gameStatus = 'end';
   }
-  nextRound() {
-    this.currentRound++;
-  }
 
-  isPlayerOneRound() {
-    return this.currentRound % 2 !== 0;
-  }
   beatPiece() {
     return x;
   }

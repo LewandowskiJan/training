@@ -1,15 +1,18 @@
 import { ROUND_MODE_DISABLE } from './script.js';
 
+
 export default class GameBoard {
   selectedPiece;
   selectedPieceInstance;
   players;
   gameState;
+  roundService;
   currentAttackScope = new Set();
 
-  constructor(players, gameState) {
+  constructor(players, gameState, roundService) {
     this.players = players;
     this.gameState = gameState;
+    this.roundService = roundService;
     this.setupPlayersPiecesAttackScopes();
   }
 
@@ -30,7 +33,8 @@ export default class GameBoard {
       console.log(4);
       this.changePiecePosition(clickOnBoardService);
       this.clearCellAttackClass();
-      this.calculateKingMoveLimitedMoveScope();
+      const currentEnemyPlayerIndex =  this.roundService.isPlayerOneRound() ? 1 : 0;
+      this.calculateKingMoveLimitedMoveScope(currentEnemyPlayerIndex);
 
       this.selectedPieceInstance.setupAttackScope();
       this.clearSelected();
@@ -56,8 +60,9 @@ export default class GameBoard {
       this.selectedPiece.className = this.selectedPiece.className + ' active';
       this.selectedPieceInstance = this.players[this.selectedPiece.id < 16 ? 1 : 0].getPieceById(this.selectedPiece.id);
       this.clearCellAttackClass();
-      this.calculateKingMoveLimitedMoveScope();
-
+      const currentEnemyPlayerIndex =  this.roundService.isPlayerOneRound() ? 1 : 0;
+      this.calculateKingMoveLimitedMoveScope(currentEnemyPlayerIndex);
+      
       this.selectedPieceInstance.setupAttackScope();
       this.showAvailableMove();
     }
@@ -69,10 +74,10 @@ export default class GameBoard {
     });
   }
 
-  calculateKingMoveLimitedMoveScope() {
+  calculateKingMoveLimitedMoveScope(playerIndex = 0) {
     let allPiecesAttackScope = [];
     const attackScope = new Set();
-    let allPieces = this.players[0].onGamePieces;
+    let allPieces = this.players[playerIndex].onGamePieces;
 
     allPieces.forEach((piece) => {
       piece.attackScope
@@ -139,10 +144,10 @@ export default class GameBoard {
 
   getClickedPiece(clickOnBoardService) {
     if (ROUND_MODE_DISABLE) return document.getElementById(clickOnBoardService.getPieceId());
-    if (this.gameState.isPlayerOneRound() && clickOnBoardService.getPieceId() > 15) {
+    if (this.roundService.isPlayerOneRound() && clickOnBoardService.getPieceId() > 15) {
       return document.getElementById(clickOnBoardService.getPieceId());
     }
-    if (!this.gameState.isPlayerOneRound() && clickOnBoardService.getPieceId() < 16) {
+    if (!this.roundService.isPlayerOneRound() && clickOnBoardService.getPieceId() < 16) {
       return document.getElementById(clickOnBoardService.getPieceId());
     }
   }
@@ -176,7 +181,7 @@ export default class GameBoard {
     // console.log(piecePosition);
     this.selectedPieceInstance.setPosition(piecePosition);
     this.#updateAllMoveAndAttackScopes();
-    this.gameState.nextRound();
+    this.roundService.nextRound();
     // console.log(this.gameState.currentRound);
   }
 

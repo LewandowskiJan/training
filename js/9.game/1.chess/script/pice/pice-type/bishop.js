@@ -15,6 +15,7 @@ export default class Bishop extends PieceAbstract {
     this.#selectBishopQueenTopLeftMovingCells();
     this.#selectBishopQueenBottomRightMovingCells();
     this.#selectBishopQueenBottomLefMovingCells();
+    console.log(this.moveScope)
   }
 
   #selectBishopQueenTopRightMovingCells() {

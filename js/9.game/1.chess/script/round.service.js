@@ -1,14 +1,11 @@
 export default class RoundService {
-roundNumber;
+roundNumber = 1;
 
-  constructor(roundNumber) {
-    this.roundNumber = roundNumber;
-  }
 
   isPlayerOneRound() {
-    return x;
+    return this.roundNumber % 2 !== 0;
   }
   nextRound() {
-    return x;
+    this.roundNumber++;
   }
 }

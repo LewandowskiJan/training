@@ -1,5 +1,6 @@
 import ChessColumnService from '../../chess-column.service.js';
 import PieceAbstract from '../pice.abstract.js';
+import ChessRowService from '../../chess-row.service.js';
 
 export default class King extends PieceAbstract {
   setupAttackScope() {
@@ -20,13 +21,16 @@ export default class King extends PieceAbstract {
       [0, 1],
     ];
     possibleMove.forEach(([column, row]) => {
-      const move = {
-        column: ChessColumnService.calculateColumnName(this.position.column, column),
-        row: this.position.row + row,
-      };
-      const lm = document.getElementById(move.column + move.row);
-      if (!this.isAllyPiece(lm)) {
-        this.moveScope.push(move);
+      if(ChessColumnService.calculateColumnName(this.position.column, column) && ChessRowService.hasRowNumber(this.position.row + row)){
+        const move = {
+          column: ChessColumnService.calculateColumnName(this.position.column, column),
+          row: this.position.row + row,
+        };
+        const lm = document.getElementById(move.column + move.row);
+        console.log(move)
+        if (!this.isAllyPiece(lm)) {
+          this.moveScope.push(move);
+        }
       }
     });
   }

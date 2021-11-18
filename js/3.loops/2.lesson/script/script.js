@@ -85,3 +85,5 @@ for (const iterator of monsters) {
   for (let i = 1; i <= 100; i++) {
     console.log(fizzBuzzResolver(i))
   }
+
+
