@@ -5,15 +5,17 @@ export default class GameBoard {
   selectedPieceInstance;
   players;
   gameState;
+  currentAttackScope = new Set();
 
   constructor(players, gameState) {
     this.players = players;
     this.gameState = gameState;
+    this.setupPlayersPiecesAttackScopes();
   }
 
   selectAndMovePiece(clickOnBoardService) {
     this.clearAvailableMove();
-
+    this.setupPlayersPiecesAttackScopes();
     if (this.selectedPiece?.id === clickOnBoardService.getPieceId()) {
       console.log(2);
       return this.clearSelected();
@@ -27,7 +29,13 @@ export default class GameBoard {
     if (this.#canSelectedPieceChangePosition(clickOnBoardService)) {
       console.log(4);
       this.changePiecePosition(clickOnBoardService);
+      this.clearCellAttackClass();
+      this.calculateKingMoveLimitedMoveScope();
+
+      this.selectedPieceInstance.setupAttackScope();
       this.clearSelected();
+      // this.showAvailableMove();
+
       return;
     }
   }
@@ -47,40 +55,77 @@ export default class GameBoard {
     if (this.selectedPiece) {
       this.selectedPiece.className = this.selectedPiece.className + ' active';
       this.selectedPieceInstance = this.players[this.selectedPiece.id < 16 ? 1 : 0].getPieceById(this.selectedPiece.id);
-      const arr = this.calculateKingMoveLmitedMoveScope();
-      // console.log(arr)
+      this.clearCellAttackClass();
+      this.calculateKingMoveLimitedMoveScope();
+
       this.selectedPieceInstance.setupAttackScope();
       this.showAvailableMove();
     }
   }
 
-  calculateKingMoveLmitedMoveScope() {
+  setupPlayersPiecesAttackScopes() {
+    [...this.players[0].onGamePieces, ...this.players[1].onGamePieces].forEach((piece) => {
+      piece.setupAttackScope();
+    });
+  }
+
+  calculateKingMoveLimitedMoveScope() {
     let allPiecesAttackScope = [];
+    const attackScope = new Set();
     let allPieces = this.players[0].onGamePieces;
-    for (let i = 0; i < allPieces.length; i++) {
-      //  allPiecesAttackScope = allPieces.push(...[allPieces[i].attackScope])
-      allPiecesAttackScope.push(...allPieces[i].attackScope);
-      console.log(allPiecesAttackScope);
-    }
+
+    allPieces.forEach((piece) => {
+      piece.attackScope
+        .filter((position) => position.column)
+        .filter((position) => position.row > 0)
+        .map((position) => {
+          console.log(position);
+          return position.column + position.row;
+        })
+        .forEach((pos) => {
+          // console.log(pos);
+          attackScope.add(pos);
+        });
+    });
+
     // for (let i = 0; i <= allPiecesAttackScope.length; i++){
     //   return allPiecesAttackScope[i].column
     // }
 
     // console.log(this.players[0].onGamePieces[25].attackScope)
-    console.log(this.players[0].onGamePieces[15].attackScope);
-    console.log(this.players[0].onGamePieces);
-    console.log([...[1, 2, 3], ...[4, 5, 6]]);
-    console.log([
-      [1, 2, 3],
-      [4, 5, 6],
-    ]);
-    console.log(allPiecesAttackScope);
-    return allPiecesAttackScope;
+    // console.log(this.players[0].onGamePieces[15].attackScope);
+    // console.log(this.players[0].onGamePieces);
+    // console.log([...[1, 2, 3], ...[4, 5, 6]]);
+    // console.log([
+    //   [1, 2, 3],
+    //   [4, 5, 6],
+    // ]);
+    // console.log(allPiecesAttackScope);
+    this.currentAttackScope = attackScope;
+    // return attackScope;
+    this.showAvailableAttackScope();
   }
+
   showAvailableMove() {
     this.selectedPieceInstance.getMoveScope().forEach((element) => {
       const cell = document.getElementById(element.column + element.row);
-      if (cell) cell.style = 'background-color: rgba(160, 250, 160, .5);';
+      if (cell) cell.style = 'background-color: rgba(160, 250, 160, .5) !important;';
+    });
+  }
+
+  showAvailableAttackScope() {
+    this.currentAttackScope.forEach((key) => {
+      const elem = { column: key.split('')[0], row: key.split('')[1] };
+      const cell = document.getElementById(elem.column + elem.row);
+      if (cell) cell.classList.add('attack');
+    });
+  }
+
+  clearCellAttackClass() {
+    this.currentAttackScope.forEach((key) => {
+      const elem = { column: key.split('')[0], row: key.split('')[1] };
+      const cell = document.getElementById(elem.column + elem.row);
+      if (cell) cell.classList.remove('attack');
     });
   }
 
@@ -130,8 +175,17 @@ export default class GameBoard {
     this.movePiece(clickOnBoardService.getCellTarget());
     // console.log(piecePosition);
     this.selectedPieceInstance.setPosition(piecePosition);
+    this.#updateAllMoveAndAttackScopes();
     this.gameState.nextRound();
     // console.log(this.gameState.currentRound);
+  }
+
+  #updateAllMoveAndAttackScopes() {
+    this.players.forEach((player) => {
+      player.onGamePieces.forEach((piece) => {
+        piece.setupAttackScope();
+      });
+    });
   }
 
   #canChangeSelection(clickOnBoardService) {
