@@ -29,6 +29,7 @@ export default class Rook extends PieceAbstract {
       const lm = document.getElementById(move.column + move.row);
 
       if (this.isAllyPiece(lm)) {
+        this.attackScope.push(move);
         return;
       }
       if (this.isEnemyPiece(lm)) {
@@ -52,6 +53,7 @@ export default class Rook extends PieceAbstract {
       const lm = document.getElementById(move.column + move.row);
 
       if (this.isAllyPiece(lm)) {
+        this.attackScope.push(move);
         return;
       }
       if (this.isEnemyPiece(lm)) {
@@ -75,6 +77,7 @@ export default class Rook extends PieceAbstract {
       const lm = document.getElementById(move.column + move.row);
 
       if (this.isAllyPiece(lm)) {
+        this.attackScope.push(move);
         return;
       }
       if (this.isEnemyPiece(lm)) {
@@ -98,6 +101,7 @@ export default class Rook extends PieceAbstract {
       const lm = document.getElementById(move.column + move.row);
 
       if (this.isAllyPiece(lm)) {
+        this.attackScope.push(move);
         return;
       }
       if (this.isEnemyPiece(lm)) {

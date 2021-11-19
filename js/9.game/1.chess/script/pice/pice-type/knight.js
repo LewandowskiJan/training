@@ -34,8 +34,8 @@ export default class Knight extends PieceAbstract {
         if (!this.isAllyPiece(lm)) {
           this.moveScope.push(move);
         }
+        this.attackScope.push(move);
       }
-      // console.log(column, row)
     });
   }
 }

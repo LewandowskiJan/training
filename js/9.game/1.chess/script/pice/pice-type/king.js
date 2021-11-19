@@ -30,10 +30,11 @@ export default class King extends PieceAbstract {
           row: this.position.row + row,
         };
         const lm = document.getElementById(move.column + move.row);
-        console.log(move);
+
         if (!this.isAllyPiece(lm)) {
           this.moveScope.push(move);
         }
+        this.attackScope.push(move);
       }
     });
   }

@@ -76,17 +76,7 @@ export default class GameBoard {
     let allPieces = this.players[playerIndex].onGamePieces;
 
     allPieces.forEach((piece) => {
-      piece.attackScope
-        .filter((position) => position.column)
-        .filter((position) => position.row > 0)
-        .map((position) => {
-          console.log(position);
-          return position.column + position.row;
-        })
-        .forEach((pos) => {
-          // console.log(pos);
-          attackScope.add(pos);
-        });
+      piece.attackScope.map((position) => position.column + position.row).forEach((pos) => attackScope.add(pos));
     });
 
     this.currentAttackScope = attackScope;

@@ -34,6 +34,7 @@ export default class Queen extends PieceAbstract {
       const lm = document.getElementById(move.column + move.row);
 
       if (this.isAllyPiece(lm)) {
+        this.attackScope.push(move);
         return;
       }
       if (this.isEnemyPiece(lm)) {
@@ -57,6 +58,7 @@ export default class Queen extends PieceAbstract {
       const lm = document.getElementById(move.column + move.row);
 
       if (this.isAllyPiece(lm)) {
+        this.attackScope.push(move);
         return;
       }
       if (this.isEnemyPiece(lm)) {
@@ -80,6 +82,7 @@ export default class Queen extends PieceAbstract {
       const lm = document.getElementById(move.column + move.row);
 
       if (this.isAllyPiece(lm)) {
+        this.attackScope.push(move);
         return;
       }
       if (this.isEnemyPiece(lm)) {
@@ -103,6 +106,7 @@ export default class Queen extends PieceAbstract {
       const lm = document.getElementById(move.column + move.row);
 
       if (this.isAllyPiece(lm)) {
+        this.attackScope.push(move);
         return;
       }
       if (this.isEnemyPiece(lm)) {
@@ -127,6 +131,7 @@ export default class Queen extends PieceAbstract {
       const lm = document.getElementById(move.column + move.row);
 
       if (this.isAllyPiece(lm)) {
+        this.attackScope.push(move);
         return;
       }
       if (this.isEnemyPiece(lm)) {
@@ -154,6 +159,7 @@ export default class Queen extends PieceAbstract {
       const lm = document.getElementById(move.column + move.row);
 
       if (this.isAllyPiece(lm)) {
+        this.attackScope.push(move);
         return;
       }
       if (this.isEnemyPiece(lm)) {
@@ -182,6 +188,7 @@ export default class Queen extends PieceAbstract {
       const lm = document.getElementById(move.column + move.row);
 
       if (this.isAllyPiece(lm)) {
+        this.attackScope.push(move);
         return;
       }
       lastLoop = this.isEnemyPiece(lm);
@@ -206,6 +213,7 @@ export default class Queen extends PieceAbstract {
       const lm = document.getElementById(move.column + move.row);
 
       if (this.isAllyPiece(lm)) {
+        this.attackScope.push(move);
         return;
       }
       // if (this.isEnemyPiece(lm)) {

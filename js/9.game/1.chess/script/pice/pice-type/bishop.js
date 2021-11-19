@@ -15,7 +15,6 @@ export default class Bishop extends PieceAbstract {
     this.#selectBishopQueenTopLeftMovingCells();
     this.#selectBishopQueenBottomRightMovingCells();
     this.#selectBishopQueenBottomLefMovingCells();
-    console.log(this.moveScope);
   }
 
   #selectBishopQueenTopRightMovingCells() {
@@ -32,6 +31,7 @@ export default class Bishop extends PieceAbstract {
       const lm = document.getElementById(move.column + move.row);
 
       if (this.isAllyPiece(lm)) {
+        this.attackScope.push(move);
         return;
       }
       if (this.isEnemyPiece(lm)) {
@@ -59,6 +59,7 @@ export default class Bishop extends PieceAbstract {
       const lm = document.getElementById(move.column + move.row);
 
       if (this.isAllyPiece(lm)) {
+        this.attackScope.push(move);
         return;
       }
       if (this.isEnemyPiece(lm)) {
@@ -87,8 +88,10 @@ export default class Bishop extends PieceAbstract {
       const lm = document.getElementById(move.column + move.row);
 
       if (this.isAllyPiece(lm)) {
+        this.attackScope.push(move);
         return;
       }
+
       lastLoop = this.isEnemyPiece(lm);
       this.moveScope.push(move);
       r++;
@@ -111,11 +114,10 @@ export default class Bishop extends PieceAbstract {
       const lm = document.getElementById(move.column + move.row);
 
       if (this.isAllyPiece(lm)) {
+        this.attackScope.push(move);
         return;
       }
-      // if (this.isEnemyPiece(lm)) {
       lastLoop = this.isEnemyPiece(lm);
-      // }
       this.moveScope.push(move);
       e++;
       bottomLeft =
