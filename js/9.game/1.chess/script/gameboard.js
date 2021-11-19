@@ -37,7 +37,6 @@ export default class GameBoard {
 
       this.selectedPieceInstance.setupAttackScope();
       this.clearSelected();
-      // this.showAvailableMove();
 
       return;
     }
@@ -50,7 +49,6 @@ export default class GameBoard {
   deletePiece(target) {
     this.players[this.selectedPiece.id < 16 ? 0 : 1].removePieceById(target.childNodes[0].id);
     target.removeChild(target.childNodes[0]);
-    // console.log(this.players);
   }
 
   selectPiece(clickOnBoardService) {
@@ -74,7 +72,6 @@ export default class GameBoard {
   }
 
   calculateKingMoveLimitedMoveScope(playerIndex = 0) {
-    let allPiecesAttackScope = [];
     const attackScope = new Set();
     let allPieces = this.players[playerIndex].onGamePieces;
 
@@ -92,21 +89,7 @@ export default class GameBoard {
         });
     });
 
-    // for (let i = 0; i <= allPiecesAttackScope.length; i++){
-    //   return allPiecesAttackScope[i].column
-    // }
-
-    // console.log(this.players[0].onGamePieces[25].attackScope)
-    // console.log(this.players[0].onGamePieces[15].attackScope);
-    // console.log(this.players[0].onGamePieces);
-    // console.log([...[1, 2, 3], ...[4, 5, 6]]);
-    // console.log([
-    //   [1, 2, 3],
-    //   [4, 5, 6],
-    // ]);
-    // console.log(allPiecesAttackScope);
     this.currentAttackScope = attackScope;
-    // return attackScope;
     this.showAvailableAttackScope();
   }
 
@@ -177,11 +160,10 @@ export default class GameBoard {
       this.deletePiece(clickOnBoardService.getCellTarget());
     }
     this.movePiece(clickOnBoardService.getCellTarget());
-    // console.log(piecePosition);
+
     this.selectedPieceInstance.setPosition(piecePosition);
     this.#updateAllMoveAndAttackScopes();
     this.roundService.nextRound();
-    // console.log(this.gameState.currentRound);
   }
 
   #updateAllMoveAndAttackScopes() {
@@ -194,14 +176,13 @@ export default class GameBoard {
 
   #canChangeSelection(clickOnBoardService) {
     return (
-      // this.isPieceSelected() &&
-      // clickOnBoardService.isCellWithPieceOrPieceClicked() &&
+      this.isPieceSelected() &&
+      clickOnBoardService.isCellWithPieceOrPieceClicked() &&
       this.#isOutOfMoveScope(clickOnBoardService.getCellId())
     );
   }
 
   #canSelectPiece(clickOnBoardService) {
-    // console.log(this.isPieceSelected());
     return !this.isPieceSelected() && clickOnBoardService.isCellWithPieceOrPieceClicked();
   }
 

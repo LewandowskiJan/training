@@ -64,12 +64,10 @@ export default class ClickOnBoardService {
   }
 
   isCellWithPieceClicked() {
-    // console.log(this.target.childNodes);
     return this.target?.childNodes[0]?.id;
   }
 
   isPieceClicked() {
-    // console.log(this.target.className.includes('piece'));
     return this.target.className.includes('piece');
   }
 }

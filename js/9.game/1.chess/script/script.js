@@ -97,10 +97,10 @@
  * - restorePiece()
  */
 
-import ClickOnBoardService from './click-on-board.service.js';
+import ClickOnBoardService from './services/click-on-board.service.js';
 import GameState from './game-state.js';
 import GameBoard from './gameboard.js';
-import RoundService from './round.service.js';
+import RoundService from './services/round.service.js';
 
 export const COLUMN_SIZE = 8;
 export const ROW_SIZE = 8;

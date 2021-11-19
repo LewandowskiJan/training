@@ -1,5 +1,5 @@
 import Player from './player.js';
-import ChessColumnService from './chess-column.service.js';
+import ChessColumnService from './utils/chess-column.service.js';
 import { COLUMN_SIZE, ROW_SIZE } from './script.js';
 import PieceFactory from './pice/pice.factory.js';
 
@@ -31,7 +31,6 @@ export default class GameState {
       if (this.#isInitialRowWithPieces(chessRow)) {
         for (let chessColumn = 1; chessColumn <= COLUMN_SIZE; chessColumn++) {
           const cellColumn = ChessColumnService.getColumnNameByColumnNumber(chessColumn);
-          // const currentPiece = new Piece({ column: cellColumn, row: chessRow });
           const factory = new PieceFactory();
 
           const currentPiece = factory.generatePiece({ column: cellColumn, row: chessRow });

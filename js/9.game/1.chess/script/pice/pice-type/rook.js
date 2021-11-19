@@ -1,5 +1,5 @@
-import ChessColumnService from '../../chess-column.service.js';
-import ChessRowService from '../../chess-row.service.js';
+import ChessColumnService from '../../utils/chess-column.service.js';
+import ChessRowService from '../../utils/chess-row.service.js';
 import PieceAbstract from '../pice.abstract.js';
 
 export default class Rook extends PieceAbstract {

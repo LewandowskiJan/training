@@ -1,5 +1,5 @@
-import ChessColumnService from '../../chess-column.service.js';
-import ChessRowService from '../../chess-row.service.js';
+import ChessColumnService from '../../utils/chess-column.service.js';
+import ChessRowService from '../../utils/chess-row.service.js';
 import PieceAbstract from '../pice.abstract.js';
 
 export default class Knight extends PieceAbstract {
@@ -22,7 +22,10 @@ export default class Knight extends PieceAbstract {
       [-2, -1],
     ];
     possibleMove.forEach(([column, row]) => {
-      if(ChessColumnService.calculateColumnName(this.position.column, column) && ChessRowService.hasRowNumber(this.position.row + row) ){
+      if (
+        ChessColumnService.calculateColumnName(this.position.column, column) &&
+        ChessRowService.hasRowNumber(this.position.row + row)
+      ) {
         const move = {
           column: ChessColumnService.calculateColumnName(this.position.column, column),
           row: this.position.row + row,
@@ -33,8 +36,7 @@ export default class Knight extends PieceAbstract {
         }
       }
       // console.log(column, row)
-    
     });
   }
 }
-ChessRowService
+ChessRowService;

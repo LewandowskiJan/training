@@ -1,16 +1,5 @@
 import { FIRST_ROW, LAST_ROW } from '../script.js';
-
-export const rowChessPiecesConfiguration = new Map([
-  ['a', { type: 'rook', icon: '&#128136;' }],
-  ['b', { type: 'knight', icon: '&#127943;' }],
-  ['c', { type: 'bishop', icon: '&#127939;' }],
-  ['d', { type: 'queen', icon: '&#128120;' }],
-  ['e', { type: 'king', icon: '&#129332;' }],
-  ['f', { type: 'bishop', icon: '&#127939;' }],
-  ['g', { type: 'knight', icon: '&#127943;' }],
-  ['h', { type: 'rook', icon: '&#128136;' }],
-  ['pawn', { type: 'pawn', icon: '&#128023;' }],
-]);
+import { rowChessPiecesConfiguration } from './pice.factory.js';
 
 export default class PieceAbstract {
   id;
