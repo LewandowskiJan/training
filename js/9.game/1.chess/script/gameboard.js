@@ -1,6 +1,5 @@
 import { ROUND_MODE_DISABLE } from './script.js';
 
-
 export default class GameBoard {
   selectedPiece;
   selectedPieceInstance;
@@ -33,7 +32,7 @@ export default class GameBoard {
       console.log(4);
       this.changePiecePosition(clickOnBoardService);
       this.clearCellAttackClass();
-      const currentEnemyPlayerIndex =  this.roundService.isPlayerOneRound() ? 1 : 0;
+      const currentEnemyPlayerIndex = this.roundService.isPlayerOneRound() ? 1 : 0;
       this.calculateKingMoveLimitedMoveScope(currentEnemyPlayerIndex);
 
       this.selectedPieceInstance.setupAttackScope();
@@ -60,9 +59,9 @@ export default class GameBoard {
       this.selectedPiece.className = this.selectedPiece.className + ' active';
       this.selectedPieceInstance = this.players[this.selectedPiece.id < 16 ? 1 : 0].getPieceById(this.selectedPiece.id);
       this.clearCellAttackClass();
-      const currentEnemyPlayerIndex =  this.roundService.isPlayerOneRound() ? 1 : 0;
+      const currentEnemyPlayerIndex = this.roundService.isPlayerOneRound() ? 1 : 0;
       this.calculateKingMoveLimitedMoveScope(currentEnemyPlayerIndex);
-      
+
       this.selectedPieceInstance.setupAttackScope();
       this.showAvailableMove();
     }

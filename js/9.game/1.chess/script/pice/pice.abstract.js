@@ -13,7 +13,6 @@ export const rowChessPiecesConfiguration = new Map([
 ]);
 
 export default class PieceAbstract {
-  schema;
   id;
   type;
   icon;
