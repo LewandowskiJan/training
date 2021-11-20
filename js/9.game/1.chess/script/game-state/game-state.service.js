@@ -6,7 +6,7 @@ export default class GameStateService {
   gameStatus = 'pre-start';
   roundService;
 
-  enemyAttackScope = new Set();
+  enemyAttackScope = [];
 
   constructor(roundService) {
     this.roundService = roundService;
@@ -51,6 +51,8 @@ export default class GameStateService {
   }
 
   nextRound() {
+    const currentEnemyPlayerIndex = this.whichEnemyPlayerNumberRound();
+    this.setupEnemyAttackScope(currentEnemyPlayerIndex);
     this.roundService.nextRound();
   }
 

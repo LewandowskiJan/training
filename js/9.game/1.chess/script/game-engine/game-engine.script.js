@@ -1,3 +1,5 @@
+import Position from '../position.js';
+
 export default class GameEngineService {
   selectedPiece;
   selectedPieceInstance;
@@ -8,13 +10,15 @@ export default class GameEngineService {
     this.gameStateService = gameStateService;
     this.gameBoardService = gameBoardService;
     this.setupPlayersPiecesAttackScopes();
+    this.showAvailableAttackScope();
   }
 
   selectAndMovePiece(clickOnBoardService) {
     this.clearAvailableMove();
+    const currentEnemyPlayerIndex = this.gameStateService.whichEnemyPlayerNumberRound();
+    this.gameStateService.setupEnemyAttackScope(currentEnemyPlayerIndex);
 
     if (this.selectedPiece && this.selectedPieceInstance) {
-      this.setupPlayersPiecesAttackScopes();
       /* czy cos jest zaznaczone - tak
         mozemy odznaczyć - przez klikniecie w ta sama figure, w pole na ktore nie mozna sie ruszyc (nawet z wroga figura), po wykonaniu ruchu
         mozemy sie ruszyc - tylko w miejsce do ruchu (zakres moveScope)
@@ -37,13 +41,11 @@ export default class GameEngineService {
       return this.selectPiece(clickOnBoardService);
     }
 
-    if (this.#canSelectedPieceChangePosition(clickOnBoardService)) {
-      this.changePiecePosition(clickOnBoardService);
+    if (this.#canSelectedPieceChangePosition()) {
+      this.changePiecePosition();
       this.clearCellAttackClass();
-      const currentEnemyPlayerIndex = this.gameStateService.whichEnemyPlayerNumberRound();
-      this.gameStateService.setupEnemyAttackScope(currentEnemyPlayerIndex);
 
-      this.selectedPieceInstance && this.selectedPieceInstance.setupAttackScope();
+      this.selectedPieceInstance && this.selectedPieceInstance.setupAttackScope(this.gameStateService.enemyAttackScope);
       this.clearSelected();
 
       return;
@@ -58,9 +60,7 @@ export default class GameEngineService {
         .getPlayers()
         [this.selectedPiece.id < 16 ? 1 : 0].getPieceById(this.selectedPiece.id);
       this.clearCellAttackClass();
-      const currentEnemyPlayerIndex = this.gameStateService.whichEnemyPlayerNumberRound();
 
-      this.gameStateService.setupEnemyAttackScope(currentEnemyPlayerIndex);
       this.selectedPieceInstance.setupAttackScope(this.gameStateService.enemyAttackScope);
       this.showAvailableAttackScope();
       this.showAvailableMove();
@@ -83,7 +83,6 @@ export default class GameEngineService {
   }
 
   showAvailableAttackScope() {
-      console.log(this.gameStateService.enemyAttackScope);
     this.gameStateService.enemyAttackScope.forEach((position) => {
       this.gameBoardService.drawAvailableAttackScope(position);
     });
@@ -123,14 +122,14 @@ export default class GameEngineService {
   setupPlayersPiecesAttackScopes() {
     this.gameStateService.getPlayers().forEach((player) => {
       player.onGamePieces.forEach((piece) => {
-        piece.setupAttackScope();
+        piece.setupAttackScope(this.gameStateService.enemyAttackScope);
       });
     });
   }
 
   giveUp() {
-      this.gameStateService.endGame();
-      this.gameBoardService.gameOver();
+    this.gameStateService.endGame();
+    this.gameBoardService.gameOver();
   }
 
   #canChangeSelection() {

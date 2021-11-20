@@ -4,12 +4,13 @@ import ChessRowService from '../../utils/chess-row.service.js';
 import PieceAbstract from '../pice.abstract.js';
 
 export default class King extends PieceAbstract {
-  setupAttackScope() {
+  setupAttackScope(enemyAttackScope = []) {
     this.attackScope = [];
-    this.setupMoveScope();
+    this.setupMoveScope(enemyAttackScope);
     this.attackScope.push(...this.moveScope);
   }
-  setupMoveScope() {
+
+  setupMoveScope(enemyAttackScope) {
     this.moveScope = [];
     const possibleMove = [
       [1, 1],
@@ -38,5 +39,32 @@ export default class King extends PieceAbstract {
         this.attackScope.push(position);
       }
     });
+
+    this.isKingMoveScopeOnEnemyPieceAttackScope(enemyAttackScope);
+  }
+
+  isKingMoveScopeOnEnemyPieceAttackScope(enemyAttackScope) {
+    const newMoveScope = [];
+    const newAttackScope = [];
+    this.moveScope.forEach((position) => {
+      const canMove = !enemyAttackScope.some((pos) => pos.id === position.id);
+
+      if (canMove) {
+        newMoveScope.push(position);
+      }
+    });
+
+    this.attackScope.forEach((position) => {
+      const canMove = !enemyAttackScope.some((pos) => pos.id === position.id);
+
+      if (canMove) {
+        newAttackScope.push(position);
+      }
+    });
+
+    this.setupNewMoveScope(newMoveScope, newAttackScope);
+
+    console.log('attScope: ', this.attackScope);
+    console.log('moveScope: ', this.moveScope);
   }
 }

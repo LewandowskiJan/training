@@ -74,6 +74,11 @@ export default class PieceAbstract {
     };
   }
 
+  setupNewMoveScope(moveScope, newAttackScope) {
+    this.moveScope = moveScope;
+    this.attackScope = newAttackScope;
+  }
+
   getMoveScope() {
     return this.moveScope;
   }
