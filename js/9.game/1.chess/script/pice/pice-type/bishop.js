@@ -1,3 +1,4 @@
+import Position from '../../position.js';
 import ChessColumnService from '../../utils/chess-column.service.js';
 import ChessRowService from '../../utils/chess-row.service.js';
 import PieceAbstract from '../pice.abstract.js';
@@ -21,27 +22,34 @@ export default class Bishop extends PieceAbstract {
     let q = 1;
     let lastLoop = false;
     let topRight =
-      ChessRowService.hasRowNumber(this.position.row + q) && ChessColumnService.hasColumnName(this.position.column, q);
+      ChessColumnService.hasColumnName(this.position.column, q) && ChessRowService.hasRowNumber(this.position.row + q);
 
     while (topRight && !lastLoop) {
-      const move = {
-        column: ChessColumnService.calculateColumnName(this.position.column, q),
-        row: this.position.row + q,
-      };
-      const lm = document.getElementById(move.column + move.row);
+      if (
+        ChessColumnService.calculateColumnName(this.position.column, q) &&
+        ChessRowService.hasRowNumber(this.position.row + q)
+      ) {
+        const position = new Position(
+          ChessColumnService.calculateColumnName(this.position.column, q) + (this.position.row + q)
+        );
 
-      if (this.isAllyPiece(lm)) {
-        this.attackScope.push(move);
-        return;
+        const lm = document.getElementById(position.id);
+
+        if (this.isAllyPiece(lm)) {
+          this.attackScope.push(position);
+          return;
+        }
+        if (this.isEnemyPiece(lm)) {
+          lastLoop = true;
+        }
+        this.moveScope.push(position);
+        q++;
+        topRight =
+          ChessRowService.hasRowNumber(this.position.row + q) &&
+          ChessColumnService.hasNextColumnName(this.position.column, q);
+      } else {
+        break;
       }
-      if (this.isEnemyPiece(lm)) {
-        lastLoop = true;
-      }
-      this.moveScope.push(move);
-      q++;
-      topRight =
-        ChessRowService.hasRowNumber(this.position.row + q) &&
-        ChessColumnService.hasNextColumnName(this.position.column, q);
     }
   }
 
@@ -49,27 +57,34 @@ export default class Bishop extends PieceAbstract {
     let w = 1;
     let lastLoop = false;
     let topLeft =
-      ChessRowService.hasRowNumber(this.position.row + w) && ChessColumnService.hasColumnName(this.position.column, -w);
+      ChessColumnService.hasColumnName(this.position.column, -w) && ChessRowService.hasRowNumber(this.position.row + w);
 
     while (topLeft && !lastLoop) {
-      const move = {
-        column: ChessColumnService.calculateColumnName(this.position.column, -w),
-        row: this.position.row + w,
-      };
-      const lm = document.getElementById(move.column + move.row);
+      if (
+        ChessColumnService.calculateColumnName(this.position.column, -w) &&
+        ChessRowService.hasRowNumber(this.position.row + w)
+      ) {
+        const position = new Position(
+          ChessColumnService.calculateColumnName(this.position.column, -w) + (this.position.row + w)
+        );
 
-      if (this.isAllyPiece(lm)) {
-        this.attackScope.push(move);
-        return;
+        const lm = document.getElementById(position.id);
+
+        if (this.isAllyPiece(lm)) {
+          this.attackScope.push(position);
+          return;
+        }
+        if (this.isEnemyPiece(lm)) {
+          lastLoop = true;
+        }
+        this.moveScope.push(position);
+        w++;
+        topLeft =
+          ChessRowService.hasRowNumber(this.position.row + w) &&
+          ChessColumnService.hasNextColumnName(this.position.column, -w);
+      } else {
+        break;
       }
-      if (this.isEnemyPiece(lm)) {
-        lastLoop = true;
-      }
-      this.moveScope.push(move);
-      w++;
-      topLeft =
-        ChessRowService.hasRowNumber(this.position.row + w) &&
-        ChessColumnService.hasNextColumnName(this.position.column, -w);
     }
   }
 
@@ -78,26 +93,33 @@ export default class Bishop extends PieceAbstract {
     let lastLoop = false;
 
     let bottomRight =
-      ChessRowService.hasRowNumber(this.position.row - r) && ChessColumnService.hasColumnName(this.position.column, r);
+      ChessColumnService.hasColumnName(this.position.column, r) && ChessRowService.hasRowNumber(this.position.row - r);
 
     while (bottomRight && !lastLoop) {
-      const move = {
-        column: ChessColumnService.calculateColumnName(this.position.column, r),
-        row: this.position.row - r,
-      };
-      const lm = document.getElementById(move.column + move.row);
+      if (
+        ChessColumnService.calculateColumnName(this.position.column, r) &&
+        ChessRowService.hasRowNumber(this.position.row - r)
+      ) {
+        const position = new Position(
+          ChessColumnService.calculateColumnName(this.position.column, r) + (this.position.row - r)
+        );
 
-      if (this.isAllyPiece(lm)) {
-        this.attackScope.push(move);
-        return;
+        const lm = document.getElementById(position.id);
+
+        if (this.isAllyPiece(lm)) {
+          this.attackScope.push(position);
+          return;
+        }
+
+        lastLoop = this.isEnemyPiece(lm);
+        this.moveScope.push(position);
+        r++;
+        bottomRight =
+          ChessRowService.hasRowNumber(this.position.row - r) &&
+          ChessColumnService.hasNextColumnName(this.position.column, r);
+      } else {
+        break;
       }
-
-      lastLoop = this.isEnemyPiece(lm);
-      this.moveScope.push(move);
-      r++;
-      bottomRight =
-        ChessRowService.hasRowNumber(this.position.row - r) &&
-        ChessColumnService.hasNextColumnName(this.position.column, r);
     }
   }
 
@@ -107,22 +129,29 @@ export default class Bishop extends PieceAbstract {
     let bottomLeft =
       ChessRowService.hasRowNumber(this.position.row - e) && ChessColumnService.hasColumnName(this.position.column, -e);
     while (bottomLeft && !lastLoop) {
-      const move = {
-        column: ChessColumnService.calculateColumnName(this.position.column, -e),
-        row: this.position.row - e,
-      };
-      const lm = document.getElementById(move.column + move.row);
+      if (
+        ChessColumnService.calculateColumnName(this.position.column, -e) &&
+        ChessRowService.hasRowNumber(this.position.row - e)
+      ) {
+        const position = new Position(
+          ChessColumnService.calculateColumnName(this.position.column, -e) + (this.position.row - e)
+        );
 
-      if (this.isAllyPiece(lm)) {
-        this.attackScope.push(move);
-        return;
+        const lm = document.getElementById(position.id);
+
+        if (this.isAllyPiece(lm)) {
+          this.attackScope.push(position);
+          return;
+        }
+        lastLoop = this.isEnemyPiece(lm);
+        this.moveScope.push(position);
+        e++;
+        bottomLeft =
+          ChessRowService.hasRowNumber(this.position.row - e) &&
+          ChessColumnService.hasNextColumnName(this.position.column, -e);
+      } else {
+        break;
       }
-      lastLoop = this.isEnemyPiece(lm);
-      this.moveScope.push(move);
-      e++;
-      bottomLeft =
-        ChessRowService.hasRowNumber(this.position.row - e) &&
-        ChessColumnService.hasNextColumnName(this.position.column, -e);
     }
   }
 }

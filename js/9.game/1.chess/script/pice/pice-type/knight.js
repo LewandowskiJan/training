@@ -1,7 +1,7 @@
 import ChessColumnService from '../../utils/chess-column.service.js';
 import ChessRowService from '../../utils/chess-row.service.js';
 import PieceAbstract from '../pice.abstract.js';
-
+import Position from '../../position.js';
 export default class Knight extends PieceAbstract {
   setupAttackScope() {
     this.attackScope = [];
@@ -26,17 +26,17 @@ export default class Knight extends PieceAbstract {
         ChessColumnService.calculateColumnName(this.position.column, column) &&
         ChessRowService.hasRowNumber(this.position.row + row)
       ) {
-        const move = {
-          column: ChessColumnService.calculateColumnName(this.position.column, column),
-          row: this.position.row + row,
-        };
-        const lm = document.getElementById(move.column + move.row);
+        const position = new Position(
+          ChessColumnService.calculateColumnName(this.position.column, column) + (this.position.row + row)
+        );
+
+        const lm = document.getElementById(position.id);
+
         if (!this.isAllyPiece(lm)) {
-          this.moveScope.push(move);
+          this.moveScope.push(position);
         }
-        this.attackScope.push(move);
+        this.attackScope.push(position);
       }
     });
   }
 }
-ChessRowService;

@@ -9,6 +9,20 @@
     border: 1px solid rgb(109, 111, 112);
 }
 
+.game-over {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 320px;
+    width: 320px;
+    background-color: grey;
+    border: 1px solid rgb(109, 111, 112);
+}
+
+.hide {
+    display: none;
+}
+
 body {
     background-color: black;
 }
@@ -68,4 +82,10 @@ body {
 
 .attack {
     background-color: rgba(250, 0, 0, 0.4) !important;
+}
+
+.button {
+    background-color: blue;
+    color: wheat;
+    cursor: pointer;
 }

@@ -98,9 +98,10 @@
  */
 
 import ClickOnBoardService from './services/click-on-board.service.js';
-import GameState from './game-state.js';
-import GameBoard from './gameboard.js';
 import RoundService from './services/round.service.js';
+import GameBoardService from './game-board/game-board.service.js';
+import GameEngineService from './game-engine/game-engine.script.js';
+import GameStateService from './game-state/game-state.service.js';
 
 export const COLUMN_SIZE = 8;
 export const ROW_SIZE = 8;
@@ -113,11 +114,24 @@ let gameBoardElement;
 
 window.onload = () => {
   const roundService = new RoundService();
-  const gameState = new GameState(0, [], 0);
-  gameState.setupGame();
+  const gameStateService = new GameStateService(roundService);
+  gameStateService.setupGameState();
+  const gameBoardService = new GameBoardService(gameStateService);
+  gameBoardService.setupGame();
+  const gameEngineService = new GameEngineService(gameStateService, gameBoardService);
+
   gameBoardElement = document.getElementById('chessboard');
-  const gameBoard = new GameBoard(gameState.getPlayers(), gameState, roundService);
+
   gameBoardElement.addEventListener('click', function (e) {
-    gameBoard.selectAndMovePiece(new ClickOnBoardService(e.target));
+    const clickService = new ClickOnBoardService(e.target);
+    gameBoardService.setupClick(clickService);
+    gameEngineService.selectAndMovePiece(clickService);
+  });
+
+  const giveUpElement = document.getElementById('give-up');
+
+  giveUpElement.addEventListener('click', function (e) {
+    gameEngineService.giveUp();
+    console.log(gameStateService);
   });
 };

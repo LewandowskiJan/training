@@ -1,4 +1,4 @@
-import { FIRST_ROW, LAST_ROW } from '../script.js';
+import { FIRST_ROW, LAST_ROW } from '../app.js';
 import { rowChessPiecesConfiguration } from './pice.factory.js';
 
 export default class PieceAbstract {

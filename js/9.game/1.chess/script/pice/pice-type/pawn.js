@@ -1,3 +1,4 @@
+import Position from '../../position.js';
 import ChessColumnService from '../../utils/chess-column.service.js';
 import ChessRowService from '../../utils/chess-row.service.js';
 import PieceAbstract from '../pice.abstract.js';
@@ -15,22 +16,20 @@ export default class Pawn extends PieceAbstract {
       ChessColumnService.calculateColumnName(this.position.column, -1) &&
       ChessRowService.hasRowNumber(this.position.row + attackStep)
     ) {
-      const attack1 = {
-        column: ChessColumnService.calculateColumnName(this.position.column, -1),
-        row: this.position.row + attackStep,
-      };
-      this.attackScope.push(attack1);
+      const id = ChessColumnService.calculateColumnName(this.position.column, -1) + (this.position.row + attackStep);
+      const attackPosition = new Position(id);
+      this.attackScope.push(attackPosition);
     }
 
     if (
       ChessColumnService.calculateColumnName(this.position.column, 1) &&
       ChessRowService.hasRowNumber(this.position.row + attackStep)
     ) {
-      const attack2 = {
-        column: ChessColumnService.calculateColumnName(this.position.column, 1),
-        row: this.position.row + attackStep,
-      };
-      this.attackScope.push(attack2);
+      const id = ChessColumnService.calculateColumnName(this.position.column, 1) + (this.position.row + attackStep);
+      const attackPosition = new Position(id);
+      this.attackScope.push(attackPosition);
+
+      this.attackScope.push(attackPosition);
     }
 
     this.setupMoveScope();
@@ -40,11 +39,10 @@ export default class Pawn extends PieceAbstract {
   setupMoveScope() {
     this.moveScope = [];
     const moveStep = this.side === 'bottom' ? 1 : -1;
-    const move = {
-      column: this.position.column,
-      row: this.position.row + moveStep,
-    };
-    const currentCell = document.getElementById(move.column + move.row);
+
+    const position = new Position(this.position.column + (this.position.row + moveStep));
+
+    const currentCell = document.getElementById(position.id);
     const en1 = document.getElementById(this.attackScope[0]?.column + this.attackScope[0]?.row);
     const en2 = document.getElementById(this.attackScope[1]?.column + this.attackScope[1]?.row);
     if (en1 && this.isEnemyPiece(en1)) {
@@ -54,20 +52,28 @@ export default class Pawn extends PieceAbstract {
       this.moveScope.push(this.attackScope[1]);
     }
     if (this.isAllyPiece(currentCell) || this.isEnemyPiece(currentCell)) {
-      this.attackScope.push(move);
+      this.attackScope.push(position);
       return;
     }
-    if ((this.side === 'bottom' && this.position.row === 2) || (this.side === 'top' && this.position.row === 7)) {
+    if (
+      (this.side === 'bottom' && this.#isBottomInitialPosition()) ||
+      (this.side === 'top' && this.#isTopInitialPosition())
+    ) {
       const firstMove = this.side === 'bottom' ? 2 : -2;
-      const move2 = {
-        column: this.position.column,
-        row: this.position.row + firstMove,
-      };
-      const lm2 = document.getElementById(move2.column + move2.row);
+      const position = new Position(this.position.column + (this.position.row + firstMove));
+      const lm2 = document.getElementById(position.id);
       if (!this.isAllyPiece(lm2) && !this.isEnemyPiece(lm2)) {
-        this.moveScope.push(move2);
+        this.moveScope.push(position);
       }
     }
-    this.moveScope.push(move);
+    this.moveScope.push(position);
+  }
+
+  #isBottomInitialPosition() {
+    return this.position.row === 2;
+  }
+
+  #isTopInitialPosition() {
+    return this.position.row === 7;
   }
 }

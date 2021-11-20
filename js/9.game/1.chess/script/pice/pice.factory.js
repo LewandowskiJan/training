@@ -5,7 +5,8 @@ import Queen from './pice-type/queen.js';
 import King from './pice-type/king.js';
 import Knight from './pice-type/knight.js';
 
-import { FIRST_ROW, LAST_ROW } from '../script.js';
+import { FIRST_ROW, LAST_ROW } from '../app.js';
+import Position from '../position.js';
 
 export const rowChessPiecesConfiguration = new Map([
   ['a', { type: 'rook', icon: '&#128136;' }],

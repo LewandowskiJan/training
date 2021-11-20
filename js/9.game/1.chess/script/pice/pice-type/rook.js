@@ -1,3 +1,4 @@
+import Position from '../../position.js';
 import ChessColumnService from '../../utils/chess-column.service.js';
 import ChessRowService from '../../utils/chess-row.service.js';
 import PieceAbstract from '../pice.abstract.js';
@@ -22,22 +23,26 @@ export default class Rook extends PieceAbstract {
     let left = ChessColumnService.hasNextColumnName(this.position.column, -leftColumnIndex);
 
     while (left && !lastLoop) {
-      const move = {
-        column: ChessColumnService.calculateColumnName(this.position.column, -leftColumnIndex),
-        row: this.position.row,
-      };
-      const lm = document.getElementById(move.column + move.row);
+      if (ChessColumnService.calculateColumnName(this.position.column, -leftColumnIndex)) {
+        const position = new Position(
+          ChessColumnService.calculateColumnName(this.position.column, -leftColumnIndex) + this.position.row
+        );
 
-      if (this.isAllyPiece(lm)) {
-        this.attackScope.push(move);
-        return;
+        const lm = document.getElementById(position.id);
+
+        if (this.isAllyPiece(lm)) {
+          this.attackScope.push(position);
+          return;
+        }
+        if (this.isEnemyPiece(lm)) {
+          lastLoop = true;
+        }
+        this.moveScope.push(position);
+        leftColumnIndex++;
+        left = ChessColumnService.hasNextColumnName(this.position.column, -leftColumnIndex);
+      } else {
+        break;
       }
-      if (this.isEnemyPiece(lm)) {
-        lastLoop = true;
-      }
-      this.moveScope.push(move);
-      leftColumnIndex++;
-      left = ChessColumnService.hasNextColumnName(this.position.column, -leftColumnIndex);
     }
   }
 
@@ -46,22 +51,26 @@ export default class Rook extends PieceAbstract {
     let lastLoop = false;
     let right = ChessColumnService.hasNextColumnName(this.position.column, rightColumnIndex);
     while (right && !lastLoop) {
-      const move = {
-        column: ChessColumnService.calculateColumnName(this.position.column, rightColumnIndex),
-        row: this.position.row,
-      };
-      const lm = document.getElementById(move.column + move.row);
+      if (ChessColumnService.calculateColumnName(this.position.column, rightColumnIndex)) {
+        const position = new Position(
+          ChessColumnService.calculateColumnName(this.position.column, rightColumnIndex) + this.position.row
+        );
 
-      if (this.isAllyPiece(lm)) {
-        this.attackScope.push(move);
-        return;
+        const lm = document.getElementById(position.id);
+
+        if (this.isAllyPiece(lm)) {
+          this.attackScope.push(position);
+          return;
+        }
+        if (this.isEnemyPiece(lm)) {
+          lastLoop = true;
+        }
+        this.moveScope.push(position);
+        rightColumnIndex++;
+        right = ChessColumnService.hasNextColumnName(this.position.column, rightColumnIndex);
+      } else {
+        break;
       }
-      if (this.isEnemyPiece(lm)) {
-        lastLoop = true;
-      }
-      this.moveScope.push(move);
-      rightColumnIndex++;
-      right = ChessColumnService.hasNextColumnName(this.position.column, rightColumnIndex);
     }
   }
 
@@ -70,22 +79,24 @@ export default class Rook extends PieceAbstract {
     let lastLoop = false;
     let top = ChessRowService.hasRowNumber(this.position.row + upperRowIndex);
     while (top && !lastLoop) {
-      const move = {
-        column: this.position.column,
-        row: this.position.row + upperRowIndex,
-      };
-      const lm = document.getElementById(move.column + move.row);
+      if (ChessRowService.hasRowNumber(this.position.row + upperRowIndex)) {
+        const position = new Position(this.position.column + (this.position.row + upperRowIndex));
 
-      if (this.isAllyPiece(lm)) {
-        this.attackScope.push(move);
-        return;
+        const lm = document.getElementById(position.id);
+
+        if (this.isAllyPiece(lm)) {
+          this.attackScope.push(position);
+          return;
+        }
+        if (this.isEnemyPiece(lm)) {
+          lastLoop = true;
+        }
+        this.moveScope.push(position);
+        upperRowIndex++;
+        top = ChessRowService.hasRowNumber(this.position.row + upperRowIndex);
+      } else {
+        break;
       }
-      if (this.isEnemyPiece(lm)) {
-        lastLoop = true;
-      }
-      this.moveScope.push(move);
-      upperRowIndex++;
-      top = ChessRowService.hasRowNumber(this.position.row + upperRowIndex);
     }
   }
 
@@ -94,22 +105,24 @@ export default class Rook extends PieceAbstract {
     let lastLoop = false;
     let bottom = ChessRowService.hasRowNumber(this.position.row - lowerRowIndex);
     while (bottom && !lastLoop) {
-      const move = {
-        column: this.position.column,
-        row: this.position.row - lowerRowIndex,
-      };
-      const lm = document.getElementById(move.column + move.row);
+      if (ChessRowService.hasRowNumber(this.position.row - lowerRowIndex)) {
+        const position = new Position(this.position.column + (this.position.row - lowerRowIndex));
 
-      if (this.isAllyPiece(lm)) {
-        this.attackScope.push(move);
-        return;
+        const lm = document.getElementById(position.id);
+
+        if (this.isAllyPiece(lm)) {
+          this.attackScope.push(position);
+          return;
+        }
+        if (this.isEnemyPiece(lm)) {
+          lastLoop = true;
+        }
+        this.moveScope.push(position);
+        lowerRowIndex++;
+        bottom = ChessRowService.hasRowNumber(this.position.row - lowerRowIndex);
+      } else {
+        break;
       }
-      if (this.isEnemyPiece(lm)) {
-        lastLoop = true;
-      }
-      this.moveScope.push(move);
-      lowerRowIndex++;
-      bottom = ChessRowService.hasRowNumber(this.position.row - lowerRowIndex);
     }
   }
 }
