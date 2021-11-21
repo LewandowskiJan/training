@@ -1,5 +1,5 @@
-import Player from '../player/player.js';
-import Position from '../position.js';
+import Player from '../models/player.js';
+import Position from '../models/position.js';
 
 export default class GameStateService {
   players = [];

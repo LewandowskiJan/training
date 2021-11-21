@@ -1,5 +1,3 @@
-import Position from '../position.js';
-
 export default class GameEngineService {
   selectedPiece;
   selectedPieceInstance;

@@ -1,6 +1,6 @@
 import { COLUMN_SIZE, ROUND_MODE_DISABLE, ROW_SIZE } from '../app.js';
-import PieceFactory from '../pice/pice.factory.js';
-import Position from '../position.js';
+import PieceFactory from '../models/pice/pice.factory.js';
+import Position from '../models/position.js';
 import ChessColumnService from '../utils/chess-column.service.js';
 
 export default class GameBoardService {

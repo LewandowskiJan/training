@@ -1,3 +1,5 @@
+import Position from '../models/position.js';
+
 export default class ClickOnBoardService {
   target;
   pieceTarget;
@@ -52,11 +54,7 @@ export default class ClickOnBoardService {
     return this.pieceTarget;
   }
   getCellPosition() {
-    const selectedPieceId = this.cellId.split('');
-    return {
-      column: selectedPieceId[0],
-      row: +selectedPieceId[1],
-    };
+    return new Position(this.cellId);
   }
 
   isCellWithPieceOrPieceClicked() {
