@@ -16,13 +16,21 @@ export default class GameStateService {
     this.#setupPlayers();
   }
 
-  setupEnemyAttackScope(playerIndex = 0) {
-    let allPieces = this.getPlayers()[playerIndex].onGamePieces;
+  setupEnemyAttackScope() {
+    let allPieces = this.players[this.whichEnemyPlayerNumberRound()].onGamePieces;
     this.enemyAttackScope = Position.removeDuplicatedPosition(allPieces);
   }
 
   getPlayers() {
     return this.players;
+  }
+
+  getEnemyPlayer() {
+    return this.players[this.whichEnemyPlayerNumberRound()];
+  }
+
+  getEnemyAttackScope() {
+    return this.enemyAttackScope;
   }
 
   addPieceToPlayer(currentPiece, playerNumber) {

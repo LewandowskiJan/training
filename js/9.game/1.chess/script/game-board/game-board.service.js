@@ -92,16 +92,15 @@ export default class GameBoardService {
 
   canSelectedPieceChangePosition(isPieceSelected, moveScope) {
     return (
-      isPieceSelected ||
-      this.#isInMoveScope(moveScope, this.clickGameService.getCellId()) ||
-      !this.clickGameService.isCellWithPieceOrPieceClicked()
+      this.#isInMoveScope(moveScope, this.clickGameService.getCellId()) &&
+      (isPieceSelected || !this.clickGameService.isCellWithPieceOrPieceClicked())
     );
   }
 
   gameOver() {
     const chessboard = document.getElementById('chessboard');
     const gameOver = document.getElementById('game-over');
-    chessboard.classList.add('hide')
+    chessboard.classList.add('hide');
     gameOver.classList.remove('hide');
   }
 
@@ -137,6 +136,7 @@ export default class GameBoardService {
 
   #drawChessBoard() {
     let counter = 0;
+    const pieces = [];
     for (let chessRow = ROW_SIZE; chessRow > 0; chessRow--) {
       if (this.#isInitialRowWithPieces(chessRow)) {
         for (let chessColumn = 1; chessColumn <= COLUMN_SIZE; chessColumn++) {
@@ -145,14 +145,32 @@ export default class GameBoardService {
 
           const position = new Position(cellColumn + chessRow);
           const currentPiece = factory.generatePiece(position);
-          if (this.#isBottomRow(chessRow)) this.#addPieceToPlayer(currentPiece, 0);
-          if (this.#isTopRow(chessRow)) this.#addPieceToPlayer(currentPiece, 1);
+
+          if (this.#isBottomRow(chessRow)) {
+            this.#addPieceToPlayer(currentPiece, 0);
+            pieces.push({ p: 0, currentPiece });
+          }
+          if (this.#isTopRow(chessRow)) {
+            this.#addPieceToPlayer(currentPiece, 1);
+            pieces.push({ p: 1, currentPiece });
+          }
 
           this.#setupCurrentPieceView(currentPiece, cellColumn, chessRow, counter);
-
           counter++;
         }
       }
     }
+    this.drawInitialAttackScope(pieces);
+  }
+
+  drawInitialAttackScope(pieces) {
+    pieces.forEach(({ p, currentPiece }) => {
+      currentPiece.setupAttackScope();
+      if (p) {
+        currentPiece.attackScope.forEach((position) => {
+          this.drawAvailableAttackScope(position);
+        });
+      }
+    });
   }
 }

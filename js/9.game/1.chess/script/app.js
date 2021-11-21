@@ -114,18 +114,23 @@ let gameBoardElement;
 
 window.onload = () => {
   const roundService = new RoundService();
+
   const gameStateService = new GameStateService(roundService);
   gameStateService.setupGameState();
+
   const gameBoardService = new GameBoardService(gameStateService);
   gameBoardService.setupGame();
+
   const gameEngineService = new GameEngineService(gameStateService, gameBoardService);
+
+  gameEngineService.startGame();
 
   gameBoardElement = document.getElementById('chessboard');
 
   gameBoardElement.addEventListener('click', function (e) {
     const clickService = new ClickOnBoardService(e.target);
     gameBoardService.setupClick(clickService);
-    gameEngineService.selectAndMovePiece(clickService);
+    gameEngineService.selectAndMovePiece();
   });
 
   const giveUpElement = document.getElementById('give-up');
