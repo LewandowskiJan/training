@@ -50,6 +50,10 @@ export default class GameEngineService {
     this.clearSelected();
   }
 
+  checkIsCheckOrCheckmate() {
+    return this.gameStateService.checkIsCheckOrCheckmate();
+  }
+
   selectPiece() {
     this.selectedPiece = this.getClickedPiece();
     if (this.selectedPiece) {
@@ -79,6 +83,17 @@ export default class GameEngineService {
   onStartNewRound() {
     this.gameStateService.setupEnemyAttackScope();
     this.showAvailableAttackScope();
+    const isCheckOrCheckmate = this.checkIsCheckOrCheckmate();
+
+    if (isCheckOrCheckmate.isCheckmate) {
+      console.log('player: ', this.gameStateService.whichPlayerNumberRound(), ' lose');
+      console.log('player: ', this.gameStateService.whichEnemyPlayerNumberRound(), ' win');
+      this.giveUp();
+    }
+
+    if (isCheckOrCheckmate.isCheck) {
+      // setup new moveScopes
+    }
   }
 
   changePiecePosition() {
@@ -144,7 +159,10 @@ export default class GameEngineService {
 
   giveUp() {
     this.gameStateService.endGame();
-    this.gameBoardService.gameOver();
+    this.gameBoardService.gameOver(
+      this.gameStateService.whichPlayerNumberRound(),
+      this.gameStateService.whichEnemyPlayerNumberRound()
+    );
   }
 
   #canChangeSelection() {

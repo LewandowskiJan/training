@@ -97,9 +97,14 @@ export default class GameBoardService {
     );
   }
 
-  gameOver() {
+  gameOver(playerWin, playerLose) {
     const chessboard = document.getElementById('chessboard');
     const gameOver = document.getElementById('game-over');
+    gameOver.innerHTML = `
+    <p><strong>${gameOver.innerText}</strong><p>
+    <p>Player ${playerWin} win!</p> 
+    <p>Player ${playerLose} lose!</p> 
+    `;
     chessboard.classList.add('hide');
     gameOver.classList.remove('hide');
   }

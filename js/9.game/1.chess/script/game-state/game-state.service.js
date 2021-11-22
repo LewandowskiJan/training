@@ -21,6 +21,26 @@ export default class GameStateService {
     this.enemyAttackScope = Position.removeDuplicatedPosition(allPieces);
   }
 
+  checkIsCheckOrCheckmate() {
+    return {
+      isCheck: this.checkIsCheck(),
+      isCheckmate: this.checkIsCheckmate(),
+    };
+  }
+
+  checkIsCheck() {
+    const currentPlayerIndex = this.whichPlayerNumberRound();
+    const currentKing = this.players[currentPlayerIndex].onGamePieces.find((piece) => piece.type === 'king');
+
+    return this.enemyAttackScope.some((position) => {
+      return position.id === currentKing.position.id;
+    });
+  }
+
+  checkIsCheckmate() {
+    return false;
+  }
+
   getPlayers() {
     return this.players;
   }
