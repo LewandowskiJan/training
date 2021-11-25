@@ -1,0 +1,42 @@
+.tictactoe {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    height: 320px;
+    width: 320px;
+    justify-self: center;
+    background-color: grey;
+    border: 1px solid rgb(109, 111, 112);
+}
+body {
+    background-color: black;
+}
+
+.cell.odd{
+    border-width: 2px;
+    border-style: solid;
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(83, 156, 192);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.cell.even{
+border-width: 2px;
+border-style: solid;
+background-color: rgb(231, 231, 231);
+border-color: rgb(83, 156, 192);
+align-items: center;
+display: flex;
+justify-content: center;
+}
+
+
+.xplayer
+.oplayer {
+    display: flex;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
