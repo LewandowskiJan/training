@@ -29,6 +29,7 @@ export default class GameEngineService {
       }
 
       if (this.#canSelectedPieceChangePosition()) {
+        console.log('here');
         this.makePieceMoveAndGoToNextRound();
         return;
       }
@@ -65,26 +66,10 @@ export default class GameEngineService {
     this.changePiecePosition();
     const move = new Move(this.selectedPieceInstance, this.fromPosition);
     this.game.setMove(move);
-    this.clearCellAttackClass();
+    this.clearAvailableAttackScope();
     this.clearSelected();
     this.game.nextRound();
     this.onStartNewRound();
-  }
-
-  onStartNewRound() {
-    this.game.setupEnemyAttackScope();
-    this.showAvailableAttackScope();
-    this.game.setupMoveScope();
-
-    const isCheckOrCheckmate = this.checkIsCheckOrCheckmate();
-
-    if (isCheckOrCheckmate.isCheckmate) {
-      this.giveUp();
-    }
-
-    if (isCheckOrCheckmate.isCheck) {
-      // setup new moveScopes
-    }
   }
 
   changePiecePosition() {
@@ -97,6 +82,18 @@ export default class GameEngineService {
     this.selectedPieceInstance.setPosition(newPiecePosition);
     this.clearAvailableMove();
     this.selectedPieceInstance.setupAttackScope();
+  }
+
+  clearSelected() {
+    this.clearAvailableMove();
+    this.gameBoardService.clearActiveClass(this.selectedPiece);
+    this.selectedPiece = null;
+    this.selectedPieceInstance = null;
+  }
+
+  onStartNewRound() {
+    this.showAvailableAttackScope();
+    this.game.setupMoveScope();
   }
 
   showAvailableMove() {
@@ -120,7 +117,7 @@ export default class GameEngineService {
     });
   }
 
-  clearCellAttackClass() {
+  clearAvailableAttackScope() {
     this.game.setupEnemyAttackScope().forEach((position) => {
       this.gameBoardService.clearAvailableAttackScope(position);
     });
@@ -128,13 +125,6 @@ export default class GameEngineService {
 
   getClickedPiece() {
     return this.gameBoardService.getClickSelection(this.game.idPlayerOneMove());
-  }
-
-  clearSelected() {
-    this.clearAvailableMove();
-    this.gameBoardService.clearActiveClass(this.selectedPiece);
-    this.selectedPiece = null;
-    this.selectedPieceInstance = null;
   }
 
   isPieceSelected() {

@@ -9,7 +9,7 @@ export const ROW_SIZE = 8;
 
 export const FIRST_ROW = 1;
 export const LAST_ROW = 8;
-export const ROUND_MODE_DISABLE = true;
+export const ROUND_MODE_DISABLE = false;
 
 let gameOver = false;
 let gameStart = true;
@@ -19,7 +19,7 @@ window.onload = () => {
   const startGameButton = document.getElementById('game-start');
 
   const gameBoardService = new GameBoardService();
-  const game = new Game(chessConfigurationMock.get('check-mate'));
+  const game = new Game(chessConfigurationMock.get('default'));
   const gameEngineService = new GameEngineService(game, gameBoardService);
 
   gameEngineService.startGame();

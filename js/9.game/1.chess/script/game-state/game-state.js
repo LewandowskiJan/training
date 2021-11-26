@@ -24,6 +24,7 @@ export default class GameState {
     } else {
       this.setupDefaultConfiguration();
     }
+    this.#setupPiecesAttackScope();
   }
 
   setMove(move) {
@@ -55,6 +56,12 @@ export default class GameState {
       this.createPiece(columnName, 1, 2);
     }
     this.status = 'on game';
+  }
+
+  #setupPiecesAttackScope() {
+    this.onGamePieces.forEach((piece) => {
+      piece.setupAttackScope();
+    });
   }
 
   createPiece(columnName, rowStart, rowEnd) {

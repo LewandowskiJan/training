@@ -59,14 +59,12 @@ export default class GameBoardService {
   }
 
   drawAvailableMove(position) {
-    const id = position.column + position.row;
-    const cell = document.getElementById(id);
+    const cell = document.getElementById(position.id);
     if (cell) cell.style = 'background-color: rgba(160, 250, 160, .5) !important;';
   }
 
   clearAvailableMoveScope(position) {
-    const id = position.column + position.row;
-    const cell = document.getElementById(id);
+    const cell = document.getElementById(position.id);
     if (cell) cell.style = '';
   }
 

@@ -56,7 +56,7 @@ export default class Game {
   }
 
   nextRound() {
-    console.log('next round changing start ', this.currentState);
+    // console.log('next round changing start ', this.currentState);
     const nextRound = this.currentRound + 1;
     if (this.gameStatesMap.has(nextRound)) {
       this.setPreviousState(this.gameStatesMap.get(this.currentRound));
@@ -67,9 +67,6 @@ export default class Game {
       this.setCurrentState(this.gameStatesMap.get(nextRound));
       this.currentRound = nextRound;
     }
-
-    console.log('next round changing end ', this.currentState);
-    console.log(this.gameStatesMap);
   }
 
   navigateToNextRound() {
