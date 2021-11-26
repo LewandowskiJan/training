@@ -9,82 +9,95 @@
   </head>
 
   <body>
-    <div id="give-up" class="button">Poddaj sie</div>
-    <h1 class="white" id="gameStatus"></h1>
-    <div id="game-over" class="game-over hide">GAME OVER</div>
-    <div class="chessboard" id="chessboard">
-      <div class="cell odd" id="a8"></div>
-      <div class="cell odd" id="b8"></div>
-      <div class="cell odd" id="c8"></div>
-      <div class="cell odd" id="d8"></div>
-      <div class="cell odd" id="e8"></div>
-      <div class="cell odd" id="f8"></div>
-      <div class="cell odd" id="g8"></div>
-      <div class="cell odd" id="h8"></div>
+    <div class="container">
+      <div class="navigation">
+        <div id="previous" class="button">Prev</div>
+        <div id="give-up" class="button">Give up</div>
+        <div id="next" class="button">Next</div>
+      </div>
 
-      <div class="cell even" id="a7"></div>
-      <div class="cell even" id="b7"></div>
-      <div class="cell even" id="c7"></div>
-      <div class="cell even" id="d7"></div>
-      <div class="cell even" id="e7"></div>
-      <div class="cell even" id="f7"></div>
-      <div class="cell even" id="g7"></div>
-      <div class="cell even" id="h7"></div>
+      <div class="board">
+        <div id="game-start" class="game-start">
+          <div class="button start">START</div>
+        </div>
+        <div id="game-over" class="game-over hide">GAME OVER</div>
 
-      <div class="cell odd" id="a6"></div>
-      <div class="cell odd" id="b6"></div>
-      <div class="cell odd" id="c6"></div>
-      <div class="cell odd" id="d6"></div>
-      <div class="cell odd" id="e6"></div>
-      <div class="cell odd" id="f6"></div>
-      <div class="cell odd" id="g6"></div>
-      <div class="cell odd" id="h6"></div>
+        <div class="chessboard hide" id="chessboard">
+          <div class="cell odd" id="a8"></div>
+          <div class="cell odd" id="b8"></div>
+          <div class="cell odd" id="c8"></div>
+          <div class="cell odd" id="d8"></div>
+          <div class="cell odd" id="e8"></div>
+          <div class="cell odd" id="f8"></div>
+          <div class="cell odd" id="g8"></div>
+          <div class="cell odd" id="h8"></div>
 
-      <div class="cell even" id="a5"></div>
-      <div class="cell even" id="b5"></div>
-      <div class="cell even" id="c5"></div>
-      <div class="cell even" id="d5"></div>
-      <div class="cell even" id="e5"></div>
-      <div class="cell even" id="f5"></div>
-      <div class="cell even" id="g5"></div>
-      <div class="cell even" id="h5"></div>
+          <div class="cell even" id="a7"></div>
+          <div class="cell even" id="b7"></div>
+          <div class="cell even" id="c7"></div>
+          <div class="cell even" id="d7"></div>
+          <div class="cell even" id="e7"></div>
+          <div class="cell even" id="f7"></div>
+          <div class="cell even" id="g7"></div>
+          <div class="cell even" id="h7"></div>
 
-      <div class="cell odd" id="a4"></div>
-      <div class="cell odd" id="b4"></div>
-      <div class="cell odd" id="c4"></div>
-      <div class="cell odd" id="d4"></div>
-      <div class="cell odd" id="e4"></div>
-      <div class="cell odd" id="f4"></div>
-      <div class="cell odd" id="g4"></div>
-      <div class="cell odd" id="h4"></div>
+          <div class="cell odd" id="a6"></div>
+          <div class="cell odd" id="b6"></div>
+          <div class="cell odd" id="c6"></div>
+          <div class="cell odd" id="d6"></div>
+          <div class="cell odd" id="e6"></div>
+          <div class="cell odd" id="f6"></div>
+          <div class="cell odd" id="g6"></div>
+          <div class="cell odd" id="h6"></div>
 
-      <div class="cell even" id="a3"></div>
-      <div class="cell even" id="b3"></div>
-      <div class="cell even" id="c3"></div>
-      <div class="cell even" id="d3"></div>
-      <div class="cell even" id="e3"></div>
-      <div class="cell even" id="f3"></div>
-      <div class="cell even" id="g3"></div>
-      <div class="cell even" id="h3"></div>
+          <div class="cell even" id="a5"></div>
+          <div class="cell even" id="b5"></div>
+          <div class="cell even" id="c5"></div>
+          <div class="cell even" id="d5"></div>
+          <div class="cell even" id="e5"></div>
+          <div class="cell even" id="f5"></div>
+          <div class="cell even" id="g5"></div>
+          <div class="cell even" id="h5"></div>
 
-      <div class="cell odd" id="a2"></div>
-      <div class="cell odd" id="b2"></div>
-      <div class="cell odd" id="c2"></div>
-      <div class="cell odd" id="d2"></div>
-      <div class="cell odd" id="e2"></div>
-      <div class="cell odd" id="f2"></div>
-      <div class="cell odd" id="g2"></div>
-      <div class="cell odd" id="h2"></div>
+          <div class="cell odd" id="a4"></div>
+          <div class="cell odd" id="b4"></div>
+          <div class="cell odd" id="c4"></div>
+          <div class="cell odd" id="d4"></div>
+          <div class="cell odd" id="e4"></div>
+          <div class="cell odd" id="f4"></div>
+          <div class="cell odd" id="g4"></div>
+          <div class="cell odd" id="h4"></div>
 
-      <div class="cell even" id="a1"></div>
-      <div class="cell even" id="b1"></div>
-      <div class="cell even" id="c1"></div>
-      <div class="cell even" id="d1"></div>
-      <div class="cell even" id="e1"></div>
-      <div class="cell even" id="f1"></div>
-      <div class="cell even" id="g1"></div>
-      <div class="cell even" id="h1"></div>
+          <div class="cell even" id="a3"></div>
+          <div class="cell even" id="b3"></div>
+          <div class="cell even" id="c3"></div>
+          <div class="cell even" id="d3"></div>
+          <div class="cell even" id="e3"></div>
+          <div class="cell even" id="f3"></div>
+          <div class="cell even" id="g3"></div>
+          <div class="cell even" id="h3"></div>
+
+          <div class="cell odd" id="a2"></div>
+          <div class="cell odd" id="b2"></div>
+          <div class="cell odd" id="c2"></div>
+          <div class="cell odd" id="d2"></div>
+          <div class="cell odd" id="e2"></div>
+          <div class="cell odd" id="f2"></div>
+          <div class="cell odd" id="g2"></div>
+          <div class="cell odd" id="h2"></div>
+
+          <div class="cell even" id="a1"></div>
+          <div class="cell even" id="b1"></div>
+          <div class="cell even" id="c1"></div>
+          <div class="cell even" id="d1"></div>
+          <div class="cell even" id="e1"></div>
+          <div class="cell even" id="f1"></div>
+          <div class="cell even" id="g1"></div>
+          <div class="cell even" id="h1"></div>
+        </div>
+      </div>
     </div>
+
     <script type="module" defer src="script/app.js"></script>
     <!-- <script type="module" defer src="script/concepts.js"></script> -->
   </body>

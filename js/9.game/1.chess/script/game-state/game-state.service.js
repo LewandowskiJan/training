@@ -1,5 +1,6 @@
 import Player from '../models/player.js';
 import Position from '../models/position.js';
+import CheckmateService from '../services/checkmate.service.js';
 
 export default class GameStateService {
   players = [];
@@ -38,6 +39,12 @@ export default class GameStateService {
   }
 
   checkIsCheckmate() {
+    const checkmateService = new CheckmateService(
+      this.players[this.whichPlayerNumberRound()],
+      this.players[this.whichEnemyPlayerNumberRound()]
+    );
+
+    checkmateService.checkPossibleMove();
     return false;
   }
 

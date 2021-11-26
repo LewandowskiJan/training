@@ -20,32 +20,35 @@ export const rowChessPiecesConfiguration = new Map([
 ]);
 
 export default class PieceFactory {
-  generatePiece(position) {
-    const { type, icon } = this.getCurrentPiceConfiguration(position.column, position.row);
-    // console.log(type);
+  static generatePiece(position, playerNumber) {
+    const { type, icon } = PieceFactory.getCurrentPiceConfiguration(position.column, position.row);
+    return PieceFactory.createPieceFromPositionTypeIcon(position, type, icon, playerNumber);
+  }
+
+  static createPieceFromPositionTypeIcon(position, type, icon, playerNumber) {
     switch (type) {
       case 'pawn':
-        return new Pawn(position, type, icon);
+        return new Pawn(position, type, icon, playerNumber);
       case 'queen':
-        return new Queen(position, type, icon);
+        return new Queen(position, type, icon, playerNumber);
       case 'king':
-        return new King(position, type, icon);
+        return new King(position, type, icon, playerNumber);
       case 'bishop':
-        return new Bishop(position, type, icon);
+        return new Bishop(position, type, icon, playerNumber);
       case 'knight':
-        return new Knight(position, type, icon);
+        return new Knight(position, type, icon, playerNumber);
       case 'rook':
-        return new Rook(position, type, icon);
+        return new Rook(position, type, icon, playerNumber);
     }
   }
 
-  getCurrentPiceConfiguration(cellColumn, chessRow) {
-    return this.isFirstOrLastRow(chessRow)
+  static getCurrentPiceConfiguration(cellColumn, chessRow) {
+    return PieceFactory.isFirstOrLastRow(chessRow)
       ? rowChessPiecesConfiguration.get(cellColumn)
       : rowChessPiecesConfiguration.get('pawn');
   }
 
-  isFirstOrLastRow(row) {
+  static isFirstOrLastRow(row) {
     return row === FIRST_ROW || row === LAST_ROW;
   }
 }

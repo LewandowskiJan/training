@@ -10,7 +10,7 @@ export default class Pawn extends PieceAbstract {
     // obecna pozycja (this.position z przemapowaniem liternki na numer i z powrotem)
     // będziemy ustawiać this.attackScope[]
     this.attackScope = [];
-    const attackStep = this.side === 'bottom' ? 1 : -1;
+    const attackStep = this.#isBottom() ? 1 : -1;
 
     if (
       ChessColumnService.calculateColumnName(this.position.column, -1) &&
@@ -35,10 +35,10 @@ export default class Pawn extends PieceAbstract {
     this.setupMoveScope();
   }
 
-  // isEnemyPiece(target)
   setupMoveScope() {
     this.moveScope = [];
-    const moveStep = this.side === 'bottom' ? 1 : -1;
+
+    const moveStep = this.#isBottom() ? 1 : -1;
 
     const position = new Position(this.position.column + (this.position.row + moveStep));
 
@@ -52,14 +52,11 @@ export default class Pawn extends PieceAbstract {
       this.moveScope.push(this.attackScope[1]);
     }
     if (this.isAllyPiece(currentCell) || this.isEnemyPiece(currentCell)) {
-      this.attackScope.push(position);
+      // this.attackScope.push(position);
       return;
     }
-    if (
-      (this.side === 'bottom' && this.#isBottomInitialPosition()) ||
-      (this.side === 'top' && this.#isTopInitialPosition())
-    ) {
-      const firstMove = this.side === 'bottom' ? 2 : -2;
+    if ((this.#isBottom() && this.#isBottomInitialPosition()) || (this.#isTop() && this.#isTopInitialPosition())) {
+      const firstMove = this.#isBottom() ? 2 : -2;
       const position = new Position(this.position.column + (this.position.row + firstMove));
       const lm2 = document.getElementById(position.id);
       if (!this.isAllyPiece(lm2) && !this.isEnemyPiece(lm2)) {
@@ -75,5 +72,12 @@ export default class Pawn extends PieceAbstract {
 
   #isTopInitialPosition() {
     return this.position.row === 7;
+  }
+
+  #isBottom() {
+    return this.playerNumber === 0;
+  }
+  #isTop() {
+    return this.playerNumber === 1;
   }
 }

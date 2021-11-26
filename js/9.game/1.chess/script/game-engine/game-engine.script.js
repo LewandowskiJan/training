@@ -1,11 +1,14 @@
+import Move from '../models/move.js';
+
 export default class GameEngineService {
   selectedPiece;
   selectedPieceInstance;
-  gameStateService;
   gameBoardService;
+  game;
+  fromPosition;
 
-  constructor(gameStateService, gameBoardService) {
-    this.gameStateService = gameStateService;
+  constructor(game, gameBoardService) {
+    this.game = game;
     this.gameBoardService = gameBoardService;
   }
 
@@ -15,12 +18,6 @@ export default class GameEngineService {
 
   selectAndMovePiece() {
     if (this.selectedPiece && this.selectedPieceInstance) {
-      /* czy cos jest zaznaczone - tak
-        mozemy odznaczyć - przez klikniecie w ta sama figure, w pole na ktore nie mozna sie ruszyc (nawet z wroga figura), po wykonaniu ruchu
-        mozemy sie ruszyc - tylko w miejsce do ruchu (zakres moveScope)
-        mozemy zaatakowac - tylko w miejsce do ataku (attackScope)
-        mozemy zmienic zaznaczenie - klikajac w figure gracza ktory jest przy ruchu
-    */
       if (this.selectedPiece?.id === this.gameBoardService.clickGameService.getPieceId()) {
         return this.clearSelected();
       }
@@ -32,15 +29,10 @@ export default class GameEngineService {
       }
 
       if (this.#canSelectedPieceChangePosition()) {
-        console.log('changes');
         this.makePieceMoveAndGoToNextRound();
         return;
       }
     } else {
-      /* czy cos jest zaznaczone- nie
-        mozemy zaznaczyc
-        mozemy kliknac w wolne pole - bez efektu (na razie)
-    */
       if (this.#canSelectPiece()) {
         this.clearSelected();
         return this.selectPiece();
@@ -51,19 +43,16 @@ export default class GameEngineService {
   }
 
   checkIsCheckOrCheckmate() {
-    return this.gameStateService.checkIsCheckOrCheckmate();
+    return false;
   }
 
   selectPiece() {
     this.selectedPiece = this.getClickedPiece();
     if (this.selectedPiece) {
       this.gameBoardService.drawActiveClass(this.selectedPiece);
-      this.selectedPieceInstance = this.gameStateService
-        .getPlayers()
-        [this.selectedPiece.id < 16 ? 1 : 0].getPieceById(this.selectedPiece.id);
-
-      this.selectedPieceInstance.setupAttackScope(this.gameStateService.enemyAttackScope);
-
+      this.selectedPieceInstance = this.game.getAllPieces().get(+this.selectedPiece.id);
+      this.selectedPieceInstance.setupAttackScope(this.game.setupEnemyAttackScope());
+      this.fromPosition = this.selectedPieceInstance.position;
       this.showAvailableMove();
     }
   }
@@ -74,20 +63,22 @@ export default class GameEngineService {
 
   onChangeToNextRound() {
     this.changePiecePosition();
+    const move = new Move(this.selectedPieceInstance, this.fromPosition);
+    this.game.setMove(move);
     this.clearCellAttackClass();
     this.clearSelected();
-    this.gameStateService.nextRound();
+    this.game.nextRound();
     this.onStartNewRound();
   }
 
   onStartNewRound() {
-    this.gameStateService.setupEnemyAttackScope();
+    this.game.setupEnemyAttackScope();
     this.showAvailableAttackScope();
+    this.game.setupMoveScope();
+
     const isCheckOrCheckmate = this.checkIsCheckOrCheckmate();
 
     if (isCheckOrCheckmate.isCheckmate) {
-      console.log('player: ', this.gameStateService.whichPlayerNumberRound(), ' lose');
-      console.log('player: ', this.gameStateService.whichEnemyPlayerNumberRound(), ' win');
       this.giveUp();
     }
 
@@ -99,7 +90,8 @@ export default class GameEngineService {
   changePiecePosition() {
     const newPiecePosition = this.gameBoardService.drawNewPiecePositionOnBoard(
       this.selectedPieceInstance.getMoveScope(),
-      this.selectedPiece
+      this.selectedPiece,
+      this.game.getAllPieces()
     );
     if (!newPiecePosition) return;
     this.selectedPieceInstance.setPosition(newPiecePosition);
@@ -123,19 +115,19 @@ export default class GameEngineService {
   }
 
   showAvailableAttackScope() {
-    this.gameStateService.getEnemyAttackScope().forEach((position) => {
+    this.game.setupEnemyAttackScope().forEach((position) => {
       this.gameBoardService.drawAvailableAttackScope(position);
     });
   }
 
   clearCellAttackClass() {
-    this.gameStateService.getEnemyAttackScope().forEach((position) => {
+    this.game.setupEnemyAttackScope().forEach((position) => {
       this.gameBoardService.clearAvailableAttackScope(position);
     });
   }
 
   getClickedPiece() {
-    return this.gameBoardService.getClickSelection();
+    return this.gameBoardService.getClickSelection(this.game.idPlayerOneMove());
   }
 
   clearSelected() {
@@ -150,19 +142,23 @@ export default class GameEngineService {
   }
 
   setupPlayersPiecesAttackScopes() {
-    this.gameStateService.getPlayers().forEach((player) => {
-      player.onGamePieces.forEach((piece) => {
-        piece.setupAttackScope(this.gameStateService.enemyAttackScope);
-      });
+    this.game.getAllPieces().forEach((piece) => {
+      piece.setupAttackScope(this.game.setupEnemyAttackScope());
     });
   }
 
   giveUp() {
-    this.gameStateService.endGame();
-    this.gameBoardService.gameOver(
-      this.gameStateService.whichPlayerNumberRound(),
-      this.gameStateService.whichEnemyPlayerNumberRound()
-    );
+    this.gameBoardService.gameOver();
+  }
+
+  navigateToNextRound() {
+    this.game.navigateToNextRound();
+    this.gameBoardService.reloadView(this.game.getAllPieces());
+  }
+
+  navigateToPreviousRound() {
+    this.game.navigateToPreviousRound();
+    this.gameBoardService.reloadView(this.game.getAllPieces());
   }
 
   #canChangeSelection() {

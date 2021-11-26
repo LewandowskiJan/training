@@ -1,4 +1,5 @@
 import { FIRST_ROW, LAST_ROW } from '../../app.js';
+import GameState from '../../game-state/game-state.js';
 import { rowChessPiecesConfiguration } from './pice.factory.js';
 
 export default class PieceAbstract {
@@ -10,12 +11,15 @@ export default class PieceAbstract {
   availableMovement;
   moveScope = [];
   attackScope = [];
-  side;
+  playerNumber;
 
-  constructor(position, type, icon) {
+  constructor(position, type, icon, playerNumber, id) {
     this.position = position;
     this.type = type;
     this.icon = icon;
+    this.playerNumber = playerNumber;
+    this.playerColor = playerNumber === 0 ? 'black' : 'white';
+    this.id = id;
   }
 
   showAvailableMovements() {
@@ -31,15 +35,25 @@ export default class PieceAbstract {
   }
 
   setupPieceView(cellColumn, chessRow, counter) {
-    const { type, icon } = this.#getCurrentPiceConfiguration(cellColumn, chessRow);
-    this.type = type;
-    this.icon = icon;
-    this.#drawCurrentPiece(cellColumn + chessRow, counter);
+    if (this.type && this.icon) {
+      this.#drawCurrentPiece(cellColumn + chessRow, counter);
+    } else {
+      const { type, icon } = this.#getCurrentPiceConfiguration(cellColumn, chessRow);
+      this.type = type;
+      this.icon = icon;
+      this.#drawCurrentPiece(cellColumn + chessRow, counter);
+    }
+  }
+
+  #drawCurrentPiece(cellId, counter) {
+    const cell = document.getElementById(cellId);
+    cell.innerHTML = this.#generatePieceView(counter);
   }
 
   #generatePieceView(counter, active = '') {
     this.#setupId(counter);
-    return `<div class="piece ${active} ${this.type} ${this.playerColor}" id="${this.id}">${this.icon}</div>`;
+
+    return `<div class="piece ${active} ${this.type} ${this.playerColor} p${this.playerNumber}" id="${this.id}">${this.icon}</div>`;
   }
 
   #setupId(id) {
@@ -49,11 +63,6 @@ export default class PieceAbstract {
   setupAttackScope() {}
 
   setupMoveScope() {}
-
-  #drawCurrentPiece(cellId, counter) {
-    const cell = document.getElementById(cellId);
-    cell.innerHTML = this.#generatePieceView(counter);
-  }
 
   #getCurrentPiceConfiguration(cellColumn, chessRow) {
     return this.#isFirstOrLastRow(chessRow)
@@ -82,17 +91,14 @@ export default class PieceAbstract {
     return this.attackScope;
   }
 
-  setupSide(side) {
-    this.side = side;
-  }
-
   setPlayerColor(color) {
     this.playerColor = color;
   }
 
   isAllyPiece(target) {
-    const id = target?.childNodes[0]?.id;
-    return this.id <= 15 ? id <= 15 : id > 15;
+    const classList = target?.childNodes[0]?.classList;
+    const currentPlayerClass = `p${this.playerNumber}`;
+    return classList && classList.contains(currentPlayerClass);
   }
 
   isEnemyPiece(target) {
