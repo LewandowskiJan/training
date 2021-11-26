@@ -18,7 +18,7 @@ export default class PieceAbstract {
     this.type = type;
     this.icon = icon;
     this.playerNumber = playerNumber;
-    this.playerColor = playerNumber === 0 ? 'black' : 'white';
+    this.playerColor = playerNumber === 0 ? 'white' : 'black';
     this.id = id;
   }
 
