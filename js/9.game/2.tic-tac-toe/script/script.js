@@ -1,35 +1,17 @@
-const winCondition = [
-    [1, 2, 3],
-    [3, 6, 9],
-    [7, 8, 9],
-    [1, 4, 7],
-    [1, 5, 9],
-    [3, 5, 7],
-    [2, 5, 8],
-    [4, 5, 6]]
-
-
-
-
-
-
-
-
-
-
+const winC1 = [1, 2, 3];
+const winC2 = [3, 6, 9];
+const winC3 = [7, 8, 9];
+const winC4 = [1, 4, 7];
+const winC5 = [1, 5, 9];
+const winC6 = [3, 5, 7];
+const winC7 = [2, 5, 8];
+const winC8 = [4, 5, 6];
 
 const clickOnBoard = document.getElementById('tictactoe');
 let round = 1
 let pushOpositionIdToArray = []
 let pushXpositionIdToArray = []
-const winC1 = [1, 2, 3]
-const winC2 = [3, 6, 9]
-const winC3 = [7, 8, 9]
-const winC4 = [1, 4, 7]
-const winC5 = [1, 5, 9]
-const winC6 = [3, 5, 7]
-const winC7 = [2, 5, 8]
-const winC8 = [4, 5, 6]
+
 
 clickOnBoard.addEventListener('click', event => {
     let targetID = event.target.id
