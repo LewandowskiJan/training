@@ -12,14 +12,14 @@ export const LAST_ROW = 8;
 export const ROUND_MODE_DISABLE = false;
 
 let gameOver = false;
-let gameStart = true;
+let gameStart = false;
 let gameBoardElement;
 
 window.onload = () => {
   const startGameButton = document.getElementById('game-start');
 
   const gameBoardService = new GameBoardService();
-  const game = new Game(chessConfigurationMock.get('default'));
+  const game = new Game(chessConfigurationMock.get('4vs4-'));
   const gameEngineService = new GameEngineService(game, gameBoardService);
 
   gameEngineService.startGame();

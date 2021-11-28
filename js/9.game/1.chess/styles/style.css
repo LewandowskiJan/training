@@ -139,11 +139,18 @@ body {
     background-color: chartreuse;
     transform: scale(1.2);
     box-shadow: 0px 0px 5px 2px rgb(48, 47, 47);
-
 }
 
 .attack {
     background-color: rgba(250, 0, 0, 0.4) !important;
+}
+
+.move {
+    background-color: rgba(100, 250, 100, .3) !important;
+}
+
+.move:hover {
+    box-shadow: inset 0px 0px 4px 1px rgb(48 47 47);
 }
 
 .button {
