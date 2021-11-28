@@ -25,29 +25,7 @@
     align-items: center;
     box-shadow: inset 0px 0px 15px 0px black;
     animation:
-        bgAnimation 4s ease-out 0s alternate infinite none running;
-}
-
-@keyframes bgAnimation {
-    0% {
-        background-color: rgb(140, 0, 0);
-    }
-
-    25% {
-        background-color: rgb(120, 0, 0);
-    }
-
-    50% {
-        background-color: rgb(100, 0, 0);
-    }
-
-    75% {
-        background-color: rgb(120, 0, 0);
-    }
-
-    100% {
-        background-color: rgb(140, 0, 0);
-    }
+        bg-animation 4s ease-out 0s alternate infinite none running;
 }
 
 .navigation {
@@ -136,7 +114,7 @@ body {
 }
 
 .active {
-    background-color: chartreuse;
+    background-color: rgb(93, 185, 0);
     transform: scale(1.2);
     box-shadow: 0px 0px 5px 2px rgb(48, 47, 47);
 }
@@ -150,7 +128,14 @@ body {
 }
 
 .move:hover {
-    box-shadow: inset 0px 0px 4px 1px rgb(48 47 47);
+    animation-name: pressure-stage;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    animation-delay: 0s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-fill-mode: none;
+    animation-play-state: running;
 }
 
 .button {
@@ -183,5 +168,37 @@ body {
     100% {
         transform: scale(1.2);
         box-shadow: 0px 0px 6px 1px black;
+    }
+}
+
+@keyframes pressure-stage {
+    0% {
+        box-shadow: inset 0px 0px 1px 1px rgb(48 47 47);
+    }
+
+    100% {
+        box-shadow: inset 0px 0px 4px 1px rgb(48 47 47);
+    }
+}
+
+@keyframes bg-animation {
+    0% {
+        background-color: rgb(140, 0, 0);
+    }
+
+    25% {
+        background-color: rgb(120, 0, 0);
+    }
+
+    50% {
+        background-color: rgb(100, 0, 0);
+    }
+
+    75% {
+        background-color: rgb(120, 0, 0);
+    }
+
+    100% {
+        background-color: rgb(140, 0, 0);
     }
 }
