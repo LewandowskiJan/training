@@ -60,12 +60,12 @@ export default class GameBoardService {
 
   drawAvailableMove(position) {
     const cell = document.getElementById(position.id);
-    if (cell) cell.style = 'background-color: rgba(160, 250, 160, .5) !important;';
+    if (cell) cell.classList.add('move');
   }
 
   clearAvailableMoveScope(position) {
     const cell = document.getElementById(position.id);
-    if (cell) cell.style = '';
+    if (cell) cell.classList.remove('move');
   }
 
   drawAvailableAttackScope(position) {
