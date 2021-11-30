@@ -1,7 +1,7 @@
 import ClickOnBoardService from './services/click-on-board.service.js';
 import GameBoardService from './game-board/game-board.service.js';
 import GameEngineService from './game-engine/game-engine.script.js';
-import Game from './game-state/game.js';
+import GameStateService from './game-state/game-state.service.js';
 import { chessConfigurationMock } from './utils/chess-configuration-mock.js';
 
 export const COLUMN_SIZE = 8;
@@ -13,18 +13,15 @@ export const ROUND_MODE_DISABLE = false;
 
 let gameOver = false;
 let gameStart = false;
-let gameBoardElement;
 
 window.onload = () => {
-  const startGameButton = document.getElementById('game-start');
+  const gameBoardElement = document.getElementById('chessboard');
 
   const gameBoardService = new GameBoardService();
-  const game = new Game(chessConfigurationMock.get('4vs4-'));
-  const gameEngineService = new GameEngineService(game, gameBoardService);
+  const gameStateService = new GameStateService(chessConfigurationMock.get('4vs4-'));
+  const gameEngineService = new GameEngineService(gameStateService, gameBoardService);
 
   gameEngineService.startGame();
-
-  gameBoardElement = document.getElementById('chessboard');
 
   gameBoardElement.addEventListener('click', function (e) {
     const clickService = new ClickOnBoardService(e.target);
@@ -32,18 +29,20 @@ window.onload = () => {
     gameEngineService.selectAndMovePiece();
   });
 
-  if (gameStart) {
-    gameBoardElement.classList.remove('hide');
-    startGameButton.classList.add('hide');
-  }
+  setupButtons(gameBoardElement, gameEngineService);
+};
+
+function setupButtons(gameBoardElement, gameEngineService) {
+  const startGameButton = document.getElementById('game-start');
+  const giveUpButton = document.getElementById('give-up');
+  const nextButton = document.getElementById('next');
+  const previousButton = document.getElementById('previous');
 
   startGameButton.addEventListener('click', () => {
     gameBoardElement.classList.remove('hide');
     startGameButton.classList.add('hide');
     gameStart = true;
   });
-
-  const giveUpButton = document.getElementById('give-up');
 
   giveUpButton.addEventListener('click', (e) => {
     if (!gameOver) {
@@ -53,15 +52,16 @@ window.onload = () => {
     }
   });
 
-  const nextButton = document.getElementById('next');
-
   nextButton.addEventListener('click', (e) => {
     gameEngineService.navigateToNextRound();
   });
 
-  const previousButton = document.getElementById('previous');
-
   previousButton.addEventListener('click', (e) => {
-    game.previousRound();
+    gameEngineService.navigateToPreviousRound();
   });
-};
+
+  if (gameStart) {
+    gameBoardElement.classList.remove('hide');
+    startGameButton.classList.add('hide');
+  }
+}

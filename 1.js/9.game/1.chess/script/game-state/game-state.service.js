@@ -1,7 +1,7 @@
 import GameState from './game-state.js';
 import Position from '../models/position.js';
 
-export default class Game {
+export default class GameStateService {
   currentRound = 0;
   currentState;
   previousState;

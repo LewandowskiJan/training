@@ -4,11 +4,11 @@ export default class GameEngineService {
   selectedPiece;
   selectedPieceInstance;
   gameBoardService;
-  game;
+  gameStateService;
   fromPosition;
 
-  constructor(game, gameBoardService) {
-    this.game = game;
+  constructor(gameStateService, gameBoardService) {
+    this.gameStateService = gameStateService;
     this.gameBoardService = gameBoardService;
   }
 
@@ -51,8 +51,8 @@ export default class GameEngineService {
     this.selectedPiece = this.getClickedPiece();
     if (this.selectedPiece) {
       this.gameBoardService.drawActiveClass(this.selectedPiece);
-      this.selectedPieceInstance = this.game.getAllPieces().get(+this.selectedPiece.id);
-      this.selectedPieceInstance.setupAttackScope(this.game.setupEnemyAttackScope());
+      this.selectedPieceInstance = this.gameStateService.getAllPieces().get(+this.selectedPiece.id);
+      this.selectedPieceInstance.setupAttackScope(this.gameStateService.setupEnemyAttackScope());
       this.fromPosition = this.selectedPieceInstance.position;
       this.showAvailableMove();
     }
@@ -65,10 +65,10 @@ export default class GameEngineService {
   onChangeToNextRound() {
     this.changePiecePosition();
     const move = new Move(this.selectedPieceInstance, this.fromPosition);
-    this.game.setMove(move);
+    this.gameStateService.setMove(move);
     this.clearAvailableAttackScope();
     this.clearSelected();
-    this.game.nextRound();
+    this.gameStateService.nextRound();
     this.onStartNewRound();
   }
 
@@ -76,7 +76,7 @@ export default class GameEngineService {
     const newPiecePosition = this.gameBoardService.drawNewPiecePositionOnBoard(
       this.selectedPieceInstance.getMoveScope(),
       this.selectedPiece,
-      this.game.getAllPieces()
+      this.gameStateService.getAllPieces()
     );
     if (!newPiecePosition) return;
     this.selectedPieceInstance.setPosition(newPiecePosition);
@@ -93,7 +93,7 @@ export default class GameEngineService {
 
   onStartNewRound() {
     this.showAvailableAttackScope();
-    this.game.setupMoveScope();
+    this.gameStateService.setupMoveScope();
   }
 
   showAvailableMove() {
@@ -112,19 +112,19 @@ export default class GameEngineService {
   }
 
   showAvailableAttackScope() {
-    this.game.setupEnemyAttackScope().forEach((position) => {
+    this.gameStateService.setupEnemyAttackScope().forEach((position) => {
       this.gameBoardService.drawAvailableAttackScope(position);
     });
   }
 
   clearAvailableAttackScope() {
-    this.game.setupEnemyAttackScope().forEach((position) => {
+    this.gameStateService.setupEnemyAttackScope().forEach((position) => {
       this.gameBoardService.clearAvailableAttackScope(position);
     });
   }
 
   getClickedPiece() {
-    return this.gameBoardService.getClickSelection(this.game.idPlayerOneMove());
+    return this.gameBoardService.getClickSelection(this.gameStateService.idPlayerOneMove());
   }
 
   isPieceSelected() {
@@ -132,8 +132,8 @@ export default class GameEngineService {
   }
 
   setupPlayersPiecesAttackScopes() {
-    this.game.getAllPieces().forEach((piece) => {
-      piece.setupAttackScope(this.game.setupEnemyAttackScope());
+    this.gameStateService.getAllPieces().forEach((piece) => {
+      piece.setupAttackScope(this.gameStateService.setupEnemyAttackScope());
     });
   }
 
@@ -142,13 +142,13 @@ export default class GameEngineService {
   }
 
   navigateToNextRound() {
-    this.game.navigateToNextRound();
-    this.gameBoardService.reloadView(this.game.getAllPieces());
+    this.gameStateService.navigateToNextRound();
+    this.gameBoardService.reloadView(this.gameStateService.getAllPieces());
   }
 
   navigateToPreviousRound() {
-    this.game.navigateToPreviousRound();
-    this.gameBoardService.reloadView(this.game.getAllPieces());
+    this.gameStateService.navigateToPreviousRound();
+    this.gameBoardService.reloadView(this.gameStateService.getAllPieces());
   }
 
   #canChangeSelection() {
