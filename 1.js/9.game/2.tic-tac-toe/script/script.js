@@ -25,6 +25,8 @@ let pushXpositionIdToArray = [];
 
 clickOnBoard.addEventListener('click', (event) => {
   let targetID = event.target.id;
+  let targetID2 = event
+  xxx(event)
 
   if (round % 2 === 0 && event.target.childNodes.length === 0) {
     addO(targetID);
@@ -103,3 +105,7 @@ function addO(clickOnBoard) {
 // klikniecie i zrobienie X lub O ma pushować id kratki do arraya
 // jeżeli na pozycji 1 znajduje się X, i na pozycji 2 znajduje się X i na poz 3 X
 // return you won
+
+function xxx(event){
+  return event.
+}

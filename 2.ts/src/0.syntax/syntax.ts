@@ -9,9 +9,13 @@ export type TypeExample = {
   name: string;
 };
 
+export enum EnumExample {
+  START = "start", STOP = "stop"
+}
 // Functions
 export function someVoidFunction(): void {
   console.log('no return');
+  console.log(EnumExample.START, EnumExample.STOP);
 }
 
 export function someFunction(): string {
@@ -53,3 +57,8 @@ export function modify<T>(paramZ: T): T {
 export function modifyFancyGenericType<FancyGenericType>(some: FancyGenericType): FancyGenericType {
   return { name: '1', ...some } as FancyGenericType;
 }
+
+const map: Map<string, number> = new Map<string, number>([['first', 123]]);
+
+console.log(map);
+
