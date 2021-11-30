@@ -1,10 +1,14 @@
 {
   "name": "tutorial-app",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "npx tsc -w",
+    "tsc": "tsc",
+    "tscw": "tsc --watch",
+    "wp": "webpack",
+    "wpw": "webpack --watch",
+    "serve": "http-server build",
     "lint": "eslint . --ext .ts"
   },
   "author": "",
@@ -14,8 +18,13 @@
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
     "eslint": "^8.3.0",
+    "ts-loader": "^9.2.6",
     "typescript": "^4.5.2",
     "webpack": "^5.64.4",
     "webpack-cli": "^4.9.1"
+  },
+  "dependencies": {
+    "http-server": "^14.0.0",
+    "path": "^0.12.7"
   }
 }
