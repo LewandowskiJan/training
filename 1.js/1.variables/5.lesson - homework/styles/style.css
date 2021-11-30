@@ -1,0 +1,8 @@
+.box {
+    position:absolute;
+    width: 10px;
+    background-color: cadetblue;
+    height: 10px;
+    top: 0;
+    left: 0;
+}
